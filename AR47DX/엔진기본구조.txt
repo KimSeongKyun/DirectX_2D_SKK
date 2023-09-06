@@ -1,0 +1,18 @@
+*. 오브젝트 구조
+	*. (업데이트 구조)
+	*. 메모리 관리구조
+		*. 생성구조 std::sheared_ptr에 맡겼고
+					new가 뭔지를 잘 알아야 한다.
+					emplace의 의미도 잘 알아두십쇼
+						각 오브젝트들을 관리할때 왜 이런 자료구조들을 사용해서
+						관리했는지에 대해서 명확하게 이해해야 한다.
+						ex) 왜 GameEngineObject는 std::map<int, std::list<std::shared_ptr<class GameEngineObject>>> 들어있어?
+						// 내부에서 사용한 자료구조들은 전부다 숙지하고 있어야 합니다. 어디에서 뭐가 사용됐는지.
+						vector
+						list
+						map
+						자료구조들의 메모리 관련 구조도 기본입니다.
+		*. 삭제구조
+					
+	*. 랜더링구조
+	*. 충돌구조

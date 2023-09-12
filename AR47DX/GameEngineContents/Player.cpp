@@ -17,7 +17,6 @@ Player::~Player()
 void Player::Start()
 {
 	
-
 }
 
 

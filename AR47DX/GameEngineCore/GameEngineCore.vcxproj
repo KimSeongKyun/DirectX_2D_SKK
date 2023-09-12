@@ -163,18 +163,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngineActor.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineActor.h" />
+    <ClInclude Include="GameEngineBlend.h" />
     <ClInclude Include="GameEngineCamera.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineComponent.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineCollision.h" />
+    <ClInclude Include="GameEngineCollisionGroup.h" />
+    <ClInclude Include="GameEngineComponent.h" />
     <ClInclude Include="GameEngineConstantBuffer.h">
       <SubType>
       </SubType>
@@ -197,10 +194,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineLevel.h" />
     <ClInclude Include="GameEngineObject.h">
       <SubType>
       </SubType>
@@ -234,18 +228,12 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineSpriteRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineSpriteRenderer.h" />
     <ClInclude Include="GameEngineTexture.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineTransform.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineTransform.h" />
     <ClInclude Include="GameEngineVertex.h">
       <SubType>
       </SubType>
@@ -262,18 +250,15 @@
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameEngineActor.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineActor.cpp" />
+    <ClCompile Include="GameEngineBlend.cpp" />
     <ClCompile Include="GameEngineCamera.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineComponent.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp" />
+    <ClCompile Include="GameEngineCollisionGroup.cpp" />
+    <ClCompile Include="GameEngineComponent.cpp" />
     <ClCompile Include="GameEngineConstantBuffer.cpp">
       <SubType>
       </SubType>
@@ -297,10 +282,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineLevel.cpp" />
     <ClCompile Include="GameEngineObject.cpp">
       <SubType>
       </SubType>
@@ -334,18 +316,12 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineSpriteRenderer.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineSpriteRenderer.cpp" />
     <ClCompile Include="GameEngineTexture.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineTransform.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineTransform.cpp" />
     <ClCompile Include="GameEngineVertex.cpp">
       <SubType>
       </SubType>

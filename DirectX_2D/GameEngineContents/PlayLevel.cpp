@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayLevel.h"
 #include "Player.h"
+#include "Ellinia0_Map.h"
 
 
 PlayLevel::PlayLevel() 
@@ -52,8 +53,30 @@ void PlayLevel::ResourceLoad()
 			}
 		}
 	}
-		
-	
+
+	//맵 이미지 로드
+	{
+		if (nullptr == GameEngineSprite::Find("Ellinia0"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Map");
+			Dir.MoveChild("ElliniaMap0");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("Ellinia0.png");
+			GameEngineSprite::CreateSingle("ElliniaBackGround.png");
+		}
+	}
 }
 
 void PlayLevel::ActorSetting()
@@ -61,5 +84,10 @@ void PlayLevel::ActorSetting()
 	if (nullptr == Player0)
 	{
 		Player0 = CreateActor<Player>(1);
+	}
+
+	if (nullptr == Map0)
+	{
+		Map0 = CreateActor<Ellinia0_Map>(0);
 	}
 }

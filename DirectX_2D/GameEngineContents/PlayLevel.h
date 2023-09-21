@@ -28,5 +28,6 @@ private:
 	void ActorSetting();
 
 	std::shared_ptr<class Player> Player0 = nullptr;
+	std::shared_ptr<class Ellinia0_Map> Map0 = nullptr;
 };
 

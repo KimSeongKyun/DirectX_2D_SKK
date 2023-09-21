@@ -33,7 +33,14 @@ protected:
 
 private:
 	void RendererSetting() override;
-	
+
+
+	StateType State = StateType::Idle;
+
+	float Speed = 100.0f;
+
+	bool Attack_Ing = false;
+	bool IsGravity = false;
 	
 	void SetState(StateType _StateName);
 	void StateUpdate();
@@ -42,11 +49,6 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerBody;
 
-	StateType State;
 
-	float Speed = 100.0f;
-
-	bool Attack_Ing = false;
-	bool IsGravity = false;
 };
 

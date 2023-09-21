@@ -167,6 +167,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Ellinia0_Map.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="MapleStoryCore.cpp">
       <SubType>
       </SubType>
@@ -193,6 +197,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicObjectElement.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Ellinia0_Map.h">
       <SubType>
       </SubType>
     </ClInclude>

@@ -18,6 +18,9 @@
     <ClCompile Include="PlayerState.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Ellinia0_Map.cpp">
+      <Filter>Object\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -37,6 +40,9 @@
     <ClInclude Include="Player.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Ellinia0_Map.h">
+      <Filter>Object\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -50,6 +56,9 @@
     </Filter>
     <Filter Include="Object\Player">
       <UniqueIdentifier>{e9a59847-d307-4c4a-ad5c-9a42c8831826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Map">
+      <UniqueIdentifier>{c38d8832-2a07-47f3-9358-58cd7b35a96d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

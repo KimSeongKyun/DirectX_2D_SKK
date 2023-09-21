@@ -14,6 +14,7 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start()
 {
 	ResourceLoad();
+	ActorSetting();
 }
 
 void PlayLevel::Update(float _Delta)
@@ -35,26 +36,30 @@ void PlayLevel::ResourceLoad()
 {	
 	// 플레이어 로드
 	{
-		
-		GameEngineDirectory Dir;
-		Dir.MoveParentToExistsChild("GameEngineResources");
-		Dir.MoveChild("ContentsResources");
-		Dir.MoveChild("Texture");
-		Dir.MoveChild("Player");
-		std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Files.size(); i++)
+		if( nullptr == GameEngineSprite::Find("Idle0") )
 		{
-			// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
-			GameEngineFile& File = Files[i];
-			GameEngineTexture::Load(File.GetStringPath());
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Player");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
 		}
 	}
-
+		
 	
 }
 
 void PlayLevel::ActorSetting()
 {
-
+	if (nullptr == Player0)
+	{
+		Player0 = CreateActor<Player>(1);
+	}
 }

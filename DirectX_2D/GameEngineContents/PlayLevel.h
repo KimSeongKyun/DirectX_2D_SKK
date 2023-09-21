@@ -26,5 +26,7 @@ protected:
 private:
 	void ResourceLoad();
 	void ActorSetting();
+
+	std::shared_ptr<class Player> Player0 = nullptr;
 };
 

@@ -6,14 +6,17 @@
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="BasicObjectElement.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -21,9 +24,6 @@
     <ClInclude Include="MapleStoryCore.h" />
     <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
       <Filter>Level</Filter>
@@ -33,6 +33,9 @@
     </ClInclude>
     <ClInclude Include="BasicObjectElement.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +47,9 @@
     </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{ca09bba4-fac2-48d7-bd82-8680ddecfb32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{e9a59847-d307-4c4a-ad5c-9a42c8831826}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

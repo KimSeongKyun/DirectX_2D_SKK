@@ -17,8 +17,6 @@ public:
 
 protected:
 	virtual void RendererSetting();
-
-
 private:
 
 };

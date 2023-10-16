@@ -56,7 +56,7 @@ void GameEngineObject::AllRelease()
 	for (std::pair<const int, std::list<std::shared_ptr<GameEngineObject>>>& _Pair : Childs)
 	{
 		std::list<std::shared_ptr<GameEngineObject>>& Group = _Pair.second;
-		for (std::shared_ptr<GameEngineObject> Object : Group)
+		for ( std::shared_ptr<GameEngineObject> Object : Group)
 		{
 			Object->IsDeathValue = true;
 			Object->Parent = nullptr;

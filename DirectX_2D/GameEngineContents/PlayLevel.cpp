@@ -56,7 +56,7 @@ void PlayLevel::ResourceLoad()
 
 	//맵 이미지 로드
 	{
-		if (nullptr == GameEngineSprite::Find("Ellinia0"))
+		if (nullptr == GameEngineSprite::Find("Ellinia0,png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");

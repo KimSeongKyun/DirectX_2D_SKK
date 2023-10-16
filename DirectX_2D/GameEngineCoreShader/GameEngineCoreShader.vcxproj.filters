@@ -2,10 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <FxCompile Include="ColorShader.fx" />
-    <FxCompile Include="TextureShader.fx" />
     <FxCompile Include="Transform.fx">
       <Filter>Header</Filter>
     </FxCompile>
+    <FxCompile Include="TextureShader.fx" />
+    <FxCompile Include="DebugColorShader.fx" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

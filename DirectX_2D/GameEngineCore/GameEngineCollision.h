@@ -7,9 +7,9 @@
 class EventParameter 
 {
 public:
-	std::function<void(class GameEngineCollision* _Collisions)> Enter = nullptr;
-	std::function<void(class GameEngineCollision* _Collisions)> Stay = nullptr;
-	std::function<void(class GameEngineCollision* _Collisions)> Exit = nullptr;
+	std::function<void(class GameEngineCollision* _This, class GameEngineCollision* _Collisions)> Enter = nullptr;
+	std::function<void(class GameEngineCollision* _This, class GameEngineCollision* _Collisions)> Stay = nullptr;
+	std::function<void(class GameEngineCollision* _This, class GameEngineCollision* _Collisions)> Exit = nullptr;
 };
 
 // Ό³Έν :
@@ -88,6 +88,7 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _Delta) override;
 	void Release() override;
 
 private:

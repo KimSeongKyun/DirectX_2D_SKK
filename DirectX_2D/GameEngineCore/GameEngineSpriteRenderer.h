@@ -6,6 +6,7 @@ class GameEngineFrameAnimation
 {
 	friend class GameEngineSpriteRenderer;
 
+public:
 	GameEngineSpriteRenderer* Parent = nullptr;
 
 	std::string AnimationName;
@@ -13,7 +14,7 @@ class GameEngineFrameAnimation
 
 	std::shared_ptr<GameEngineSprite> Sprite = nullptr;
 
-	float Inter;
+	// float Inter;
 	bool Loop;
 	bool IsEnd;
 
@@ -23,6 +24,7 @@ class GameEngineFrameAnimation
 	unsigned int End;
 	unsigned int CurIndex;
 	float CurTime = 0.0f;
+
 	std::vector<int> Index;
 
 	void Reset();
@@ -34,19 +36,30 @@ class GameEngineFrameAnimation
 	SpriteData Update(float _DeltaTime);
 
 	void EventCall(int _Frame);
-};
 
-enum class SamplerOption
-{
-	LINEAR,
-	POINT,
+public:
+	std::vector<float> Inter;
 };
 
 enum class PivotType
 {
 	Center,
+	Top,
+	RightUp,
+	Right,
+	RightBottom,
 	Bottom,
+	LeftBottom,
 	Left,
+	LeftTop,
+};
+
+struct SpriteRendererInfo 
+{
+	int FlipLeft = 0;
+	int FlipUp = 0;
+	float Temp1;
+	float Temp2;
 };
 
 // 설명 :
@@ -66,6 +79,7 @@ public:
 	GameEngineSpriteRenderer& operator=(GameEngineSpriteRenderer&& _Other) noexcept = delete;
 
 	// 스프라이트는 기본적으로 
+	// 강제로 애니메이션을 정지한다는 뜻으로 받아들이겠다.
 	void SetSprite(std::string_view _Name, unsigned int index = 0);
 
 	void CreateAnimation(
@@ -100,29 +114,23 @@ public:
 
 	void RightFlip()
 	{
-		AutoScaleRatio.X = abs(AutoScaleRatio.X);
+		SpriteRendererInfoValue.FlipLeft = 0;
 	}
 
 	void LeftFlip()
 	{
-		AutoScaleRatio.X = -abs(AutoScaleRatio.X);
+		SpriteRendererInfoValue.FlipLeft = 1;
 	}
 
-	void Flip()
+	void UpFlip()
 	{
-		AutoScaleRatio.X = -AutoScaleRatio.X;
+		SpriteRendererInfoValue.FlipUp = 1;
 	}
 
-	void FlipOff()
+	void DownFlip()
 	{
-		AutoScaleRatio.X = abs(AutoScaleRatio.X);
+		SpriteRendererInfoValue.FlipUp = 0;
 	}
-	void FlipOn()
-	{
-		AutoScaleRatio.X = -abs(AutoScaleRatio.X);
-	}
-
-	void SetSamplerState(SamplerOption _Option);
 
 	bool IsCurAnimationEnd() 
 	{
@@ -134,6 +142,18 @@ public:
 		return CurFrameAnimations->AnimationName == _AnimationName;
 	}
 
+	std::shared_ptr<GameEngineFrameAnimation> FindAnimation(std::string_view _AnimationName)
+	{
+		std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+
+		if (false == FrameAnimations.contains(UpperName))
+		{
+			return nullptr;
+		}
+
+		return FrameAnimations[UpperName];
+	}
+
 	void AnimationPauseSwitch();
 	void AnimationPauseOn();
 	void AnimationPauseOff();
@@ -142,17 +162,19 @@ public:
 	void SetEndEvent(std::string_view _AnimationName, std::function<void(GameEngineSpriteRenderer*)> _Function);
 	void SetFrameEvent(std::string_view _AnimationName, int _Frame, std::function<void(GameEngineSpriteRenderer*)> _Function);
 
+	void SetPivotValue(const float4& _Value)
+	{
+		Pivot = _Value;
+	}
 	void SetPivotType(PivotType _Type);
-
 	void SetImageScale(const float4& _Scale);
 	void AddImageScale(const float4& _Scale);
 
-	static void SetDefaultSampler(std::string_view _SamplerName);
-	
 	std::shared_ptr<GameEngineSprite> GetSprite()
 	{
 		return Sprite;
 	}
+
 	const SpriteData& GetCurSprite()
 	{
 		return CurSprite;
@@ -163,10 +185,22 @@ public:
 		return CurFrameAnimations->CurIndex;
 	}
 
+	std::shared_ptr<GameEngineFrameAnimation> CurAnimation()
+	{
+		return CurFrameAnimations;
+	}
+
+	inline GameEngineTransform& GetImageTransform()
+	{
+		return ImageTransform;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void Render(GameEngineCamera* _Camera, float _Delta) override;
+	void SetMaterialEvent(std::string_view _Name, int _Index);
+
 	int Index = 0;
 
 private:
@@ -178,9 +212,10 @@ private:
 
 	std::shared_ptr<GameEngineSprite> Sprite;
 	SpriteData CurSprite;
+	SpriteRendererInfo SpriteRendererInfoValue;
 
-	static std::shared_ptr<class GameEngineSampler> DefaultSampler;
 	std::shared_ptr<class GameEngineSampler> Sampler;
+
 	bool IsImageSize = false;
 	float4 AutoScaleRatio = { 1.0f,1.0f,1.0f };
 	bool IsPause = false;
@@ -189,4 +224,3 @@ private:
 
 	GameEngineTransform ImageTransform;
 };
-

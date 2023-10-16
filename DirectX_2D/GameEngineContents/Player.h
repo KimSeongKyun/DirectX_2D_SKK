@@ -11,6 +11,12 @@ enum class StateType
 	Rope,
 };
 
+enum class PlayerDirection
+{
+	Left,
+	Right
+};
+
 
 class Player : public BasicObjectElement
 {
@@ -41,6 +47,10 @@ private:
 
 	bool Attack_Ing = false;
 	bool IsGravity = false;
+
+	float4 PlayerSize = { 39.0f, 82.0f };
+
+	PlayerDirection CurDirection = PlayerDirection::Left;
 	
 	void SetState(StateType _StateName);
 	void StateUpdate();
@@ -49,6 +59,12 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerBody;
 
-
+	void IdleUpdate(float _DeltaTime);
+	void MoveUpdate(float _DeltaTime);
+	void JumpUpdate();
+	void AttackUpdate();
+	void LadderUpdate();
+	void RopeUpdate();
+	void LRColCheck(float _DeltaTime, float4 _LeftOrRight);
 };
 

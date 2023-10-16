@@ -4,7 +4,6 @@
 #include "GameEngineSampler.h"
 #include "GameEngineConstantBuffer.h"
 
-std::shared_ptr<class GameEngineSampler> GameEngineSpriteRenderer::DefaultSampler;
 
 void GameEngineFrameAnimation::EventCall(int _Frame)
 {
@@ -42,11 +41,11 @@ SpriteData GameEngineFrameAnimation::Update(float _DeltaTime)
 
 	CurTime += _DeltaTime;
 
-	if (Inter <= CurTime)
+	if (Inter[CurIndex] <= CurTime)
 	{
+		CurTime -= Inter[CurIndex];
 		++CurIndex;
 		EventCheck = true;
-		CurTime -= Inter;
 
 		if (CurIndex > End - Start)
 		{
@@ -72,12 +71,6 @@ SpriteData GameEngineFrameAnimation::Update(float _DeltaTime)
 
 GameEngineSpriteRenderer::GameEngineSpriteRenderer() 
 {
-	if (nullptr == DefaultSampler)
-	{
-		MsgBoxAssert("SpriteRenderer에 설정할 기본 샘플러가 없습니다.");
-	}
-
-	Sampler = DefaultSampler;
 }
 
 GameEngineSpriteRenderer::~GameEngineSpriteRenderer() 
@@ -88,14 +81,20 @@ void GameEngineSpriteRenderer::Start()
 {
 	GameEngineRenderer::Start();
 
-	DataTransform = &ImageTransform;
+	// DataTransform = &ImageTransform;
 
 	ImageTransform.SetParent(Transform);
 
+	GameEngineRenderer::SetMesh("Rect");
+	GameEngineRenderer::SetMaterial("2DTexture");
 
-	// CreateChild<GameEngineComponent>(0);
-
-	// CreateChild();
+	//std::shared_ptr<GameEngineConstantBuffer> Buffer = GameEngineConstantBuffer::CreateAndFind(sizeof(float4), "SpriteData");
+	//if (nullptr != Buffer)
+	//{
+	//	Buffer->ChangeData(CurSprite.SpritePivot);
+	//	Buffer->Setting(1);
+	//}
+	// CurSprite.Texture->PSSetting(0);
 
 }
 
@@ -103,6 +102,7 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 {
 	if (nullptr != CurFrameAnimations)
 	{
+		Sprite = CurFrameAnimations->Sprite;
 		CurSprite = CurFrameAnimations->Update(_Delta);
 	}
 
@@ -125,10 +125,6 @@ void GameEngineSpriteRenderer::AddImageScale(const float4& _Scale)
 	ImageTransform.AddLocalScale(_Scale);
 }
 
-void GameEngineSpriteRenderer::SetDefaultSampler(std::string_view _SamplerName)
-{
-	DefaultSampler = GameEngineSampler::Find(_SamplerName);
-}
 
 void GameEngineSpriteRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 {
@@ -148,34 +144,19 @@ void GameEngineSpriteRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 	ImageTransform.TransformUpdate();
 	ImageTransform.CalculationViewAndProjection(Transform.GetConstTransformDataRef());
 
-	GameEngineRenderer::ResSetting();
-
-	std::shared_ptr<GameEngineConstantBuffer> Buffer = GameEngineConstantBuffer::CreateAndFind(sizeof(float4), "SpriteData", ShaderType::Vertex);
-
-	if (nullptr != Buffer)
-	{
-		Buffer->ChangeData(CurSprite.SpritePivot);
-		Buffer->Setting(1);
-	}
+	GetShaderResHelper().SetTexture("DiffuseTex", CurSprite.Texture);
 
 
-	CurSprite.Texture->PSSetting(0);
-
-	// std::shared_ptr<GameEngineSampler> Sampler = GameEngineSampler::Find("EngineBaseSampler");
-	if (nullptr == Sampler)
-	{
-		MsgBoxAssert("존재하지 않는 텍스처를 사용하려고 했습니다.");
-	}
-	Sampler->PSSetting(0);
+	GameEngineRenderer::Render(_Camera, _Delta);
 
 
-	// 내꺼 쪼금더 넣고 
 
-	GameEngineRenderer::Draw();
 }
 
 void GameEngineSpriteRenderer::SetSprite(std::string_view _Name, unsigned int index /*= 0*/)
 {
+	CurFrameAnimations = nullptr;
+
 	Sprite = GameEngineSprite::Find(_Name);
 
 	if (nullptr == Sprite)
@@ -218,7 +199,7 @@ void GameEngineSpriteRenderer::CreateAnimation(
 	NewAnimation->SpriteName = _SpriteName;
 	NewAnimation->Sprite = Sprite;
 	NewAnimation->Loop = _Loop;
-	NewAnimation->Inter = _Inter;
+
 	NewAnimation->Parent = this;
 
 	if (_Start != -1)
@@ -245,6 +226,13 @@ void GameEngineSpriteRenderer::CreateAnimation(
 		NewAnimation->Index.push_back(i);
 	}
 
+	NewAnimation->Inter.resize(NewAnimation->Index.size());
+	for (size_t i = 0; i < NewAnimation->Index.size(); i++)
+	{
+		NewAnimation->Inter[i] = _Inter;
+	}
+
+
 
 	NewAnimation->CurIndex = 0;
 }
@@ -270,8 +258,8 @@ void GameEngineSpriteRenderer::ChangeAnimation(std::string_view _AnimationName, 
 	CurFrameAnimations = FrameAnimations[UpperName];
 	CurFrameAnimations->Reset();
 	CurFrameAnimations->CurIndex = _FrameIndex;
+	Sprite = CurFrameAnimations->Sprite;
 	CurSprite = CurFrameAnimations->Sprite->GetSpriteData(CurFrameAnimations->CurIndex);
-
 }
 
 void GameEngineSpriteRenderer::AutoSpriteSizeOn()
@@ -282,22 +270,6 @@ void GameEngineSpriteRenderer::AutoSpriteSizeOn()
 void GameEngineSpriteRenderer::AutoSpriteSizeOff()
 {
 	IsImageSize = false;
-}
-
-
-void GameEngineSpriteRenderer::SetSamplerState(SamplerOption _Option)
-{
-	switch (_Option)
-	{
-	case SamplerOption::LINEAR:
-		Sampler = GameEngineSampler::Find("LINEAR");
-		break;
-	case SamplerOption::POINT:
-		Sampler = GameEngineSampler::Find("POINT");
-		break;
-	default:
-		break;
-	}
 }
 
 void GameEngineSpriteRenderer::SetFrameEvent(std::string_view _AnimationName, int _Frame, std::function<void(GameEngineSpriteRenderer*)> _Function)
@@ -329,7 +301,7 @@ void GameEngineSpriteRenderer::SetStartEvent(std::string_view _AnimationName, st
 		MsgBoxAssert("존재하지 않는 애니메이션에 이벤트를 만들려고 했습니다.");
 	}
 
-	Animation->FrameEventFunction[0] = _Function;
+	Animation->FrameEventFunction[Animation->Index[0]] = _Function;
 }
 
 void GameEngineSpriteRenderer::SetEndEvent(std::string_view _AnimationName, std::function<void(GameEngineSpriteRenderer*)> _Function)
@@ -370,13 +342,42 @@ void GameEngineSpriteRenderer::SetPivotType(PivotType _Type)
 	case PivotType::Center:
 		Pivot = {0.5f, 0.5f};
 		break;
+	case PivotType::Top:
+		Pivot = { 0.5f, 0.0f };
+		break;
+	case PivotType::RightUp:
+		Pivot = { 0.0f, 0.0f };
+		break;
+	case PivotType::Right:
+		Pivot = { 0.0f, 0.5f };
+		break;
+	case PivotType::RightBottom:
+		Pivot = { 0.0f, 1.0f };
+		break;
 	case PivotType::Bottom:
 		Pivot = { 0.5f, 1.0f };
+		break;
+	case PivotType::LeftBottom:
+		Pivot = { 1.0f, 1.0f };
 		break;
 	case PivotType::Left:
 		Pivot = { 1.0f, 0.5f };
 		break;
+	case PivotType::LeftTop:
+		Pivot = { 1.0f, 0.0f };
+		break;
 	default:
 		break;
 	}
+}
+
+void GameEngineSpriteRenderer::SetMaterialEvent(std::string_view _Name, int _Index)
+{
+	const TransformData& Data = ImageTransform.GetConstTransformDataRef();
+	GetShaderResHelper().SetConstantBufferLink("TransformData", Data);
+	GetShaderResHelper().SetConstantBufferLink("SpriteData", CurSprite.SpritePivot);
+	// ShaderResHelper.SetTexture("DiffuseTex", "NSet.Png");
+	GetShaderResHelper().SetConstantBufferLink("SpriteRendererInfo", SpriteRendererInfoValue);
+
+	SetSprite("NSet.png");
 }

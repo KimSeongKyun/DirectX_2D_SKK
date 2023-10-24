@@ -15,6 +15,8 @@ public:
 	BasicObjectElement& operator=(const BasicObjectElement& _Other) = delete;
 	BasicObjectElement& operator=(BasicObjectElement&& _Other) noexcept = delete;
 
+	GameEngineColor ColColor = { 255, 0, 255 , 255};
+
 protected:
 	virtual void RendererSetting();
 private:

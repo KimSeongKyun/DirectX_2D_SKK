@@ -171,6 +171,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineFSM.cpp" />
     <ClCompile Include="MapleStoryCore.cpp">
       <SubType>
       </SubType>
@@ -179,7 +180,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
       </SubType>
@@ -204,6 +205,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineFSM.h" />
     <ClInclude Include="MapleStoryCore.h">
       <SubType>
       </SubType>

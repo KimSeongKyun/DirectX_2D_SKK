@@ -15,11 +15,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Ellinia0_Map.cpp">
       <Filter>Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFSM.cpp">
+      <Filter>Object\Player\StateFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +46,9 @@
     <ClInclude Include="Ellinia0_Map.h">
       <Filter>Object\Map</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineFSM.h">
+      <Filter>Object\Player\StateFSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -59,6 +65,9 @@
     </Filter>
     <Filter Include="Object\Map">
       <UniqueIdentifier>{c38d8832-2a07-47f3-9358-58cd7b35a96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\StateFSM">
+      <UniqueIdentifier>{6c4a890b-5bad-46a8-abc9-c528a40cb0c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

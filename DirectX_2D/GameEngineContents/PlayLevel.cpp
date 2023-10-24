@@ -14,8 +14,7 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Start()
 {
-	ResourceLoad();
-	ActorSetting();
+
 }
 
 void PlayLevel::Update(float _Delta)
@@ -25,7 +24,10 @@ void PlayLevel::Update(float _Delta)
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	int a = 0;
+	ResourceLoad();
+	ActorSetting();
+	CameraSetting();
+	
 }
 
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
@@ -83,11 +85,21 @@ void PlayLevel::ActorSetting()
 {
 	if (nullptr == Player0)
 	{
-		Player0 = CreateActor<Player>(1);
+		Player0 = CreateActor<Player>(10);
+		//Player0->Transform.SetLocalPosition({ 793.0f, -1371.0f });
+		Player0->SetColMap("ColEllinia0.png");
 	}
 
 	if (nullptr == Map0)
 	{
 		Map0 = CreateActor<Ellinia0_Map>(0);
+		Map0->Transform.SetLocalPosition({ 793.0f,-935.0f });
 	}
+}
+
+
+void PlayLevel::CameraSetting()
+{
+	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,1371.0f,0.0f });
+	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 }

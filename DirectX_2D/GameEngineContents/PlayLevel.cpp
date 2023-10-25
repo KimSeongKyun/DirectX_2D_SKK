@@ -55,6 +55,26 @@ void PlayLevel::ResourceLoad()
 			}
 		}
 	}
+	// 스킬 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("MagicBoltBall"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Player");
+			Dir.MoveChild("Skill");
+			Dir.MoveChild("MagicBolt");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
 
 	//맵 이미지 로드
 	{
@@ -86,7 +106,6 @@ void PlayLevel::ActorSetting()
 	if (nullptr == Player0)
 	{
 		Player0 = CreateActor<Player>(10);
-		//Player0->Transform.SetLocalPosition({ 793.0f, -1371.0f });
 		Player0->SetColMap("ColEllinia0.png");
 	}
 

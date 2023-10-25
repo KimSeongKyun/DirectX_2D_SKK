@@ -33,6 +33,9 @@ public:
 	Player& operator=(Player&& _Other) noexcept = delete;
 
 	void SetColMap(const std::string_view& _ColMap) { ColMap = GameEngineTexture::Find(_ColMap); };
+	static PlayerDirection CurDirection;
+	static float4 PlayerPos;
+	
 	
 
 protected:
@@ -52,13 +55,18 @@ private:
 
 	bool Attack_Ing = false;
 	bool IsGravity = false;
+	bool SkillOn = false;
+
+	float SkillTime = 0.0f;
+	float MaxSkillTime = 0.0f;
 
 	float4 PlayerSize = { 39.0f, 82.0f };
 	float4 JumpPower = { 0.0f, 4.5f, 1.0f };
 
-	PlayerDirection CurDirection = PlayerDirection::Left;
 
 	std::shared_ptr<class GameEngineTexture> ColMap;
+	std::shared_ptr<class GameEngineCollision> ColAttack;
+	std::shared_ptr<class PlayerSkill> Skill0;
 	
 	void SetState(StateType _StateName);
 	//void KeySetting();
@@ -66,5 +74,8 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerBody;
 
 	void LRColCheck(float _DeltaTime, float4 _LeftOrRight);
+	
+	void Attack();
+	void MagicBolt();
 };
 

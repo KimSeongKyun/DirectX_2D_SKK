@@ -3,8 +3,11 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include "PlayMap.h"
+#include "PlayerSkill.h"
+#include "Monster.h"
 
-
+float4 Player::PlayerPos = { 0.0f, 0.0f, 0.0f };
+PlayerDirection Player::CurDirection = PlayerDirection::Left;
 
 Player::Player() 
 {
@@ -25,8 +28,27 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	PlayerPos = Transform.GetWorldPosition();
 	FSM.Update(_Delta);
 	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetLocalPosition());
+
+	if (GameEngineInput::IsDown('A',this))
+	{
+		MagicBolt();
+	}
+
+	if (SkillOn == true)
+	{
+		SkillTime += _Delta;
+
+		if (SkillTime >= MaxSkillTime != 0.0f)
+		{
+			Skill0->Death();
+			Skill0 = nullptr;
+			SkillTime = 0.0f;
+			SkillOn = false;
+		}
+	}
 }
 
 
@@ -117,5 +139,33 @@ void  Player::LRColCheck(float _DeltaTime, float4 _LeftOrRight)
 	}
 }
 
+void Player::Attack()
+{
+	//std::shared_ptr<GameEngineCollision> Attack = ColAttack->Collision(static_cast<int>(ContentsObjectType::Monster), );
+	//
+	//if (Attack == nullptr)
+	//{
+	//	return;
+	//}
+	//
+	//if (Attack != nullptr)
+	//{
+	//	std::shared_ptr<Monster> ColMonster = Attack->GetActor()->GetDynamic_Cast_This<Monster>();
+	//
+	//	ColMonster->Damage(10);
+	//}
+}
 
+	void Player::MagicBolt()
+	{
+		if (Skill0 == nullptr)
+		{
+			Skill0 = GetLevel()->CreateActor<PlayerSkill>();
+			Skill0->Transform.SetWorldPosition(Transform.GetWorldPosition());
+			Skill0->SetSkillName(SkillList::MagicBolt);
+			RendererStateChange("Swing");
+			MaxSkillTime = 1.0f;
+			SkillOn = true;
+		}
+	}
 

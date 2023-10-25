@@ -176,10 +176,12 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerSkill.cpp" />
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
@@ -211,10 +213,12 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerSkill.h" />
     <ClInclude Include="PlayLevel.h">
       <SubType>
       </SubType>

@@ -20,7 +20,6 @@ void Player::StateInit()
 		{
 
 			IsGravity = true;
-
 			GravityCheck(_DeltaTime);
 
 
@@ -239,20 +238,27 @@ void Player::StateInit()
 					if (PlayerGravityValue.Y <= 0)
 					{
 						
-						if (ColMap->GetColor({ NextPosition.X, PlayerSize.hY() - NextPosition.Y}, ColColor) == ColColor)
+						if (ColMap->GetColor({ NextPosition.X, PlayerSize.hY() - NextPosition.Y }, {0,0,0}) == ColColor)
 						{
-							if(ColMap->GetColor({CurPosition.X, PlayerSize.hY() - CurPosition.Y}, ColColor) != ColColor)
-							{ 
-								Transform.SetWorldPosition(CurPosition);
-								IsGravity = false;
-								Gravity = 0.0f;
-								JumpPower = { 0.0f ,4.5f ,1.0f };
-								if (CurPlayerState != "Swing")
-								{
-									FSM.ChangeState("Move");
-								}
-								
+
+							
+							GameEngineColor PixelColor = ColMap->GetColor({ NextPosition.X, PlayerSize.hY() - NextPosition.Y }, ColColor);
+							while (ColMap->GetColor({ NextPosition.X, PlayerSize.hY() - NextPosition.Y }, ColColor) != ColColor)
+							{
+								NextPosition.Y -= 1.0f;
 							}
+
+							Transform.SetWorldPosition(NextPosition);
+							IsGravity = false;
+							Gravity = 0.0f;
+							JumpPower = { 0,4.5f ,0 };
+							if (CurPlayerState != "Swing")
+							{
+								FSM.ChangeState("Move");
+								return;
+							}
+
+
 						}
 
 					}

@@ -20,18 +20,16 @@ public:
 
 	void GravityCheck(float _Delta);
 
-	void SetColMap(const std::string_view _ColMap);
+	
 	void SetCurMap(const std::string_view& _ColMap);
-	std::shared_ptr<class GameEngineTexture>  GetColMap() { return ColMap; };
+	
 	std::shared_ptr<class GameEngineTexture>  GetCurMap() { return CurMap; };
 	GameEngineColor GetGroundColor() { return ColGroundColor; };
 	GameEngineColor GetWallColor() { return ColWallColor; };
 	float4 GetMonsterSize();
 	void SetMonsterSize(float4 _Size);
 
-	float GetGravity() { return Gravity; };
-	void SetGravity(float _value) { Gravity = _value; };
-	bool IsGravity() { return GravityOn; }
+	
 	virtual void SetHP(int _HP) = 0;
 	bool IsKnockBack() { return KnockBack; };
 	void ChangeKnockBack() { KnockBack = !KnockBack; };
@@ -43,9 +41,9 @@ protected:
 	void Start();
 	void Update(float _Delta) override;
 	
+	
 
 private:
-	std::shared_ptr<class GameEngineTexture> ColMap;
 	std::shared_ptr<class GameEngineTexture> CurMap;
 
 	GameEngineColor ColGroundColor = { 255, 0, 255, 255 };

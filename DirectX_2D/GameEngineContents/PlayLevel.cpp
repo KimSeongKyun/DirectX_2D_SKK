@@ -2,6 +2,7 @@
 #include "PlayLevel.h"
 #include "Player.h"
 #include "Ellinia0_Map.h"
+#include "Snale.h"
 
 
 PlayLevel::PlayLevel() 
@@ -57,7 +58,7 @@ void PlayLevel::ResourceLoad()
 	}
 	// 스킬 리소스 로드
 	{
-		if (nullptr == GameEngineSprite::Find("MagicBoltBall"))
+		if (nullptr == GameEngineSprite::Find("MagicBoltBall0"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -66,6 +67,26 @@ void PlayLevel::ResourceLoad()
 			Dir.MoveChild("Player");
 			Dir.MoveChild("Skill");
 			Dir.MoveChild("MagicBolt");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
+	//달팽이 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("SnaleDie0"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("Snale");
+	
 			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 			for (size_t i = 0; i < Directorys.size(); i++)
@@ -106,14 +127,23 @@ void PlayLevel::ActorSetting()
 	
 	if (nullptr == Player0)
 	{
-		Player0 = CreateActor<Player>(10);
+		Player0 = CreateActor<Player>(static_cast<int>(ContentsObjectType::Player));
 		Player0->SetColMap("ColEllinia0.png");
+		Player0->Transform.SetLocalPosition({ 500.0f, -1000.0f });
 	}
 
 	if (nullptr == Map0)
 	{
 		Map0 = CreateActor<Ellinia0_Map>(11);
 		Map0->Transform.SetLocalPosition({ 793.0f,-935.0f });
+	}
+
+	if (nullptr == Snale0)
+	{
+		Snale0 = CreateActor<Snale>(20);
+		Snale0->SetColMap("ColEllinia0.png");
+		Snale0->SetHP(100);
+		Snale0->Transform.SetLocalPosition({ 500.0f, -1000.0f });
 	}
 }
 

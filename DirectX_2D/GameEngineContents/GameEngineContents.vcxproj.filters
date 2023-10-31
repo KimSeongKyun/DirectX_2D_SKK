@@ -30,6 +30,9 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="Snale.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -59,6 +62,9 @@
       <Filter>Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Snale.h">
       <Filter>Object\Monster</Filter>
     </ClInclude>
   </ItemGroup>

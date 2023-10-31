@@ -43,15 +43,10 @@ void Monster::GravityCheck(float _Delta)
 	//	float4 NextPosition = CurPosition + float4::Down * Gravity;
 	//	if (ColMap->GetPixel(ColMapDif.ix() + NextPosition.ix(), ColMapDif.iy() + (int)MonsterScale.hy() - NextPosition.iy(), ColGroundColor) == ColGroundColor)
 	//	{
-	//		GetTransform()->SetWorldPosition(CurPosition);
+	//		Transform.SetWorldPosition(CurPosition);
 	//		GravityOn = false;
 	//	}
 	//}
-}
-void Monster::SetColMap(const std::string_view _ColMap)
-{
-	 ColMap = GameEngineTexture::Find(_ColMap); 
-	
 }
 void Monster::SetCurMap(const std::string_view& _ColMap)
 {

@@ -31,11 +31,11 @@ void BasicObjectElement::GravityCheck(float _DeltaTime)
 
 		float4 NextPosition = CurPosition + (float4::DOWN * Gravity);
 
-		if (ColMap->GetColor({ CurPosition.X, ObjectSize.Y  - CurPosition.Y}, ColColor) == ColColor)
+		if (ColMap->GetColor({ CurPosition.X, ObjectSize.hY() - CurPosition.Y}, ColColor) == ColColor)
 		{
-			while (ColMap->GetColor({ CurPosition.X, ObjectSize.Y - CurPosition.Y },ColColor) != ColColor)
+			while (ColMap->GetColor({ CurPosition.X, ObjectSize.hY() - CurPosition.Y}, ColColor) != ColColor)
 			{
-				CurPosition.Y += 1.0f;
+				CurPosition.Y -= 1.0f;
 			}
 
 			Transform.SetWorldPosition(CurPosition);

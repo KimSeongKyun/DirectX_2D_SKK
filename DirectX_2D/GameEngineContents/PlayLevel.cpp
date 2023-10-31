@@ -103,6 +103,7 @@ void PlayLevel::ResourceLoad()
 
 void PlayLevel::ActorSetting()
 {
+	
 	if (nullptr == Player0)
 	{
 		Player0 = CreateActor<Player>(10);
@@ -111,7 +112,7 @@ void PlayLevel::ActorSetting()
 
 	if (nullptr == Map0)
 	{
-		Map0 = CreateActor<Ellinia0_Map>(0);
+		Map0 = CreateActor<Ellinia0_Map>(11);
 		Map0->Transform.SetLocalPosition({ 793.0f,-935.0f });
 	}
 }

@@ -1,10 +1,10 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineContents/BasicObjectElement.h>
 
 
 
 // Ό³Έν :
-class Monster :public GameEngineActor
+class Monster :public BasicObjectElement
 {
 public:
 	// constrcuter destructer

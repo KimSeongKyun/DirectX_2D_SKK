@@ -40,12 +40,15 @@ private:
 	float4 MagicBoltScale = { 45.0f, 45.0f, 1.0f };
 	SkillList CurSkill;
 	bool DirectionSet = true;
+	bool MagicBoltShoot = false;
 	int CurPlayerDirection = 0;
+
 
 public:
 	void MagicBoltUpdate(float _Delta);
 	void MagicBoltColCheck();
 	void SetSkillName(SkillList _Skill);
+	
 
 };	
 

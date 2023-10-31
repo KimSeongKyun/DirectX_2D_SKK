@@ -21,7 +21,7 @@ void Player::StateInit()
 
 			IsGravity = true;
 
-			//GravityCheck(_DeltaTime);
+			GravityCheck(_DeltaTime);
 
 
 			if (CurPlayerState != "Swing")
@@ -108,7 +108,7 @@ void Player::StateInit()
 			{				
 				
 				IsGravity = true;
-				//GravityCheck(_DeltaTime);
+				GravityCheck(_DeltaTime);
 
 				if (true == GameEngineInput::IsPress(VK_LEFT,this))
 				{
@@ -174,7 +174,7 @@ void Player::StateInit()
 			{
 				IsGravity = true;
 
-				//GravityCheck(_DeltaTime);
+				GravityCheck(_DeltaTime);
 
 				if (PlayerBody->IsCurAnimationEnd())
 				{
@@ -212,7 +212,7 @@ void Player::StateInit()
 					float4 CurPosition = Transform.GetWorldPosition();
 					Transform.AddWorldPosition(PlayerGravityValue);
 					
-					float4 ColMapDif = { ColMap->GetScale().hX(),ColMap->GetScale().hY() };
+					
 					float4 NextPosition = CurPosition + PlayerGravityValue;
 
 					if (true == GameEngineInput::IsPress(VK_LEFT,this))

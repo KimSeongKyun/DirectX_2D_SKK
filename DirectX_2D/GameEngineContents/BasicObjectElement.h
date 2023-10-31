@@ -15,7 +15,19 @@ public:
 	BasicObjectElement& operator=(const BasicObjectElement& _Other) = delete;
 	BasicObjectElement& operator=(BasicObjectElement&& _Other) noexcept = delete;
 
-	GameEngineColor ColColor = { 255, 0, 255 , 255};
+	void GravityCheck(float _DeltaTime);
+	void SetColMap(const std::string_view& _ColMap) { ColMap = GameEngineTexture::Find(_ColMap); };
+	void SetObjectSize(float4 _Size) { ObjectSize = _Size; };
+	
+	std::shared_ptr<class GameEngineTexture> ColMap;
+	GameEngineColor ColColor = { 255, 0, 255 , 255 };
+
+
+	bool IsGravity = false;
+	float Gravity = 0.0f;
+	float4 ObjectSize;
+
+
 
 protected:
 	virtual void RendererSetting();

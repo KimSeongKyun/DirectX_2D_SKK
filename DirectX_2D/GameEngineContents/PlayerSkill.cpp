@@ -82,6 +82,13 @@ void PlayerSkill::MagicBoltUpdate(float _Delta)
 		
 		SkillRenderer1->On();
 		ColSkill->On();
+		if (MagicBoltShoot == false)
+		{
+			MagicBoltShoot = true;
+			float4 PlayerPos1 = Player::PlayerPos;
+			SkillRenderer1->Transform.SetWorldPosition(PlayerPos1);
+			ColSkill->Transform.SetWorldPosition(PlayerPos1);
+		}
 		
 		
 
@@ -106,7 +113,7 @@ void PlayerSkill::MagicBoltUpdate(float _Delta)
 	}
 
 	if (TickTime > 1.0f)
-	{
+	{	
 		TickTime = 0.0f;
 	}
 }
@@ -134,13 +141,13 @@ void PlayerSkill::ComponentSetting()
 
 	if (nullptr == SkillRenderer0)
 	{
-		SkillRenderer0 = CreateComponent<GameEngineSpriteRenderer>();
+		SkillRenderer0 = CreateComponent<GameEngineSpriteRenderer>(5);
 		SkillRenderer0->CreateAnimation("MagicBoltEffect", "MagicBoltEffect", 0.05f);
 		std::shared_ptr<GameEngineFrameAnimation> _Animation = SkillRenderer0->FindAnimation("MagicBoltEffect");
 		_Animation->Loop = false;
-		SkillRenderer0->Transform.AddLocalPosition({ -50.0f, 0.0f ,0.0f });
+		SkillRenderer0->Transform.AddLocalPosition({ -50.0f, 0.0f ,1.0f });
 		SkillRenderer0->ChangeAnimation("MagicBoltEffect");
-		//SkillRenderer0->Off();
+		
 
 		if (CurPlayerDirection == 0)
 		{
@@ -153,7 +160,7 @@ void PlayerSkill::ComponentSetting()
 		}
 		//SkillRenderer0->Off();
 
-		SkillRenderer1 = CreateComponent<GameEngineSpriteRenderer>();
+		SkillRenderer1 = CreateComponent<GameEngineSpriteRenderer>(5);
 		SkillRenderer1->CreateAnimation("MagicBoltBall", "MagicBoltBall",0.05f);
 		SkillRenderer1->ChangeAnimation("MagicBoltBall");
 		SkillRenderer1->Off();

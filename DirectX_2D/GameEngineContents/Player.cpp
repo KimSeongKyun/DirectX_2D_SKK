@@ -20,6 +20,7 @@ Player::~Player()
 
 void Player::Start()
 {
+	SetObjectSize( PlayerSize );
 	GameEngineInput::AddInputObject(this);
 	RendererSetting();
 	StateInit();
@@ -56,7 +57,7 @@ void Player::RendererSetting()
 {	
 	if (nullptr == PlayerBody)
 	{
-		PlayerBody = CreateComponent<GameEngineSpriteRenderer>(1);
+		PlayerBody = CreateComponent<GameEngineSpriteRenderer>(4);
 		PlayerBody->CreateAnimation("Idle", "Idle", 0.2f);
 		PlayerBody->CreateAnimation("Move", "Move", 0.2f);
 		PlayerBody->CreateAnimation("Jump", "Jump", 0.2f);
@@ -160,7 +161,7 @@ void Player::Attack()
 	{
 		if (Skill0 == nullptr)
 		{
-			Skill0 = GetLevel()->CreateActor<PlayerSkill>();
+			Skill0 = GetLevel()->CreateActor<PlayerSkill>(5);
 			Skill0->Transform.SetWorldPosition(Transform.GetWorldPosition());
 			Skill0->SetSkillName(SkillList::MagicBolt);
 			RendererStateChange("Swing");

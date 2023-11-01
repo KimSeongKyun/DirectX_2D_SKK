@@ -48,6 +48,9 @@
     <ClCompile Include="Ariel.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="PinkBeanDummy.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -95,6 +98,9 @@
       <Filter>Object\Map</Filter>
     </ClInclude>
     <ClInclude Include="Ariel.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="PinkBeanDummy.h">
       <Filter>Object\Monster</Filter>
     </ClInclude>
   </ItemGroup>

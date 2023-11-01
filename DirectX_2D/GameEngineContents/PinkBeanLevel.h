@@ -27,6 +27,7 @@ private:
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class PinkBeanMap> Map0 = nullptr;
 	std::shared_ptr<class Ariel> Ariel0 = nullptr;
+	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
 
 	void ResourceLoad();
 	void CameraSetting();

@@ -171,5 +171,6 @@ void PlayerSkill::ComponentSetting()
 		ColSkill = CreateComponent<GameEngineCollision>();
 		ColSkill->Transform.SetWorldScale(MagicBoltScale);
 		ColSkill->Off();
+		
 	}
 }

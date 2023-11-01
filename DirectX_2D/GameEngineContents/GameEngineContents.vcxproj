@@ -189,6 +189,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="PinkBeanDummy.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PinkBeanLevel.cpp">
       <SubType>
       </SubType>
@@ -247,6 +251,10 @@
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="PinkBeanDummy.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PinkBeanLevel.h">
       <SubType>
       </SubType>

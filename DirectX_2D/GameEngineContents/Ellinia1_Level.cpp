@@ -15,7 +15,7 @@ Ellinia1_Level::~Ellinia1_Level()
 
 void Ellinia1_Level::Start()
 {
-
+	OffDebug();
 }
 
 void Ellinia1_Level::Update(float _Delta)

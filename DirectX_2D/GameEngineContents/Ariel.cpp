@@ -20,7 +20,7 @@ void Ariel::Update(float _Delta)
 
 	SkillTime += _Delta;
 
-	if (SkillTime >= 1.0f)
+	if (SkillTime >= 5.0f)
 	{
 		Genesis();
 		SkillTime = 0.0f;
@@ -77,7 +77,6 @@ void Ariel::ComponentSetting()
 	ArielRender->CreateAnimation("ArielSkill2", "ArielSkill2",0.15f);
 	ArielRender->CreateAnimation("ArielAttack1Effect", "ArielAttack1Effect",0.15f);
 	ArielRender->CreateAnimation("ArielAttack2Effect", "ArielAttack2Effect",0.15f);
-	
 	ArielRender->AutoSpriteSizeOn();
 	std::shared_ptr<GameEngineFrameAnimation> _Animation = ArielRender->FindAnimation("ArielDie");
 	_Animation->Loop = false;
@@ -93,12 +92,15 @@ void Ariel::ComponentSetting()
 
 	ArielRender->ChangeAnimation("ArielStand");
 
-	
+	for (size_t i = 0; i < 5; i++)
+	{
+
 		std::shared_ptr< GameEngineSpriteRenderer> SkillRenderer;
 		SkillRenderer = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
-		SkillRenderer->CreateAnimation("ArielAttack1Hit", "ArielAttack1Hit", 0.15f);
-		SkillRenderer->CreateAnimation("ArielAttack2Hit", "ArielAttack2Hit", 0.15f);
+		SkillRenderer->CreateAnimation("ArielAttack1Hit","ArielAttack1Hit",0.15f);
+		SkillRenderer->CreateAnimation("ArielAttack2Hit","ArielAttack2Hit",0.15f);
 		SkillRenderer->Transform.AddLocalPosition({ 0.0f, 90.0f });
+		SkillRenderer->AutoSpriteSizeOn();
 		SkillRenderer->ChangeAnimation("ArielAttack1Hit");
 		_Animation = SkillRenderer->FindAnimation("ArielAttack1Hit");
 		_Animation->Loop = false;
@@ -106,7 +108,7 @@ void Ariel::ComponentSetting()
 		_Animation->Loop = false;
 		SkillRenderer->Off();
 		ArielGenesis.push_back(SkillRenderer);
-		
+	}
 }
 void Ariel::RenderDifCheck()
 {
@@ -128,7 +130,7 @@ void Ariel::Genesis()
 		int RandomNum = Random.RandomInt(-385, 385);
 		ArielGenesis[i]->On();
 		ArielGenesis[i]->ChangeAnimation("ArielAttack1Hit");
-		ArielGenesis[i]->Transform.SetLocalPosition({ 0.0f, -230.0f,0.1f });
+		ArielGenesis[i]->Transform.SetLocalPosition({ 0.0f, 55.0f,0.1f });
 		ArielGenesis[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
 	}
 

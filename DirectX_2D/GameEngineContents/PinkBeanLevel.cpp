@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "PinkBeanMap.h"
 #include "Ariel.h"
+#include "PinkBeanDummy.h"
 
 
 PinkBeanLevel::PinkBeanLevel() 
@@ -19,6 +20,7 @@ void PinkBeanLevel::Start()
 	ResourceLoad();
 	CameraSetting();
 	ActorSetting();
+	OffDebug();
 }
 void PinkBeanLevel::Update(float _Delta)
 {
@@ -118,6 +120,25 @@ void PinkBeanLevel::ResourceLoad()
 			}
 		}
 	}
+	//핑크빈 이미지 로드
+	{
+		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("PinkBeanDummy");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
 }
 
 void PinkBeanLevel::ActorSetting()
@@ -140,7 +161,11 @@ void PinkBeanLevel::ActorSetting()
 		Ariel0->Transform.SetWorldPosition({ 894.0f, -340.0f, 1.0f });
 	}
 	
-	
+	if (PinkBeanDummy0 == nullptr)
+	{
+		PinkBeanDummy0 = CreateActor<PinkBeanDummy>(11);
+		PinkBeanDummy0->Transform.SetWorldPosition({ 920.0f, -530.0f, 1.0f });
+	}
 }
 
 void PinkBeanLevel::CameraSetting()

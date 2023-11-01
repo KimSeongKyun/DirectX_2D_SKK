@@ -15,7 +15,7 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Start()
 {
-
+	OffDebug();
 }
 
 void PlayLevel::Update(float _Delta)

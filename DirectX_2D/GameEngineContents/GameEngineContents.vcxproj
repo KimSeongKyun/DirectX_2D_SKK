@@ -163,11 +163,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ariel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BasicObjectElement.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Ellinia0_Map.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Ellinia1_Level.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Ellinia1_Map.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -177,6 +189,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="PinkBeanLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PinkBeanMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
@@ -200,11 +220,23 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ariel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BasicObjectElement.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Ellinia0_Map.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Ellinia1_Level.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Ellinia1_Map.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -215,6 +247,14 @@
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="PinkBeanLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PinkBeanMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>

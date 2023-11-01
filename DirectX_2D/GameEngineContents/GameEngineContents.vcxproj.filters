@@ -33,6 +33,21 @@
     <ClCompile Include="Snale.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="Ellinia1_Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellinia1_Map.cpp">
+      <Filter>Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="PinkBeanLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PinkBeanMap.cpp">
+      <Filter>Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Ariel.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -65,6 +80,21 @@
       <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Snale.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellinia1_Level.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellinia1_Map.h">
+      <Filter>Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="PinkBeanLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PinkBeanMap.h">
+      <Filter>Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Ariel.h">
       <Filter>Object\Monster</Filter>
     </ClInclude>
   </ItemGroup>

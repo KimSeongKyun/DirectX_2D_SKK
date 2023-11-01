@@ -7,6 +7,8 @@
 
 #include "PlayLevel.h"
 #include "TitleLevel.h"
+#include "Ellinia1_Level.h"
+#include "PinkBeanLevel.h"
 
 
 MapleStoryCore::MapleStoryCore()
@@ -24,7 +26,9 @@ void MapleStoryCore::Start()
 	GameEngineRenderTarget::IsDepth = false;
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
-	GameEngineCore::ChangeLevel("PlayLevel");
+	GameEngineCore::CreateLevel<Ellinia1_Level>("Ellinia1_Level");
+	GameEngineCore::CreateLevel<PinkBeanLevel>("PinkBeanLevel");
+	GameEngineCore::ChangeLevel("PinkBeanLevel");
 
 	// 자기 텍스처 로드해야 한다.
 

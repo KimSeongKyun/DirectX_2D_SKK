@@ -9,9 +9,9 @@ enum class ContentsRenderType
 
 enum class ContentsObjectType
 {
-	PlayerSkill,
-	Player,
-	Monster,
-	Ground,
 	BackGround,
+	Ground,
+	Monster,
+	Player,
+	PlayerSkill,
 };

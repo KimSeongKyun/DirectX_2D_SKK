@@ -57,7 +57,7 @@ void Player::RendererSetting()
 {	
 	if (nullptr == PlayerBody)
 	{
-		PlayerBody = CreateComponent<GameEngineSpriteRenderer>(4);
+		PlayerBody = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Player));
 		PlayerBody->CreateAnimation("Idle", "Idle", 0.2f);
 		PlayerBody->CreateAnimation("Move", "Move", 0.2f);
 		PlayerBody->CreateAnimation("Jump", "Jump", 0.2f);

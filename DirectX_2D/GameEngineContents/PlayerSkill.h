@@ -38,7 +38,7 @@ private:
 	float Speed = 500.0f;
 
 	float4 MagicBoltScale = { 45.0f, 45.0f, 1.0f };
-	SkillList CurSkill;
+	SkillList CurSkill = SkillList::None;
 	bool DirectionSet = true;
 	bool MagicBoltShoot = false;
 	int CurPlayerDirection = 0;

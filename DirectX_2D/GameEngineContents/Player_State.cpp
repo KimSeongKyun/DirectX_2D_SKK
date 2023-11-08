@@ -83,7 +83,7 @@ void Player::StateInit()
 			Pos.Z -= 100;
 
 
-			GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
+			//GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
 
 		
 
@@ -156,7 +156,7 @@ void Player::StateInit()
 				float4 Pos = Transform.GetLocalPosition();
 
 				Pos.Z -= 100;
-				GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
+				//GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
 			}
 		}
 
@@ -184,7 +184,7 @@ void Player::StateInit()
 				float4 Pos = Transform.GetLocalPosition();
 
 				Pos.Z -= 100;
-				GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
+				//GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
 			}
 		}
 
@@ -272,7 +272,7 @@ void Player::StateInit()
 				float4 Pos = Transform.GetLocalPosition();
 
 				Pos.Z -= 100;
-				GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
+				//GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
 
 				
 

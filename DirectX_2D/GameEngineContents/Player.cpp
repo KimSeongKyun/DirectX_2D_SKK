@@ -29,9 +29,11 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	PlayerPos = Transform.GetWorldPosition();
+	
+
 	FSM.Update(_Delta);
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetLocalPosition());
+	CameraMove();
+	
 
 	if (GameEngineInput::IsDown('A',this))
 	{
@@ -157,16 +159,44 @@ void Player::Attack()
 	//}
 }
 
-	void Player::MagicBolt()
+void Player::MagicBolt()
+{
+	if (Skill0 == nullptr)
 	{
-		if (Skill0 == nullptr)
-		{
-			Skill0 = GetLevel()->CreateActor<PlayerSkill>(5);
-			Skill0->Transform.SetWorldPosition(Transform.GetWorldPosition());
-			Skill0->SetSkillName(SkillList::MagicBolt);
-			RendererStateChange("Swing");
-			MaxSkillTime = 1.0f;
-			SkillOn = true;
-		}
+		Skill0 = GetLevel()->CreateActor<PlayerSkill>(5);
+		Skill0->Transform.SetWorldPosition(Transform.GetWorldPosition());
+		Skill0->SetSkillName(SkillList::MagicBolt);
+		RendererStateChange("Swing");
+		MaxSkillTime = 1.0f;
+		SkillOn = true;
 	}
+}
+
+void Player::CameraMove()
+{
+	PlayerPos = Transform.GetLocalPosition();
+	float4 CurCameraPos = GetLevel()->GetMainCamera()->Transform.GetLocalPosition();
+	float4 CameraScale = { 1280.0f,720.0f };
+	float4 MapScale = CurMap->GetScale();
+	float LeftEnd = CameraScale.hX();
+	float RightEnd = MapScale.X - CameraScale.hX();
+	float UpEnd = -CameraScale.hY();
+	float DownEnd = -MapScale.Y + CameraScale.hY();
+
+	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetLocalPosition());
+	
+	float4 NextCameraPos = GetLevel()->GetMainCamera()->Transform.GetLocalPosition();
+
+	if (RightEnd < NextCameraPos.X || NextCameraPos.X < LeftEnd)
+	{
+		NextCameraPos = { CurCameraPos.X, NextCameraPos.Y, NextCameraPos.Z };
+		GetLevel()->GetMainCamera()->Transform.SetLocalPosition(NextCameraPos);
+	}
+
+	if (UpEnd < NextCameraPos.Y || NextCameraPos.Y < DownEnd)
+	{
+		NextCameraPos = { NextCameraPos.X,  CurCameraPos.Y, NextCameraPos.Z };
+		GetLevel()->GetMainCamera()->Transform.SetLocalPosition(NextCameraPos);
+	}
+}
 

@@ -35,6 +35,7 @@ public:
 	
 	static PlayerDirection CurDirection;
 	static float4 PlayerPos;
+	void SetCurMap(const std::string_view& _ColMap) { CurMap = GameEngineTexture::Find(_ColMap); };
 	
 	
 
@@ -46,6 +47,7 @@ protected:
 private:
 	GameEngineFSM FSM;
 	void RendererSetting() override;
+	void CameraMove();
 
 
 	std::string CurPlayerState;
@@ -65,8 +67,8 @@ private:
 
 	std::shared_ptr<class GameEngineCollision> ColAttack;
 	std::shared_ptr<class PlayerSkill> Skill0;
+	std::shared_ptr<class GameEngineTexture> CurMap;
 	
-	void SetState(StateType _StateName);
 	
 	void RendererStateChange(std::string_view _State);
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerBody;

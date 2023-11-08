@@ -148,6 +148,7 @@ void PinkBeanLevel::ActorSetting()
 		Player0 = CreateActor<Player>(static_cast<int>(ContentsObjectType::Player));
 		Player0->SetColMap("ColPinkBean.png");
 		Player0->Transform.SetLocalPosition({ 894.0f, -425.0f });
+		Player0->SetCurMap("PinkBeanBackGround.png");
 	}
 
 	if (nullptr == Map0)

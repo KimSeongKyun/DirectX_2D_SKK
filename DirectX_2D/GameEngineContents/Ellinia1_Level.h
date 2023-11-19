@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "BasicLevel.h"
 
 // Ό³Έν :
-class Ellinia1_Level : public GameEngineLevel
+class Ellinia1_Level : public BasicLevel
 {
 public:
 	// constrcuter destructer

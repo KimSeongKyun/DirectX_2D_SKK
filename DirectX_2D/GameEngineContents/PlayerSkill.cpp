@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "Player.h"
+#include "Monster.h"
 
 
 PlayerSkill::PlayerSkill() 
@@ -120,9 +121,11 @@ void PlayerSkill::MagicBoltUpdate(float _Delta)
 
 void PlayerSkill::MagicBoltColCheck()
 {
-	/*ColSkill->Collision(ContentsObjectType::Monster, [&](std::vector<std::shared_ptr<GameEngineCollision>>& _CollisionGroup)
+
+	
+	ColSkill->Collision(ContentsObjectType::Monster, [&](std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)
 		{
-			std::shared_ptr<Monster> HitMonster = ColCheck->GetActor()->DynamicThis<Monster>();
+			std::shared_ptr<Monster> HitMonster = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Monster>();
 			HitMonster->Damage(10);
 			ColSkill->Off();
 			SkillRenderer1->Off();
@@ -132,7 +135,7 @@ void PlayerSkill::MagicBoltColCheck()
 	if (ColSkill != nullptr)
 	{
 		
-	}*/
+	}
 }
 
 void PlayerSkill::ComponentSetting()

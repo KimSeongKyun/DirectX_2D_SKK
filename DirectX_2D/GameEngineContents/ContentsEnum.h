@@ -14,4 +14,11 @@ enum class ContentsObjectType
 	Monster,
 	Player,
 	PlayerSkill,
+	Object,
+};
+
+enum class ObjectCollision
+{
+	PlayerBody,
+	Portal,
 };

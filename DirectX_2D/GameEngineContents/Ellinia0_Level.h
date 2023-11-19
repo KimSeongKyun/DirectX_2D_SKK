@@ -1,19 +1,18 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
-
+#include "BasicLevel.h"
 // Ό³Έν :
-class PlayLevel : public GameEngineLevel
+class Ellinia0_Level : public BasicLevel
 {
 public:
 	// constrcuter destructer
-	PlayLevel();
-	~PlayLevel();
+	Ellinia0_Level();
+	~Ellinia0_Level();
 
 	// delete Function
-	PlayLevel(const PlayLevel& _Other) = delete;
-	PlayLevel(PlayLevel&& _Other) noexcept = delete;
-	PlayLevel& operator=(const PlayLevel& _Other) = delete;
-	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
+	Ellinia0_Level(const Ellinia0_Level& _Other) = delete;
+	Ellinia0_Level(Ellinia0_Level&& _Other) noexcept = delete;
+	Ellinia0_Level& operator=(const Ellinia0_Level& _Other) = delete;
+	Ellinia0_Level& operator=(Ellinia0_Level&& _Other) noexcept = delete;
 
 protected:
 	void Start() override;
@@ -27,6 +26,7 @@ private:
 	void ResourceLoad();
 	void ActorSetting();
 	void CameraSetting();
+	
 
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ellinia0_Map> Map0 = nullptr;

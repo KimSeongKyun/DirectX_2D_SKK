@@ -23,6 +23,7 @@ void Player::Start()
 	SetObjectSize( PlayerSize );
 	GameEngineInput::AddInputObject(this);
 	RendererSetting();
+	ColSetting();
 	StateInit();
 
 }
@@ -74,6 +75,17 @@ void Player::RendererSetting()
 	
 }
 
+void Player::ColSetting()
+{
+	if (ColBody == nullptr)
+	{
+		ColBody = CreateComponent<GameEngineCollision>(ObjectCollision::PlayerBody);
+		ColBody->Transform.SetLocalScale(PlayerSize);
+		ColBody->SetCollisionType(ColType::AABBBOX2D);
+	}
+	
+}
+
 void Player::RendererStateChange(std::string_view _State)
 {
 	if (CurPlayerState == _State)
@@ -121,24 +133,31 @@ void  Player::LRColCheck(float _DeltaTime, float4 _LeftOrRight)
 	float4 NextPosition = CurPosition + _LeftOrRight * Speed * _DeltaTime;
 	if (ColMap->GetColor({ NextPosition.X, -PlayerSize.hY() - NextPosition.Y}, ColColor) == ColColor)
 	{
-		for (float i = 1.0f; i <= 5.0f; i += _DeltaTime)
+		for (float i = 1.0f; i < 6.0f; i += _DeltaTime)
 		{
 			NextPosition += float4::UP * i;
 			if (ColMap->GetColor({ NextPosition.X, -PlayerSize.hY() - NextPosition.Y }, ColColor) != ColColor)
 			{
 				Transform.SetWorldPosition(NextPosition);
-				break;
+				continue;
 			}
 
 			if (ColMap->GetColor({ NextPosition.X, -PlayerSize.hY() - NextPosition.Y }, ColColor) == ColColor)
 			{
-				if (i == 5.0f)
+				if (i >= 5.0f)
 				{
+					int a = 0;
 					Transform.SetWorldPosition(CurPosition);
+					return;
 				}
-				continue;
+				
 			}
 		}
+	}
+
+	if (NextPosition.X > CurMap->GetScale().X || NextPosition.X < 0)
+	{
+
 	}
 }
 
@@ -172,8 +191,10 @@ void Player::MagicBolt()
 	}
 }
 
+
 void Player::CameraMove()
 {
+	
 	PlayerPos = Transform.GetLocalPosition();
 	float4 CurCameraPos = GetLevel()->GetMainCamera()->Transform.GetLocalPosition();
 	float4 CameraScale = { 1280.0f,720.0f };

@@ -48,6 +48,7 @@ private:
 	GameEngineFSM FSM;
 	void RendererSetting() override;
 	void CameraMove();
+	void ColSetting();
 
 
 	std::string CurPlayerState;
@@ -66,6 +67,7 @@ private:
 	float4 JumpPower = { 0.0f, 4.5f, 1.0f };
 
 	std::shared_ptr<class GameEngineCollision> ColAttack;
+	std::shared_ptr<class GameEngineCollision> ColBody;
 	std::shared_ptr<class PlayerSkill> Skill0;
 	std::shared_ptr<class GameEngineTexture> CurMap;
 	
@@ -75,7 +77,10 @@ private:
 
 	void LRColCheck(float _DeltaTime, float4 _LeftOrRight);
 	
+
+
 	void Attack();
 	void MagicBolt();
+	
 };
 

@@ -20,7 +20,7 @@ void Ellinia1_Level::Start()
 
 void Ellinia1_Level::Update(float _Delta)
 {
-
+	DebugSwitch();
 }
 
 void Ellinia1_Level::LevelStart(GameEngineLevel* _PrevLevel)

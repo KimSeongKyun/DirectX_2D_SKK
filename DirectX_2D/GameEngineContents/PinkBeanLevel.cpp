@@ -5,6 +5,7 @@
 #include "PinkBeanMap.h"
 #include "Ariel.h"
 #include "PinkBeanDummy.h"
+#include "Portal.h"
 
 
 PinkBeanLevel::PinkBeanLevel() 
@@ -24,9 +25,11 @@ void PinkBeanLevel::Start()
 }
 void PinkBeanLevel::Update(float _Delta)
 {
+	DebugSwitch();
 }
 void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	OnDebug();
 }
 void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -72,7 +75,26 @@ void PinkBeanLevel::ResourceLoad()
 			}
 		}
 	}
-	//달팽이 리소스 로드
+
+	//포탈 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("Portal0"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Portal");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
+	
 	
 
 	//맵 이미지 로드
@@ -143,7 +165,7 @@ void PinkBeanLevel::ResourceLoad()
 
 void PinkBeanLevel::ActorSetting()
 {
-	if (nullptr == Player0)
+	if (Player0 == nullptr)
 	{
 		Player0 = CreateActor<Player>(static_cast<int>(ContentsObjectType::Player));
 		Player0->SetColMap("ColPinkBean.png");
@@ -151,12 +173,12 @@ void PinkBeanLevel::ActorSetting()
 		Player0->SetCurMap("PinkBeanBackGround.png");
 	}
 
-	if (nullptr == Map0)
+	if (Map0 == nullptr)
 	{
 		Map0 = CreateActor<PinkBeanMap>(11);
 		Map0->Transform.SetLocalPosition({ 894.0f , -424.0f });
 	}
-	if (nullptr == Ariel0)
+	if (Ariel0 == nullptr)
 	{
 		Ariel0 = CreateActor<Ariel>();
 		Ariel0->Transform.SetWorldPosition({ 894.0f, -340.0f, 1.0f });
@@ -167,6 +189,15 @@ void PinkBeanLevel::ActorSetting()
 		PinkBeanDummy0 = CreateActor<PinkBeanDummy>(11);
 		PinkBeanDummy0->Transform.SetWorldPosition({ 920.0f, -530.0f, 1.0f });
 	}
+
+	if (Portal0 == nullptr)
+	{
+		Portal0 = CreateActor<Portal>(11);
+		Portal0->Transform.SetWorldPosition({ 100.0f, -700.0f, 1.0f });
+		Portal0->SetLevelName("PlayLevel");
+	}
+
+	
 }
 
 void PinkBeanLevel::CameraSetting()

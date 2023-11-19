@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "BasicLevel.h"
 
 // Ό³Έν :
-class PinkBeanLevel : public GameEngineLevel
+class PinkBeanLevel : public BasicLevel
 {
 public:
 	// constrcuter destructer
@@ -28,6 +28,8 @@ private:
 	std::shared_ptr<class PinkBeanMap> Map0 = nullptr;
 	std::shared_ptr<class Ariel> Ariel0 = nullptr;
 	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
+	std::shared_ptr<class Portal> Portal0 = nullptr;
+	std::shared_ptr<class Portal> Portal1 = nullptr;
 
 	void ResourceLoad();
 	void CameraSetting();

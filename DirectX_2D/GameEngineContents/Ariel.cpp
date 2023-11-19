@@ -94,9 +94,9 @@ void Ariel::ComponentSetting()
 
 	for (size_t i = 0; i < 5; i++)
 	{
-
-		std::shared_ptr< GameEngineSpriteRenderer> SkillRenderer;
-		SkillRenderer = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
+	
+		
+		std::shared_ptr< GameEngineSpriteRenderer> SkillRenderer = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
 		SkillRenderer->CreateAnimation("ArielAttack1Hit","ArielAttack1Hit",0.15f);
 		SkillRenderer->CreateAnimation("ArielAttack2Hit","ArielAttack2Hit",0.15f);
 		SkillRenderer->Transform.AddLocalPosition({ 0.0f, 90.0f });
@@ -109,6 +109,10 @@ void Ariel::ComponentSetting()
 		SkillRenderer->Off();
 		ArielGenesis.push_back(SkillRenderer);
 	}
+
+	
+
+	
 }
 void Ariel::RenderDifCheck()
 {
@@ -130,8 +134,8 @@ void Ariel::Genesis()
 		int RandomNum = Random.RandomInt(-385, 385);
 		ArielGenesis[i]->On();
 		ArielGenesis[i]->ChangeAnimation("ArielAttack1Hit");
-		ArielGenesis[i]->Transform.SetLocalPosition({ 0.0f, 55.0f,0.1f });
-		ArielGenesis[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
+		ArielGenesis[i]->Transform.SetLocalPosition({ 0.0f, 55.0f,1.0f });
+		ArielGenesis[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f ,0.0f });
 	}
 
 	ArielRender->ChangeAnimation("ArielAttack1Effect");

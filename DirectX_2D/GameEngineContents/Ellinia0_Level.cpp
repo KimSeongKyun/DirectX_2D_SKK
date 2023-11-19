@@ -1,29 +1,29 @@
 #include "PreCompile.h"
-#include "PlayLevel.h"
+#include "Ellinia0_Level.h"
 #include "Player.h"
 #include "Ellinia0_Map.h"
 #include "Snale.h"
 
 
-PlayLevel::PlayLevel() 
+Ellinia0_Level::Ellinia0_Level()
 {
 }
 
-PlayLevel::~PlayLevel() 
+Ellinia0_Level::~Ellinia0_Level()
 {
 }
 
-void PlayLevel::Start()
+void Ellinia0_Level::Start()
 {
 	OffDebug();
 }
 
-void PlayLevel::Update(float _Delta)
+void Ellinia0_Level::Update(float _Delta)
 {
-	
+	DebugSwitch();
 }
 
-void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
+void Ellinia0_Level::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ResourceLoad();
 	ActorSetting();
@@ -31,12 +31,12 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	
 }
 
-void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
+void Ellinia0_Level::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	int a = 0;
 }
 
-void PlayLevel::ResourceLoad()
+void Ellinia0_Level::ResourceLoad()
 {	
 	// 플레이어 로드
 	{
@@ -122,7 +122,7 @@ void PlayLevel::ResourceLoad()
 	}
 }
 
-void PlayLevel::ActorSetting()
+void Ellinia0_Level::ActorSetting()
 {
 	
 	if (nullptr == Player0)
@@ -130,6 +130,7 @@ void PlayLevel::ActorSetting()
 		Player0 = CreateActor<Player>(static_cast<int>(ContentsObjectType::Player));
 		Player0->SetColMap("ColEllinia0.png");
 		Player0->Transform.SetLocalPosition({ 500.0f, -1000.0f });
+		Player0->SetCurMap("Ellinia0.png");
 	}
 
 	if (nullptr == Map0)
@@ -148,7 +149,7 @@ void PlayLevel::ActorSetting()
 }
 
 
-void PlayLevel::CameraSetting()
+void Ellinia0_Level::CameraSetting()
 {
 	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,1371.0f,0.0f });
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);

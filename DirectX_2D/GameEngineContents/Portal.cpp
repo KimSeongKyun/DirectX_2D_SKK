@@ -2,6 +2,8 @@
 #include "Portal.h"
 
 #include "BasicObjectElement.h"
+#include "BasicLevel.h"
+#include <GameEngineCore/FadePostEffect.h>
 
 
 
@@ -35,7 +37,11 @@ void Portal::Start()
 		ColToPlayer->SetCollisionType(ColType::AABBBOX2D);
 		//ColToPlayer->Transform.AddWorldPosition({ 0, - PortalScale.hY() + 2 ,0.0f});
 	}
-
+	if (FadeEffect == nullptr)
+	{
+		FadeEffect = GetLevel()->GetLevelRenderTarget()->CreateEffect<FadePostEffect>();
+		FadeEffect->Off();
+	}
 	//float4 PortalSize = Render0->Transform.GetWorldScale();
 	//PortalSize.hX();
 	//PortalSize;
@@ -50,6 +56,16 @@ void Portal::Update(float _Delta)
 	if (GameEngineInput::IsDown(VK_UP,this))
 	{
 		if (false != ColToPlayer->Collision(ObjectCollision::PlayerBody))
+		{
+			FadeEffect->On();
+			ChageLevelStart = true;
+		}
+	}
+	if (ChageLevelStart == true)
+	{
+		TimeCheck += _Delta;
+
+		if (TimeCheck > 1.0f)
 		{
 			GameEngineCore::ChangeLevel(LevelName);
 		}
@@ -71,3 +87,4 @@ void Portal::SetCoordinate(float4 _Pos)
 {
 	Coordinate = _Pos;
 }
+

@@ -6,6 +6,7 @@
 #include "Ariel.h"
 #include "PinkBeanDummy.h"
 #include "Portal.h"
+#include <GameEngineCore/FadePostEffect.h>
 
 
 PinkBeanLevel::PinkBeanLevel() 
@@ -18,10 +19,14 @@ PinkBeanLevel::~PinkBeanLevel()
 
 void PinkBeanLevel::Start()
 {
+	BasicLevel::Start();
 	ResourceLoad();
 	CameraSetting();
 	ActorSetting();
 	OffDebug();
+
+	
+	
 }
 void PinkBeanLevel::Update(float _Delta)
 {
@@ -29,10 +34,12 @@ void PinkBeanLevel::Update(float _Delta)
 }
 void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	BasicLevel::LevelStart(_PrevLevel);
 	OnDebug();
 }
 void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	
 }
 
 void PinkBeanLevel::ResourceLoad()
@@ -194,7 +201,7 @@ void PinkBeanLevel::ActorSetting()
 	{
 		Portal0 = CreateActor<Portal>(11);
 		Portal0->Transform.SetWorldPosition({ 100.0f, -700.0f, 1.0f });
-		Portal0->SetLevelName("PlayLevel");
+		Portal0->SetLevelName("Ellinia0_Level");
 	}
 
 	

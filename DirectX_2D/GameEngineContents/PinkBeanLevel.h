@@ -30,6 +30,7 @@ private:
 	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
 	std::shared_ptr<class Portal> Portal0 = nullptr;
 	std::shared_ptr<class Portal> Portal1 = nullptr;
+	
 
 	void ResourceLoad();
 	void CameraSetting();

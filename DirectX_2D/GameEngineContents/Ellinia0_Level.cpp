@@ -15,6 +15,7 @@ Ellinia0_Level::~Ellinia0_Level()
 
 void Ellinia0_Level::Start()
 {
+	BasicLevel::Start();
 	OffDebug();
 }
 
@@ -25,6 +26,7 @@ void Ellinia0_Level::Update(float _Delta)
 
 void Ellinia0_Level::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	BasicLevel::LevelStart(_PrevLevel);
 	ResourceLoad();
 	ActorSetting();
 	CameraSetting();

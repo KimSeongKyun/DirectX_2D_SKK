@@ -1,9 +1,13 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+
+
 // Ό³Έν :
 class Portal : public GameEngineActor
 {
+	friend class BasicLevel;
+	
 public:
 	// constrcuter destructer
 	Portal();
@@ -26,7 +30,11 @@ private:
 	std::string LevelName;
 	float4 Coordinate;
 	float4 PortalSize = {};
-	
+
+	bool ChageLevelStart = false;
+	float TimeCheck = 0.0f;
+	std::shared_ptr<class FadePostEffect> FadeEffect;
+
 public:
 	void SetLevelName(const std::string_view& _LevelName);
 	void SetPlayerMovePos(float4 _Pos);

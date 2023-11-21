@@ -4,6 +4,8 @@
 // Ό³Έν :
 class BasicLevel : public GameEngineLevel
 {
+	friend class Portal;
+
 public:
 	// constrcuter destructer
 	BasicLevel();
@@ -15,9 +17,18 @@ public:
 	BasicLevel& operator=(const BasicLevel& _Other) = delete;
 	BasicLevel& operator=(BasicLevel&& _Other) noexcept = delete;
 
+	//static void FadeOutStart();
+	
 protected:
+	void Start() override;
+	void Update(float _Delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void DebugSwitch();
+	
+	//std::shared_ptr<class FadePostEffect> FadeEffect;
+
 private:
 
+	bool FadeOut = false;
 };
 

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "BasicLevel.h"
+//#include <GameEngineCore/FadePostEffect.h>
 
 BasicLevel::BasicLevel() 
 {
@@ -7,6 +8,25 @@ BasicLevel::BasicLevel()
 
 BasicLevel::~BasicLevel() 
 {
+}
+
+void BasicLevel::Start()
+{
+	GameEngineInput::AddInputObject(this);
+}
+
+void BasicLevel::Update(float _Delta)
+{
+	
+}
+
+void BasicLevel::LevelStart(GameEngineLevel* _PrevLevel)
+{
+	//if (FadeEffect == nullptr)
+	//{
+	//	FadeEffect = GetLevelRenderTarget()->CreateEffect<FadePostEffect>();
+	//	FadeEffect->Off();
+	//}
 }
 
 void BasicLevel::DebugSwitch()
@@ -21,3 +41,8 @@ void BasicLevel::DebugSwitch()
 		OffDebug();
 	}
 }
+
+//void BasicLevel::FadeOutStart()
+//{
+//	FadeOut = true;
+//}

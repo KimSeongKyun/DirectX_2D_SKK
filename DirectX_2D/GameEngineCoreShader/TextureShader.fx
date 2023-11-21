@@ -1,4 +1,5 @@
 #include "Transform.fx"
+#include "RenderBase.fx"
 
 struct GameEngineVertex2D
 {
@@ -41,8 +42,10 @@ cbuffer SpriteData : register(b1)
 
 // 파일명과 함수명을 일치시키고 버텍스 쉐이더면 무조건 뒤에 _VS를 붙입니다.
 // 의미있는 버텍스 쉐이더이다.
-PixelOutPut TextureShader_VS(GameEngineVertex2D _Input) 
+PixelOutPut TextureShader_VS(GameEngineVertex2D _Input)
 {
+    // _Input 0.5 0.5
+    
     // 쉐이더 문법 모두 0인 자료형으로 초기화 하는것
     PixelOutPut Result = (PixelOutPut)0;
     
@@ -54,6 +57,14 @@ PixelOutPut TextureShader_VS(GameEngineVertex2D _Input)
     // 6의 버텍스가 들어올것이다.
     
     float4 CalUV = _Input.TEXCOORD;
+
+    CalUV.x *= VertexUVMul.x;
+    CalUV.y *= VertexUVMul.y;
+    
+       
+    CalUV.x += VertexUVPlus.x;
+    CalUV.y += VertexUVPlus.y;
+
     
     // hlsl은 사용하지 않은 녀석은 인식하지 못합니다.
     // 결과에 유의미한 영향을 주는 리소스가 아니면 hlsl은 최적화를 통해서 그 리소스를 배제한다.
@@ -73,6 +84,7 @@ PixelOutPut TextureShader_VS(GameEngineVertex2D _Input)
     Result.TEXCOORD.x = (CalUV.x * Scale2DX) + Pos2DX;
     Result.TEXCOORD.y = (CalUV.y * Scale2DY) + Pos2DY;
     
+    
     // 버텍스 들은 어떻게 되어있나?
     return Result;
 }
@@ -88,19 +100,102 @@ PixelOutPut TextureShader_VS(GameEngineVertex2D _Input)
 
 // 우리 규칙
 
+cbuffer ColorData : register(b1)
+{
+    float4 PlusColor; // 최종색상에 더한다.
+    float4 MulColor; // 최종색상에 곱한다.
+};
+
 Texture2D DiffuseTex : register(t0);
+Texture2D MaskTex : register(t1);
 SamplerState DiffuseTexSampler : register(s0);
 
-float4 TextureShader_PS(PixelOutPut _Input) : SV_Target0
+struct PixelOut
 {
-   
+    float4 Color0 : SV_Target0;
+    float4 Color1 : SV_Target1;
+    float4 Color2 : SV_Target1;
+    float4 Color3 : SV_Target1;
+    float4 Color4 : SV_Target1;
+    float4 Color5 : SV_Target1;
+    float4 Color6 : SV_Target1;
+    float4 Color7 : SV_Target1;
+};
+
+// SV_Target0
+// SV_Target1
+// SV_Target2
+// SV_Target3
+// SV_Target4
+
+PixelOut TextureShader_PS(PixelOutPut _Input) : SV_Target0
+{
+    PixelOut Result = (PixelOut)0.0f;
+    
     float4 Color = DiffuseTex.Sample(DiffuseTexSampler, _Input.TEXCOORD.xy);
     // 블랜드라는 작업을 해줘야 한다.
+    
+    int2 ScreenPos = int2(_Input.POSITION.x, _Input.POSITION.y);
+    
+    // ScreenPos
+
+    // 1280 720 MaskScreenScale;
+    // Half 기준은 MaskScreenScale / 2
+    // 256 256 RenderScreenScale;
+    
+    // BaseScreenPos // 액터의 위치.
+    
+    // ScreenPos -= BaseScreenPos;
+
+    
+    
+    if (MaskMode == 1)
+    {
+        ScreenPos.x = ScreenPos.x - RendererScreenPos.x;
+        ScreenPos.y = ScreenPos.y - RendererScreenPos.y;
+        
+        ScreenPos.x += MaskScreenScale.x * 0.5f;
+        ScreenPos.y += MaskScreenScale.y * 0.5f;
+        
+        ScreenPos.x -= MaskPivot.x;
+        ScreenPos.y += MaskPivot.y;
+    }
+    
+    if (IsMask == 1 && MaskTex[ScreenPos].r <= 0.0f)
+    {
+         clip(-1);
+    }
     
     if (0.0f >= Color.a)
     {
         clip(-1);
     }
     
-    return Color;
+    if (BaseColorOnly != 0)
+    {
+        Color = BaseColor;
+        Color.a = 1;
+    }
+        
+    Color += PlusColor;
+    Color *= MulColor;
+    
+    if (0 < Target0)
+    {
+        Result.Color0 = Color;
+    }
+    if (0 < Target1)
+    {
+        Result.Color1 = Color;
+    }
+    if (0 < Target2)
+    {
+        Result.Color2 = Color;
+    }
+    if (0 < Target3)
+    {
+        Result.Color3 = Color;
+    }
+    
+    return Result;
 }

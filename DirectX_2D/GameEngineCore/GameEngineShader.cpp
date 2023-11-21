@@ -29,13 +29,15 @@ void GameEngineShader::CreateVersion(ShaderType _Type, UINT _VersionHigh, UINT _
 	case ShaderType::Pixel:
 		Version = "ps";
 		break;
+	case ShaderType::Compute:
+		Version = "cs";
+		break;
 	case ShaderType::Max:
+	default:
 	{
 		MsgBoxAssert("쉐이더 타입이 잘못들어왔습니다.");
 		break;
 	}
-	default:
-		break;
 	}
 
 	Version += "_";
@@ -55,6 +57,8 @@ void GameEngineShader::ShaderResCheck()
 // 부모가 자식클래스를 알고 있는 경우라 조금 선생님 타입
 #include "GameEngineVertexShader.h"
 #include "GameEnginePixelShader.h"
+#include "GameEngineGeometryShader.h"
+#include "GameEngineComputeShader.h"
 
 bool GameEngineShader::AutoCompile(GameEngineFile& _File)
 {
@@ -68,8 +72,17 @@ bool GameEngineShader::AutoCompile(GameEngineFile& _File)
 
 	// 이 파일의 경로로 
 	_File.Open(FileOpenType::Read, FileDataType::Text);
+	uintmax_t size = _File.GetFileSize();
 
-	std::string_view ShaderCode = _File.GetStringView();
+	if (0 == size)
+	{
+		return false;
+	}
+
+	GameEngineSerializer Ser;
+	_File.DataAllRead(Ser);
+
+	std::string_view ShaderCode = Ser.GetStringView();
 
 	// 파일을 다 읽어왔고
 	// 내부에 어떤 쉐이더가 있는지 분석하기 시작할 것이다.
@@ -100,7 +113,7 @@ bool GameEngineShader::AutoCompile(GameEngineFile& _File)
 			size_t FirstIndex = ShaderCode.find_last_of(" ", EntryIndex);
 			std::string_view EntryName = ShaderCode.substr(FirstIndex + 1, EntryIndex - FirstIndex + 2);
 
-			// GameEngineVertexShader::Load(_File.GetStringPath(), EntryName);
+			GameEngineGeometryShader::Load(_File.GetStringPath(), EntryName);
 
 		}
 	}
@@ -115,6 +128,21 @@ bool GameEngineShader::AutoCompile(GameEngineFile& _File)
 			size_t FirstIndex = ShaderCode.find_last_of(" ", EntryIndex);
 			std::string_view EntryName = ShaderCode.substr(FirstIndex + 1, EntryIndex - FirstIndex + 2);
 			GameEnginePixelShader::Load(_File.GetStringPath(), EntryName);
+		}
+	}
+
+	{
+		// find 앞에서 부터 뒤져서 바이트 위치를 알려줍니다.
+		size_t EntryIndex = ShaderCode.find("_CS(");
+		// 못찾았을때 나옵니다.
+		if (EntryIndex != std::string::npos)
+		{
+			// 내가 지정한 위치에서부터 앞으로 찾기 아서 
+			size_t FirstIndex = ShaderCode.find_last_of(" ", EntryIndex);
+			std::string_view EntryName = ShaderCode.substr(FirstIndex + 1, EntryIndex - FirstIndex + 2);
+
+			GameEngineComputeShader::Load(_File.GetStringPath(), EntryName);
+
 		}
 	}
 

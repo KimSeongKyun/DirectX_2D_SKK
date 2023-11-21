@@ -57,6 +57,7 @@
     <ClCompile Include="BasicLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameEngineCore\GameEngineState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -115,6 +116,7 @@
     <ClInclude Include="BasicLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="..\GameEngineCore\GameEngineState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

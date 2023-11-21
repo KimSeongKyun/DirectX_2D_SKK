@@ -163,13 +163,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BlurPostEffect.h" />
     <ClInclude Include="EngineEnum.h" />
+    <ClInclude Include="FadePostEffect.h" />
     <ClInclude Include="GameEngineActor.h" />
     <ClInclude Include="GameEngineBlend.h" />
     <ClInclude Include="GameEngineCamera.h" />
     <ClInclude Include="GameEngineCollision.h" />
     <ClInclude Include="GameEngineCollisionGroup.h" />
     <ClInclude Include="GameEngineComponent.h" />
+    <ClInclude Include="GameEngineComputeShader.h" />
+    <ClInclude Include="GameEngineComputeUnit.h" />
     <ClInclude Include="GameEngineConstantBuffer.h" />
     <ClInclude Include="GameEngineCore.h" />
     <ClInclude Include="GameEngineCoreObject.h">
@@ -179,10 +183,8 @@
     <ClInclude Include="GameEngineDebugCore.h" />
     <ClInclude Include="GameEngineDepthStencil.h" />
     <ClInclude Include="GameEngineDevice.h" />
-    <ClInclude Include="GameEngineDirectBuffer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineDirectBuffer.h" />
+    <ClInclude Include="GameEngineFont.h" />
     <ClInclude Include="GameEngineGeometryShader.h" />
     <ClInclude Include="GameEngineGUI.h" />
     <ClInclude Include="GameEngineIndexBuffer.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="GameEngineMaterial.h" />
     <ClInclude Include="GameEngineMesh.h" />
     <ClInclude Include="GameEngineObject.h" />
+    <ClInclude Include="GameEngineParticleRenderer.h" />
     <ClInclude Include="GameEnginePixelShader.h" />
     <ClInclude Include="GameEngineRasterizer.h">
       <SubType>
@@ -211,6 +214,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineSpriteRenderer.h" />
+    <ClInclude Include="GameEngineStructuredBuffer.h" />
     <ClInclude Include="GameEngineTexture.h" />
     <ClInclude Include="GameEngineTileMap.h" />
     <ClInclude Include="GameEngineTransform.h" />
@@ -231,14 +235,19 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h" />
+    <ClInclude Include="ThirdParty\FW1FontWrapper\inc\FW1FontWrapper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlurPostEffect.cpp" />
+    <ClCompile Include="FadePostEffect.cpp" />
     <ClCompile Include="GameEngineActor.cpp" />
     <ClCompile Include="GameEngineBlend.cpp" />
     <ClCompile Include="GameEngineCamera.cpp" />
     <ClCompile Include="GameEngineCollision.cpp" />
     <ClCompile Include="GameEngineCollisionGroup.cpp" />
     <ClCompile Include="GameEngineComponent.cpp" />
+    <ClCompile Include="GameEngineComputeShader.cpp" />
+    <ClCompile Include="GameEngineComputeUnit.cpp" />
     <ClCompile Include="GameEngineConstantBuffer.cpp" />
     <ClCompile Include="GameEngineCore.cpp" />
     <ClCompile Include="GameEngineCoreObject.cpp">
@@ -249,10 +258,8 @@
     <ClCompile Include="GameEngineDepthStencil.cpp" />
     <ClCompile Include="GameEngineDevice.cpp" />
     <ClCompile Include="GameEngineDevice_Resources.cpp" />
-    <ClCompile Include="GameEngineDirectBuffer.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineDirectBuffer.cpp" />
+    <ClCompile Include="GameEngineFont.cpp" />
     <ClCompile Include="GameEngineGeometryShader.cpp" />
     <ClCompile Include="GameEngineGUI.cpp" />
     <ClCompile Include="GameEngineIndexBuffer.cpp" />
@@ -264,6 +271,7 @@
     <ClCompile Include="GameEngineMaterial.cpp" />
     <ClCompile Include="GameEngineMesh.cpp" />
     <ClCompile Include="GameEngineObject.cpp" />
+    <ClCompile Include="GameEngineParticleRenderer.cpp" />
     <ClCompile Include="GameEnginePixelShader.cpp" />
     <ClCompile Include="GameEngineRasterizer.cpp">
       <SubType>
@@ -281,6 +289,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineSpriteRenderer.cpp" />
+    <ClCompile Include="GameEngineStructuredBuffer.cpp" />
     <ClCompile Include="GameEngineTexture.cpp" />
     <ClCompile Include="GameEngineTileMap.cpp" />
     <ClCompile Include="GameEngineTransform.cpp" />
@@ -305,6 +314,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Library Include="ThirdParty\FW1FontWrapper\lib\Debug\FW1FontWrapper.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
     <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl" />
     <Library Include="ThirdParty\DirectXTex\lib\Debug\DirectXTex.pdb">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -319,6 +336,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </Library>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\lib\Debug\FW1FontWrapper.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <Library Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
   </ItemGroup>
   <ItemGroup>

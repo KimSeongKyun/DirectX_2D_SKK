@@ -172,20 +172,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineInput.h" />
-    <ClInclude Include="GameEngineSound.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineSound.h" />
     <ClInclude Include="GameEngineWindow.h" />
     <ClInclude Include="GameEngineWindowTexture.h" />
     <ClInclude Include="PreCompile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineInput.cpp" />
-    <ClCompile Include="GameEngineSound.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineSound.cpp" />
     <ClCompile Include="GameEngineWindow.cpp" />
     <ClCompile Include="GameEngineWindowTexture.cpp" />
     <ClCompile Include="PreCompile.cpp">

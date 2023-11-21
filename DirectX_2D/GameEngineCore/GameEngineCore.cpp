@@ -39,6 +39,7 @@ void GameEngineCore::Update()
 		if (nullptr != CurLevel)
 		{
 			CurLevel->AllLevelEnd(NextLevel.get());
+			CurLevel->AllReleaseCheck();
 		}
 
 		// NextLevel->OverCheck(CurLevel);
@@ -85,7 +86,7 @@ void GameEngineCore::Update()
 
 	CurLevel->Render(DeltaTime);
 
-	GameEngineGUI::GUIRender(DeltaTime);
+	GameEngineGUI::GUIRender(CurLevel.get(), DeltaTime);
 
 	MainDevice.RenderEnd();
 
@@ -96,6 +97,7 @@ void GameEngineCore::Release()
 {
 	CoreObject->Release();
 	GameEngineGUI::Release();
+	GameEngineSound::Release();
 }
 
 void GameEngineCore::EngineProcess(HINSTANCE _Inst, const std::string& _WindowName, float4 _Pos, float4 _Size)
@@ -114,7 +116,11 @@ void GameEngineCore::EngineProcess(HINSTANCE _Inst, const std::string& _WindowNa
 	GameEngineWindow::MessageLoop(_Inst, Start, Update, Release);
 }
 
-void GameEngineCore::LevelInit(std::shared_ptr<GameEngineLevel> _Level)
+void GameEngineCore::LevelInit(std::shared_ptr<GameEngineLevel> _Level, std::string_view _Name)
 {
+	_Level->SetName(_Name);
+
+
+
 	_Level->Start();
 }

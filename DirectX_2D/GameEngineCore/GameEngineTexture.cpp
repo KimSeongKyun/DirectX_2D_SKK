@@ -8,7 +8,14 @@
 #pragma comment(lib, "..\\GameEngineCore\\ThirdParty\\DirectXTex\\lib\\Release\\DirectXTex.lib")
 #endif
 
-const GameEngineColor GameEngineColor::RED = {255, 0, 0, 255 };
+const GameEngineColor GameEngineColor::RED = { 255, 0, 0, 255 };
+const GameEngineColor GameEngineColor::GREEN = { 0, 255, 0, 255 };
+const GameEngineColor GameEngineColor::BLUE = { 0, 0, 255, 255 };
+const GameEngineColor GameEngineColor::MAGENTA = { 255, 0, 255, 255 };
+const GameEngineColor GameEngineColor::YELLOW = { 255, 255, 0, 255 };
+const GameEngineColor GameEngineColor::AQUA = { 0, 255, 255, 255 };
+const GameEngineColor GameEngineColor::BLACK = { 0, 0, 0, 255 };
+const GameEngineColor GameEngineColor::WHITE = { 255, 255, 255, 255 };
 
 GameEngineTexture::GameEngineTexture() 
 {
@@ -178,6 +185,28 @@ void GameEngineTexture::PSSetting(UINT _Slot)
 	GameEngineCore::GetContext()->PSSetShaderResources(_Slot, 1, &SRV);
 }
 
+void GameEngineTexture::CSSetting(UINT _Slot)
+{
+	GameEngineCore::GetContext()->CSSetShaderResources(_Slot, 1, &SRV);
+}
+
+void GameEngineTexture::VSReset(UINT _Slot)
+{
+	ID3D11ShaderResourceView* ResetRes = nullptr;
+	GameEngineCore::GetContext()->VSSetShaderResources(_Slot, 1, &ResetRes);
+}
+void GameEngineTexture::PSReset(UINT _Slot)
+{
+	ID3D11ShaderResourceView* ResetRes = nullptr;
+	GameEngineCore::GetContext()->PSSetShaderResources(_Slot, 1, &ResetRes);
+}
+
+void GameEngineTexture::CSReset(UINT _Slot)
+{
+	ID3D11ShaderResourceView* ResetRes = nullptr;
+	GameEngineCore::GetContext()->CSSetShaderResources(_Slot, 1, &ResetRes);
+}
+
 void GameEngineTexture::ResCreate(ID3D11Texture2D* _Res)
 {
 	Texture2D = _Res;
@@ -257,15 +286,6 @@ GameEngineColor GameEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Ga
 	}
 	case DXGI_FORMAT_R8G8B8A8_TYPELESS:
 	case DXGI_FORMAT_R8G8B8A8_UNORM:
-	{
-		GameEngineColor ResultColor;
-		Ptr += ((_Y * GetScale().iX()) + _X) * 4;
-		ResultColor.R = Ptr[0];
-		ResultColor.G = Ptr[1];
-		ResultColor.B = Ptr[2];
-		ResultColor.A = Ptr[3];
-		return ResultColor;
-	}
 	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
 	case DXGI_FORMAT_R8G8B8A8_UINT:
 	case DXGI_FORMAT_R8G8B8A8_SNORM:

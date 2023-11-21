@@ -39,11 +39,11 @@ public:
 	}
 
 	template<typename ObjectType>
-	std::shared_ptr<ObjectType> CreateActor(int _Order = 0)
+	std::shared_ptr<ObjectType> CreateActor(int _Order = 0, std::string_view _Name = "")
 	{
 		std::shared_ptr<class GameEngineActor> NewChild = std::make_shared<ObjectType>();
 
-		ActorInit(NewChild, _Order);
+		ActorInit(NewChild, _Order, _Name);
 
 		// GameEngineObject형으로 사용하고 있다면
 		// 내가 잘못형변환하면 Monster 였는데? Player <= 미친듯한 메모리 크러시를 일으킵니다.
@@ -65,7 +65,10 @@ public:
 		return Cameras[_Select];
 	}
 
-	
+	std::shared_ptr<class GameEngineRenderTarget> GetLevelRenderTarget()
+	{
+		return LevelRenderTarget;
+	}
 
 protected:
 
@@ -78,16 +81,16 @@ private:
 	// 내가 이제 다른 레벨로 이전하면 호출
 	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
 
+	void Start() override;
+
 	// 액터관련 기능들
 	void AllUpdate(float _Delta) override;
-
-	//void Render(float _Delta);
 
 	void Release() override;
 
 	void AllReleaseCheck() override;
 
-	void ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order);
+	void ActorInit(std::shared_ptr<class GameEngineActor> _Actor, int _Order, std::string_view _Name = "");
 
 	void Render(float _Delta);
 
@@ -98,5 +101,8 @@ private:
 	std::map<int, std::shared_ptr<class GameEngineCamera>> Cameras;
 
 	std::map<int, std::shared_ptr<class GameEngineCollisionGroup>> Collisions;
+
+	std::shared_ptr<class GameEngineRenderTarget> LevelRenderTarget;
+
 };
 

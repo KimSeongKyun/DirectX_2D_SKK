@@ -37,7 +37,7 @@ bool GameEngineCollision::Collision(int _Order, const float4& _NextPos)
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>(), _NextPos);
 }
 
-bool GameEngineCollision::Collision(int _Order, std::function<void(std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)> _Collision)
+bool GameEngineCollision::Collision(int _Order, std::function<void(std::vector<GameEngineCollision*>& _Collisions)> _Collision)
 {
 	if (false == GetLevel()->Collisions.contains(_Order))
 	{
@@ -47,7 +47,7 @@ bool GameEngineCollision::Collision(int _Order, std::function<void(std::vector<s
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>(), _Collision);
 }
 
-bool GameEngineCollision::Collision(int _Order, const float4& _Next, std::function<void(std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)> _Collision)
+bool GameEngineCollision::Collision(int _Order, const float4& _Next, std::function<void(std::vector<GameEngineCollision*>& _Collisions)> _Collision)
 {
 	if (false == GetLevel()->Collisions.contains(_Order))
 	{
@@ -55,6 +55,37 @@ bool GameEngineCollision::Collision(int _Order, const float4& _Next, std::functi
 	}
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 	return OtherGroup->Collision(GetDynamic_Cast_This<GameEngineCollision>(), _Next, _Collision);
+}
+
+bool GameEngineCollision::CollisionLineEvent(int _Order, float4 _EndLine, const EventParameter& _Event)
+{
+	if (false == GetLevel()->Collisions.contains(_Order))
+	{
+		return false;
+	}
+	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
+
+	std::set<GameEngineCollision*>::iterator Start = Others.begin();
+	std::set<GameEngineCollision*>::iterator End = Others.end();
+
+	for (; Start != End; )
+	{
+		GameEngineCollision* OtherCol = *Start;
+
+		// 여기서 터질것이다.
+		if (false == OtherCol->IsDeath())
+		{
+			++Start;
+			continue;
+		}
+
+		Start = Others.erase(Start);
+	}
+
+	// 라인은 나의 extents를 end로 돌리고 들어간다.
+	Transform.ColData.OBB.Extents = _EndLine.Float3;
+
+	return OtherGroup->CollisionEvent(GetDynamic_Cast_This<GameEngineCollision>(), _Event);
 }
 
 bool GameEngineCollision::CollisionEvent(int _Order, const EventParameter& _Event)
@@ -65,12 +96,12 @@ bool GameEngineCollision::CollisionEvent(int _Order, const EventParameter& _Even
 	}
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 
-	std::set<std::shared_ptr<GameEngineCollision>>::iterator Start = Others.begin();
-	std::set<std::shared_ptr<GameEngineCollision>>::iterator End = Others.end();
+	std::set<GameEngineCollision*>::iterator Start = Others.begin();
+	std::set<GameEngineCollision*>::iterator End = Others.end();
 
 	for (; Start != End; )
 	{
-		std::shared_ptr<GameEngineCollision> OtherCol = *Start;
+		GameEngineCollision* OtherCol = *Start;
 
 		// 여기서 터질것이다.
 		if (false == OtherCol->IsDeath())

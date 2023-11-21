@@ -61,18 +61,24 @@
     <Filter Include="Rendering\Mesh">
       <UniqueIdentifier>{586cacac-4726-444d-83b3-f685d00ed58a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Font">
+      <UniqueIdentifier>{b9b7cdbc-6263-4e5e-8f07-26f5f9165391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\PostEffect">
+      <UniqueIdentifier>{78b196f4-aa28-4ed8-9c07-f0581a20e121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Compute">
+      <UniqueIdentifier>{28c6dffd-d143-43a8-8430-abfb827dbb97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Contents">
+      <UniqueIdentifier>{8689281f-e8ea-4eca-a013-a970dcff393c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PreCompile.h">
-      <Filter>PreCompile</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineCoreObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineVertexBuffer.h">
-      <Filter>Resources\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineDirectBuffer.h">
       <Filter>Resources\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineInputLayOut.h">
@@ -99,22 +105,6 @@
     <ClInclude Include="GameEngineBlend.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineCamera.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineCollision.h">
-      <Filter>Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineCollisionGroup.h">
-      <Filter>Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineCore.h" />
-    <ClInclude Include="GameEngineConstantBuffer.h">
-      <Filter>Resources\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineDebugCore.h">
-      <Filter>Debug</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineDepthStencil.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
@@ -124,52 +114,9 @@
     <ClInclude Include="GameEngineGeometryShader.h">
       <Filter>Resources\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineGUI.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineLevel.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineMaterial.h">
-      <Filter>Rendering\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineMesh.h">
-      <Filter>Rendering\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="GameEnginePixelShader.h">
       <Filter>Resources\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineRenderer.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineRenderTarget.h">
-      <Filter>Resources\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineRenderUnit.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineSampler.h">
-      <Filter>Resources\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineShader.h">
-      <Filter>Resources\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineShaderResHelper.h">
-      <Filter>Resources\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineSpriteRenderer.h">
-      <Filter>Resources\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineTexture.h">
-      <Filter>Resources\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineTransform.h">
-      <Filter>Object\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineUIRenderer.h" />
     <ClInclude Include="GameEngineVertex.h">
       <Filter>Vertex</Filter>
     </ClInclude>
@@ -177,9 +124,6 @@
       <Filter>Resources\Shader</Filter>
     </ClInclude>
     <ClInclude Include="EngineEnum.h" />
-    <ClInclude Include="GameEngineTileMap.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineResources.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -207,6 +151,100 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineTexture.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCore.h" />
+    <ClInclude Include="GameEngineCamera.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRenderer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineLevel.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineTransform.h">
+      <Filter>Object\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineShader.h">
+      <Filter>Resources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineFont.h">
+      <Filter>Resources\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRenderUnit.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineShaderResHelper.h">
+      <Filter>Resources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineMesh.h">
+      <Filter>Rendering\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineDebugCore.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRenderTarget.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="FadePostEffect.h">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\FW1FontWrapper\inc\FW1FontWrapper.h">
+      <Filter>ThirdParty\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineTileMap.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineStructuredBuffer.h">
+      <Filter>Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollisionGroup.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineDirectBuffer.h">
+      <Filter>Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineComputeUnit.h">
+      <Filter>Rendering\Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineComputeShader.h">
+      <Filter>Resources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineConstantBuffer.h">
+      <Filter>Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineParticleRenderer.h">
+      <Filter>Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineUIRenderer.h">
+      <Filter>Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineSpriteRenderer.h">
+      <Filter>Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineSampler.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineMaterial.h">
+      <Filter>Rendering\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurPostEffect.h">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -216,9 +254,6 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineVertexBuffer.cpp">
-      <Filter>Resources\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineDirectBuffer.cpp">
       <Filter>Resources\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineInputLayOut.cpp">
@@ -242,88 +277,23 @@
     <ClCompile Include="GameEngineBlend.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineCamera.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineCollision.cpp">
-      <Filter>Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineCollisionGroup.cpp">
-      <Filter>Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineCore.cpp" />
-    <ClCompile Include="GameEngineConstantBuffer.cpp">
-      <Filter>Resources\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineDebugCore.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineDepthStencil.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineDevice.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineDevice_Resources.cpp">
-      <Filter>Device</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineGeometryShader.cpp">
       <Filter>Resources\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineGUI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineLevel.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineMaterial.cpp">
-      <Filter>Rendering\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineMesh.cpp">
-      <Filter>Rendering\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineObject.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEnginePixelShader.cpp">
       <Filter>Resources\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineRenderer.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineRenderTarget.cpp">
-      <Filter>Resources\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineRenderUnit.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineSampler.cpp">
-      <Filter>Resources\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineShader.cpp">
-      <Filter>Resources\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineShaderResHelper.cpp">
-      <Filter>Resources\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineSpriteRenderer.cpp">
-      <Filter>Resources\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineTexture.cpp">
-      <Filter>Resources\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineTransform.cpp">
-      <Filter>Object\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineUIRenderer.cpp" />
     <ClCompile Include="GameEngineVertex.cpp">
       <Filter>Vertex</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineVertexShader.cpp">
       <Filter>Resources\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineTileMap.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineResources.cpp">
       <Filter>Resources</Filter>
@@ -346,6 +316,97 @@
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineTexture.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCore.cpp" />
+    <ClCompile Include="GameEngineCamera.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineDevice_Resources.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineRenderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineLevel.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineTransform.cpp">
+      <Filter>Object\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineShader.cpp">
+      <Filter>Resources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFont.cpp">
+      <Filter>Resources\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineRenderUnit.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineShaderResHelper.cpp">
+      <Filter>Resources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineMesh.cpp">
+      <Filter>Rendering\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineDebugCore.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineRenderTarget.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="FadePostEffect.cpp">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineTileMap.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineStructuredBuffer.cpp">
+      <Filter>Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollisionGroup.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineDirectBuffer.cpp">
+      <Filter>Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineComputeUnit.cpp">
+      <Filter>Rendering\Compute</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineComputeShader.cpp">
+      <Filter>Resources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineConstantBuffer.cpp">
+      <Filter>Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineParticleRenderer.cpp">
+      <Filter>Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineUIRenderer.cpp">
+      <Filter>Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineSpriteRenderer.cpp">
+      <Filter>Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineSampler.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineMaterial.cpp">
+      <Filter>Rendering\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurPostEffect.cpp">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
@@ -365,5 +426,19 @@
     <Library Include="ThirdParty\DirectXTex\lib\Debug\DirectXTex.pdb">
       <Filter>ThirdParty\Debug</Filter>
     </Library>
+    <Library Include="ThirdParty\FW1FontWrapper\lib\Debug\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Debug</Filter>
+    </Library>
+    <Library Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Release</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\lib\Debug\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Debug</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

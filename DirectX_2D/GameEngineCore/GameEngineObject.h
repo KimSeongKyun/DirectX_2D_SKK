@@ -51,6 +51,10 @@ public:
 		return IsDeathValue;
 	}
 
+	void SetName(std::string_view _Name)
+	{
+		Name = _Name.data();
+	}
 
 	void SetName(const std::string& _Name)
 	{
@@ -123,6 +127,7 @@ public:
 		return NewChild;
 	}
 	
+	void ChangeParent(GameEngineObject* _Parent, int _Order);
 
 	void SetParent(GameEngineObject* _Parent, int _Order)
 	{
@@ -137,6 +142,7 @@ public:
 		Parent = _Parent.get();
 		Transform.SetParent(_Parent->Transform);
 	}
+
 
 	GameEngineObject* GetParentObject()
 	{
@@ -168,11 +174,10 @@ public:
 	template<typename EnumType>
 	std::list<std::shared_ptr<GameEngineObject>> GetObjectGroup(EnumType _GroupIndex)
 	{
-		return GetObjectGroup(static_cast<int>(_GroupIndex));
+		return GetObjectGroupInt(static_cast<int>(_GroupIndex));
 	}
 
-	template<typename ObjectType>
-	std::list<std::shared_ptr<GameEngineObject>> GetObjectGroup(int _GroupIndex)
+	std::list<std::shared_ptr<GameEngineObject>> GetObjectGroupInt(int _GroupIndex)
 	{
 		std::list<std::shared_ptr<class GameEngineObject>>& Group = Childs[_GroupIndex];
 		return Group;
@@ -180,16 +185,16 @@ public:
 
 
 	template<typename ObjectType, typename EnumType>
-	std::list<std::shared_ptr<ObjectType>> GetObjectGroupConvert(EnumType _GroupIndex)
+	std::vector<std::shared_ptr<ObjectType>> GetObjectGroupConvert(EnumType _GroupIndex)
 	{
 		return GetObjectGroupConvert<ObjectType>(static_cast<int>(_GroupIndex));
 	}
 
 
 	template<typename ObjectType>
-	std::list<std::shared_ptr<ObjectType>> GetObjectGroupConvert(int _GroupIndex)
+	std::vector<std::shared_ptr<ObjectType>> GetObjectGroupConvert(int _GroupIndex)
 	{
-		std::list<std::shared_ptr<ObjectType>> Result;
+		std::vector<std::shared_ptr<ObjectType>> Result;
 		std::list<std::shared_ptr<class GameEngineObject>>& Group = Childs[_GroupIndex];
 
 		for (std::shared_ptr<class GameEngineObject> Obejct : Group)

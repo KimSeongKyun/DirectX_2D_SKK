@@ -123,15 +123,15 @@ void PlayerSkill::MagicBoltColCheck()
 {
 
 	
-	ColSkill->Collision(ContentsObjectType::Monster, [&](std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)
-		{
-			std::shared_ptr<Monster> HitMonster = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Monster>();
-			HitMonster->Damage(10);
-			ColSkill->Off();
-			SkillRenderer1->Off();
-			CurSkill = SkillList::None;
-		}
-	);
+	//ColSkill->Collision(ContentsObjectType::Monster, [&](std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)
+	//	{
+	//		std::shared_ptr<Monster> HitMonster = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Monster>();
+	//		HitMonster->Damage(10);
+	//		ColSkill->Off();
+	//		SkillRenderer1->Off();
+	//		CurSkill = SkillList::None;
+	//	}
+	//);
 	if (ColSkill != nullptr)
 	{
 		

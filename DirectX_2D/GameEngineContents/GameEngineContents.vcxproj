@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\GameEngineCore\GameEngineState.cpp" />
     <ClCompile Include="Ariel.cpp">
       <SubType>
       </SubType>
@@ -229,6 +230,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\GameEngineCore\GameEngineState.h" />
     <ClInclude Include="Ariel.h">
       <SubType>
       </SubType>

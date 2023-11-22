@@ -58,6 +58,15 @@
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="..\GameEngineCore\GameEngineState.cpp" />
+    <ClCompile Include="QuickSlot.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Status.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -117,6 +126,15 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="..\GameEngineCore\GameEngineState.h" />
+    <ClInclude Include="QuickSlot.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMap.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -142,6 +160,9 @@
     </Filter>
     <Filter Include="Object\Portal">
       <UniqueIdentifier>{b9a8be05-1c12-4ce5-9dea-6936f7be8ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{2493b1df-2bcd-4426-bcff-38d7bd83de71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

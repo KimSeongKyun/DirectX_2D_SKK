@@ -6,7 +6,11 @@
 #include "Ariel.h"
 #include "PinkBeanDummy.h"
 #include "Portal.h"
+#include "Status.h"
+#include "QuickSlot.h"
+#include "MiniMap.h"
 #include <GameEngineCore/FadePostEffect.h>
+
 
 
 PinkBeanLevel::PinkBeanLevel() 
@@ -20,10 +24,7 @@ PinkBeanLevel::~PinkBeanLevel()
 void PinkBeanLevel::Start()
 {
 	BasicLevel::Start();
-	ResourceLoad();
-	CameraSetting();
-	ActorSetting();
-	OffDebug();
+	
 
 	
 	
@@ -34,7 +35,13 @@ void PinkBeanLevel::Update(float _Delta)
 }
 void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+
 	BasicLevel::LevelStart(_PrevLevel);
+	ResourceLoad();
+	CurMiniMap = GameEngineTexture::Find("PinkBeanMiniMap.png");
+	CameraSetting();
+	ActorSetting();
+	OffDebug();
 	OnDebug();
 }
 void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
@@ -125,6 +132,7 @@ void PinkBeanLevel::ResourceLoad()
 
 			GameEngineSprite::CreateSingle("PinkBeanMap.png");
 			GameEngineSprite::CreateSingle("PinkBeanBackGround.png");
+			GameEngineSprite::CreateSingle("PinkBeanMiniMap.png");
 
 		}
 
@@ -168,6 +176,101 @@ void PinkBeanLevel::ResourceLoad()
 			}
 		}
 	}
+
+	//UI Status 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("AniGauge,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("Status");
+
+			
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("AniGauge.png");
+			GameEngineSprite::CreateSingle("HPBar.png");
+			GameEngineSprite::CreateSingle("MPBar.png");
+			GameEngineSprite::CreateSingle("StatusLayer.png");
+			GameEngineSprite::CreateSingle("StatusLayer.png");
+					}
+
+	}
+
+	//QuickSlot UI 리소스
+	{
+		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("Quick");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("QuickBack.png");
+			GameEngineSprite::CreateSingle("QuickButton.png");
+			GameEngineSprite::CreateSingle("QuickCover.png");
+
+		}
+
+	}
+
+	//MiniMap 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("MiniMap");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("MinMapLeft.png");
+			GameEngineSprite::CreateSingle("MiniMapBottom.png");
+			GameEngineSprite::CreateSingle("MiniMapLeft.png");
+			GameEngineSprite::CreateSingle("MiniMapLeftBottom.png");
+			GameEngineSprite::CreateSingle("MiniMapLeftTop.png");
+			GameEngineSprite::CreateSingle("MiniMapRight.png");
+			GameEngineSprite::CreateSingle("MiniMapRightBottom.png");
+			GameEngineSprite::CreateSingle("MiniMapRightTop.png");
+			GameEngineSprite::CreateSingle("MiniMapTop.png");
+
+
+		}
+
+	}
 }
 
 void PinkBeanLevel::ActorSetting()
@@ -204,11 +307,37 @@ void PinkBeanLevel::ActorSetting()
 		Portal0->SetLevelName("Ellinia0_Level");
 	}
 
-	
+	float4 WindowScale = GameEngineCore::MainWindow.GetScale();
+
+	if (Status0 == nullptr)
+	{
+		
+		Status0 = CreateActor<Status>(12);
+		Status0->Transform.SetWorldPosition({ WindowScale.hX(), -690.0f});
+	}
+	if (QuickSlot0 == nullptr)
+	{
+		QuickSlot0 = CreateActor<QuickSlot>(12);
+		QuickSlot0->Transform.SetWorldPosition({ WindowScale.hX()+400.0f, -685.0f });
+	}
+
+	if (MiniMap0 == nullptr)
+	{
+		MiniMap0 = CreateActor<MiniMap>(12);
+		
+		MiniMap0->Transform.SetWorldPosition({ 0.0f, 0.0f });
+		
+	}
 }
 
 void PinkBeanLevel::CameraSetting()
 {
 	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,1371.0f,0.0f });
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
+
+
+	float4 WindowScale = GameEngineCore::MainWindow.GetScale().Half();
+	std::shared_ptr<GameEngineCamera> UICamera = GetCamera(static_cast<int>(ECAMERAORDER::UI));
+	UICamera->Transform.SetLocalPosition({ WindowScale.X, -WindowScale.Y });
 }
+

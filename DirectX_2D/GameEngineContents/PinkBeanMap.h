@@ -21,5 +21,6 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Map0 = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
+	
 };
 

@@ -24,14 +24,19 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
-	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class PinkBeanMap> Map0 = nullptr;
+	
+	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ariel> Ariel0 = nullptr;
 	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
 	std::shared_ptr<class Portal> Portal0 = nullptr;
 	std::shared_ptr<class Portal> Portal1 = nullptr;
 	
+	std::shared_ptr<class Status> Status0 = nullptr;
+	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
+	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;
 
+	
 	void ResourceLoad();
 	void CameraSetting();
 	void ActorSetting();

@@ -19,12 +19,12 @@ public:
 
 	//static void FadeOutStart();
 	
+	static std::shared_ptr<class GameEngineTexture> CurMiniMap;
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void DebugSwitch();
-	
 	//std::shared_ptr<class FadePostEffect> FadeEffect;
 
 private:

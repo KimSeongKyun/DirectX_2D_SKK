@@ -193,6 +193,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="PinkBeanDummy.cpp">
       <SubType>
@@ -223,7 +227,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="QuickSlot.cpp" />
     <ClCompile Include="Snale.cpp" />
+    <ClCompile Include="Status.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
@@ -261,6 +267,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="MiniMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Monster.h" />
     <ClInclude Include="PinkBeanDummy.h">
       <SubType>
@@ -285,7 +295,9 @@
     </ClInclude>
     <ClInclude Include="Portal.h" />
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="QuickSlot.h" />
     <ClInclude Include="Snale.h" />
+    <ClInclude Include="Status.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>

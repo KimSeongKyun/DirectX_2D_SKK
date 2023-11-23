@@ -31,5 +31,10 @@ private:
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ellinia0_Map> Map0 = nullptr;
 	std::shared_ptr<class Snale> Snale0 = nullptr;
+
+	//UI
+	std::shared_ptr<class Status> Status0 = nullptr;
+	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
+	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;
 };
 

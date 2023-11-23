@@ -3,6 +3,8 @@
 //#include <GameEngineCore/FadePostEffect.h>
 
 std::shared_ptr<class GameEngineTexture> BasicLevel::CurMiniMap = nullptr;
+std::shared_ptr<class GameEngineTexture> BasicLevel::CurMap = nullptr;
+std::string BasicLevel::CurMapName = "";
 
 BasicLevel::BasicLevel() 
 {

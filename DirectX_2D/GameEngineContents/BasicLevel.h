@@ -20,6 +20,8 @@ public:
 	//static void FadeOutStart();
 	
 	static std::shared_ptr<class GameEngineTexture> CurMiniMap;
+	static std::shared_ptr<class GameEngineTexture> CurMap;
+	static std::string CurMapName;
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

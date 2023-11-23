@@ -28,6 +28,11 @@ private:
 	std::shared_ptr<class Ellinia1_Map> Map0 = nullptr;
 	std::shared_ptr<class Snale> Snale0 = nullptr;
 
+	//UI
+	std::shared_ptr<class Status> Status0 = nullptr;
+	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
+	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;
+
 	void ResourceLoad();
 	void ActorSetting();
 	void CameraSetting();

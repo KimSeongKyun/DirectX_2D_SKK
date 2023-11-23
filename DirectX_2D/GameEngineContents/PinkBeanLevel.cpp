@@ -39,10 +39,10 @@ void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	BasicLevel::LevelStart(_PrevLevel);
 	ResourceLoad();
 	CurMiniMap = GameEngineTexture::Find("PinkBeanMiniMap.png");
+	CurMap = GameEngineTexture::Find("PinkBeanMap.png");
+	CurMapName = "PinkBeanMiniMap.png";
 	CameraSetting();
 	ActorSetting();
-	OffDebug();
-	OnDebug();
 }
 void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -266,6 +266,7 @@ void PinkBeanLevel::ResourceLoad()
 			GameEngineSprite::CreateSingle("MiniMapRightBottom.png");
 			GameEngineSprite::CreateSingle("MiniMapRightTop.png");
 			GameEngineSprite::CreateSingle("MiniMapTop.png");
+			GameEngineSprite::CreateSingle("MiniMapUser.png");
 
 
 		}

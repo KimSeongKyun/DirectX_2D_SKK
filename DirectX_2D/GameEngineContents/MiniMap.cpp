@@ -2,6 +2,7 @@
 #include "MiniMap.h"
 #include "BasicLevel.h"
 #include "PinkBeanLevel.h"
+#include "Player.h"
 
 
 
@@ -19,14 +20,22 @@ void MiniMap::Start()
 }
 void MiniMap::Update(float _Delta)
 {
+	float4 CurPlayerPos = { Player::PlayerPos.X, Player::PlayerPos.Y + 42.0f};
+	float4 MiniMapScale = BasicLevel::CurMiniMap->GetScale();
+	float4 CurMapScale = BasicLevel::CurMap->GetScale();
+
+	float ScaleRatio = MiniMapScale.X / CurMapScale.X;
+
+	float4 MiniMapPlayerPos = { ScaleRatio * CurPlayerPos.X, ScaleRatio * CurPlayerPos.Y };
+
+
+	User0->Transform.SetLocalPosition({ MiniMapPlayerPos.X + 12.0f, MiniMapPlayerPos.Y - 22.0f });
+
 
 }
 
 void MiniMap::RenderSetting()
 {
-	std::shared_ptr<GameEngineTexture> Texture0 = GameEngineTexture::Find("PinkBeanMiniMap.png");
-
-	Texture0;
 	if (PinkBeanLevel::CurMiniMap == nullptr)
 	{
 		MsgBoxAssert("CurMap을 셋팅하지 않았습니다");
@@ -87,10 +96,17 @@ void MiniMap::RenderSetting()
 	RightBottom0->Transform.SetLocalPosition({ MiniMapScale.X + 24.0f,-MiniMapScale.Y - 34.0f });
 
 	MiniMap1 = CreateComponent<GameEngineUIRenderer>();
-	MiniMap1->SetSprite("PinkBeanMiniMap.png");
+	MiniMap1->SetSprite(BasicLevel::CurMapName);
 	MiniMap1->AutoSpriteSizeOn();
 	MiniMap1->SetPivotType(PivotType::LeftTop);
 	MiniMap1->Transform.SetLocalPosition({ 12.0f,-22.0f });
+
+	User0 = CreateComponent<GameEngineUIRenderer>();
+	User0->SetSprite("MiniMapUser.png");
+	User0->AutoSpriteSizeOn();
+	User0->SetPivotType(PivotType::Bottom);
+	User0->Transform.SetLocalPosition({ 12.0f,-22.0f });
+
 }
 
 void MiniMap::ResourceLoad()

@@ -32,6 +32,7 @@ private:
 	std::shared_ptr<class Portal> Portal0 = nullptr;
 	std::shared_ptr<class Portal> Portal1 = nullptr;
 	
+	//UI
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
 	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;

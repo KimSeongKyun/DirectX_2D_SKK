@@ -38,5 +38,6 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> RightTop0 = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> RightBottom0 = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> MiniMap1 = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> User0 = nullptr;
 };
 

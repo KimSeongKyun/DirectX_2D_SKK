@@ -28,7 +28,7 @@ void MapleStoryCore::Start()
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<Ellinia1_Level>("Ellinia1_Level");
 	GameEngineCore::CreateLevel<PinkBeanLevel>("PinkBeanLevel");
-	GameEngineCore::ChangeLevel("PinkBeanLevel");
+	GameEngineCore::ChangeLevel("Ellinia0_Level");
 
 	// 자기 텍스처 로드해야 한다.
 

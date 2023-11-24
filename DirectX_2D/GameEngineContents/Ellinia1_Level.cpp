@@ -32,8 +32,8 @@ void Ellinia1_Level::LevelStart(GameEngineLevel* _PrevLevel)
 	BasicLevel::LevelStart(_PrevLevel);
 	CameraSetting();
 	ResourceLoad();
-	CurMiniMap = GameEngineTexture::Find("Ellinia1.png");
-	CurMap = GameEngineTexture::Find("Ellinia1MiniMap.png");
+	CurMiniMap = GameEngineTexture::Find("Ellinia1MiniMap.png");
+	CurMap = GameEngineTexture::Find("Ellinia1.png");
 	CurMapName = "Ellinia1MiniMap.png";
 	ActorSetting();
 
@@ -232,6 +232,7 @@ void Ellinia1_Level::ActorSetting()
 	{
 		Player0 = CreateActor<Player>(static_cast<int>(ContentsObjectType::Player));
 		Player0->SetColMap("ColEllinia1.png");
+		Player0->SetCurMap("Ellinia1.png");
 		Player0->Transform.SetLocalPosition({ 500.0f, -1000.0f });
 	}
 

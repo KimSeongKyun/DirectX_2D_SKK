@@ -311,6 +311,7 @@ void Player::StateInit()
 
 			if (true == GameEngineInput::IsDown('X',this))
 			{
+				if(true == GameEngineInput::IsPress(VK_RIGHT, this))
 				JumpPower = { 0,2,0 };
 				FSM.ChangeState("Jump");
 			}

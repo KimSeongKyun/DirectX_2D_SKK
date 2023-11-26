@@ -5,6 +5,7 @@
 #include "PlayMap.h"
 #include "PlayerSkill.h"
 #include "Monster.h"
+#include "DamageNumber.h"
 
 float4 Player::PlayerPos = { 0.0f, 0.0f, 0.0f };
 PlayerDirection Player::CurDirection = PlayerDirection::Left;
@@ -25,13 +26,17 @@ void Player::Start()
 	RendererSetting();
 	ColSetting();
 	StateInit();
+	
+	/*Test = GetLevel()->CreateActor<DamageNumber>();
+	Test->Transform.SetWorldPosition({ 720.0f, -560.0f });
+	Test->Damage(100);*/
 
 }
 
 void Player::Update(float _Delta)
 {
 	
-
+	
 	FSM.Update(_Delta);
 	CameraMove();
 	
@@ -68,6 +73,7 @@ void Player::RendererSetting()
 		PlayerBody->CreateAnimation("Swing1", "Swing1", 0.2f);
 		PlayerBody->CreateAnimation("Swing2", "Swing2", 0.2f);
 		PlayerBody->CreateAnimation("Rope", "Rope", 0.2f);
+		PlayerBody->CreateAnimation("RopeMove", "RopeMove");
 		PlayerBody->CreateAnimation("Ladder", "Ladder", 0.2f);
 		PlayerBody->AutoSpriteSizeOn();
 		PlayerBody->ChangeAnimation("Idle");
@@ -83,7 +89,13 @@ void Player::ColSetting()
 		ColBody->Transform.SetLocalScale(PlayerSize);
 		ColBody->SetCollisionType(ColType::AABBBOX2D);
 	}
-	
+	if (ColLadder == nullptr)
+	{
+		ColLadder = CreateComponent<GameEngineCollision>(ObjectCollision::PlayerBodyToLadder);
+		PlayerSize.X = PlayerSize.hX();
+		ColLadder->Transform.SetLocalScale(PlayerSize);
+		ColLadder->SetCollisionType(ColType::AABBBOX2D);
+	}
 }
 
 void Player::RendererStateChange(std::string_view _State)
@@ -161,6 +173,20 @@ void  Player::LRColCheck(float _DeltaTime, float4 _LeftOrRight)
 	}
 }
 
+void Player::RopeCheck()
+{	
+	if (false != ColLadder->Collision(ObjectCollision::Ladder) )
+	{
+		FSM.ChangeState("Ladder");
+	}
+	int a = 0;
+	if (false != ColLadder->Collision(ObjectCollision::Rope))
+	{
+		FSM.ChangeState("Rope");
+	}
+	
+}
+
 void Player::Attack()
 {
 	//std::shared_ptr<GameEngineCollision> Attack = ColAttack->Collision(static_cast<int>(ContentsObjectType::Monster), );
@@ -191,7 +217,10 @@ void Player::MagicBolt()
 	}
 }
 
+void Player::Damage(int Damage)
+{
 
+}
 void Player::CameraMove()
 {
 	

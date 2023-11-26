@@ -8,6 +8,7 @@ BasicObjectElement::BasicObjectElement()
 
 BasicObjectElement::~BasicObjectElement() 
 {
+	
 }
 
 void BasicObjectElement::RendererSetting()
@@ -46,5 +47,10 @@ void BasicObjectElement::GravityCheck(float _DeltaTime)
 			Gravity = 0.0f;*/
 		}
 	}
+}
+
+void BasicObjectElement::Damage(int _Damge)
+{
+
 }
 

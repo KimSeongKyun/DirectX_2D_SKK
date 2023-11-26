@@ -67,6 +67,15 @@
     <ClCompile Include="MiniMap.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Ladder.cpp">
+      <Filter>Object\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>Object\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageNumber.cpp">
+      <Filter>Object\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -135,6 +144,15 @@
     <ClInclude Include="MiniMap.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Ladder.h">
+      <Filter>Object\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Rope.h">
+      <Filter>Object\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageNumber.h">
+      <Filter>Object\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -163,6 +181,9 @@
     </Filter>
     <Filter Include="Object\UI">
       <UniqueIdentifier>{2493b1df-2bcd-4426-bcff-38d7bd83de71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Object">
+      <UniqueIdentifier>{1128ed00-1d5a-4ee4-ba5b-ca866eb679c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

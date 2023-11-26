@@ -36,6 +36,7 @@ private:
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
 	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;
+	std::shared_ptr<class Ladder> Ladder0 = nullptr;
 
 	
 	void ResourceLoad();

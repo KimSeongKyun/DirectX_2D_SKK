@@ -12,6 +12,7 @@ BasicLevel::BasicLevel()
 
 BasicLevel::~BasicLevel() 
 {
+	
 }
 
 void BasicLevel::Start()
@@ -46,7 +47,7 @@ void BasicLevel::DebugSwitch()
 	}
 }
 
-//void BasicLevel::FadeOutStart()
-//{
-//	FadeOut = true;
-//}
+void BasicLevel::ResourceLoad()
+{
+	
+}

@@ -14,6 +14,7 @@ Ellinia0_Level::Ellinia0_Level()
 
 Ellinia0_Level::~Ellinia0_Level()
 {
+	
 }
 
 void Ellinia0_Level::Start()
@@ -46,9 +47,10 @@ void Ellinia0_Level::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Ellinia0_Level::ResourceLoad()
 {	
+	BasicLevel::ResourceLoad();
 	// 플레이어 로드
 	{
-		if( nullptr == GameEngineSprite::Find("Idle0") )
+		if (nullptr == GameEngineSprite::Find("Idle0"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -84,52 +86,6 @@ void Ellinia0_Level::ResourceLoad()
 			}
 		}
 	}
-	//달팽이 리소스 로드
-	{
-		if (nullptr == GameEngineSprite::Find("SnaleDie0"))
-		{
-			GameEngineDirectory Dir;
-			Dir.MoveParentToExistsChild("GameEngineResources");
-			Dir.MoveChild("ContentsResources");
-			Dir.MoveChild("Texture");
-			Dir.MoveChild("Monster");
-			Dir.MoveChild("Snale");
-	
-			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
-
-			for (size_t i = 0; i < Directorys.size(); i++)
-			{
-				GameEngineDirectory& Dir = Directorys[i];
-				GameEngineSprite::CreateFolder(Dir.GetStringPath());
-			}
-		}
-	}
-
-	//맵 이미지 로드
-	{
-		if (nullptr == GameEngineSprite::Find("Ellinia0,png"))
-		{
-			GameEngineDirectory Dir;
-			Dir.MoveParentToExistsChild("GameEngineResources");
-			Dir.MoveChild("ContentsResources");
-			Dir.MoveChild("Texture");
-			Dir.MoveChild("Map");
-			Dir.MoveChild("ElliniaMap0");
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
-				GameEngineFile& File = Files[i];
-				GameEngineTexture::Load(File.GetStringPath());
-			}
-
-			GameEngineSprite::CreateSingle("Ellinia0.png");
-			GameEngineSprite::CreateSingle("ElliniaBackGround.png");
-			GameEngineSprite::CreateSingle("Ellinia0MiniMap.png");
-		}
-	}
-
 	//UI Status 리소스 로드
 	{
 		if (nullptr == GameEngineSprite::Find("AniGauge,png"))
@@ -225,6 +181,85 @@ void Ellinia0_Level::ResourceLoad()
 		}
 
 	}
+
+	{
+		if (nullptr == GameEngineSprite::Find("0.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Number");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("0.png");
+			GameEngineSprite::CreateSingle("1.png");
+			GameEngineSprite::CreateSingle("2.png");
+			GameEngineSprite::CreateSingle("3.png");
+			GameEngineSprite::CreateSingle("4.png");
+			GameEngineSprite::CreateSingle("5.png");
+			GameEngineSprite::CreateSingle("6.png");
+			GameEngineSprite::CreateSingle("7.png");
+			GameEngineSprite::CreateSingle("8.png");
+			GameEngineSprite::CreateSingle("9.png");
+		}
+	}
+	//달팽이 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("SnaleDie0"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("Snale");
+	
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
+
+	//맵 이미지 로드
+	{
+		if (nullptr == GameEngineSprite::Find("Ellinia0,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Map");
+			Dir.MoveChild("ElliniaMap0");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("Ellinia0.png");
+			GameEngineSprite::CreateSingle("ElliniaBackGround.png");
+			GameEngineSprite::CreateSingle("Ellinia0MiniMap.png");
+		}
+	}
+
+	
 }
 
 void Ellinia0_Level::ActorSetting()

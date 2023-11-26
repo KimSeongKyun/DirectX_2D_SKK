@@ -48,7 +48,7 @@ void Player::StateInit()
 
 				if (true == GameEngineInput::IsDown(VK_UP,this))
 				{
-					//RopeCheck();
+					RopeCheck();
 				}
 
 
@@ -123,9 +123,9 @@ void Player::StateInit()
 					FSM.ChangeState("Move");
 					
 				}
-				if (true == GameEngineInput::IsPress(VK_UP,this))
+				if (true == GameEngineInput::IsDown(VK_UP,this))
 				{					
-					//RopeCheck();
+					RopeCheck();
 				}
 
 				if (true == GameEngineInput::IsPress(VK_DOWN,this))
@@ -235,6 +235,11 @@ void Player::StateInit()
 						RendererStateChange("Swing");
 					}
 
+					if (true == GameEngineInput::IsDown(VK_UP, this))
+					{
+						RopeCheck();
+					}
+
 					if (PlayerGravityValue.Y <= 0)
 					{
 						
@@ -302,24 +307,78 @@ void Player::StateInit()
 
 			if (true == GameEngineInput::IsPress(VK_UP,this))
 			{
+				RendererStateChange("RopeMove");
 				Transform.AddWorldPosition(float4::UP* Speed* _DeltaTime);
 			}
 			if (true == GameEngineInput::IsPress(VK_DOWN,this))
 			{
+				RendererStateChange("RopeMove");
 				Transform.AddWorldPosition(float4::DOWN* Speed * _DeltaTime);
+			}
+
+			if (true == GameEngineInput::IsUp(VK_UP, this))
+			{
+				RendererStateChange("Rope");
+			}
+			if (true == GameEngineInput::IsUp(VK_DOWN, this))
+			{
+				RendererStateChange("Rope");
 			}
 
 			if (true == GameEngineInput::IsDown('X',this))
 			{
 				if(true == GameEngineInput::IsPress(VK_RIGHT, this))
-				JumpPower = { 0,2,0 };
+				
+				IsGravity = true;
 				FSM.ChangeState("Jump");
 			}
 
 		}
 		}
 	);
+	
+	FSM.CreateState(
+		{
+			.Name = "Ladder",
+			.Start = [this]()
+		{
+			RendererStateChange("Ladder");
+		},
+			.Update = [this](float _DeltaTime)
+		{
+			IsGravity = false;
 
+			if (true == GameEngineInput::IsPress(VK_UP,this))
+			{
+				RendererStateChange("LadderMove");
+				Transform.AddWorldPosition(float4::UP * Speed * _DeltaTime);
+			}
+			if (true == GameEngineInput::IsPress(VK_DOWN,this))
+			{
+				RendererStateChange("LadderMove");
+				Transform.AddWorldPosition(float4::DOWN * Speed * _DeltaTime);
+			}
+
+			if (true == GameEngineInput::IsUp(VK_UP, this))
+			{
+				RendererStateChange("Ladder");
+			}
+			if (true == GameEngineInput::IsUp(VK_DOWN, this))
+			{
+				RendererStateChange("Ladder");
+			}
+
+			if (true == GameEngineInput::IsDown('X',this))
+			{
+				if (true == GameEngineInput::IsPress(VK_RIGHT, this))
+
+				IsGravity = true;
+				FSM.ChangeState("Jump");
+			}
+
+		}
+		}
+	);
 	FSM.ChangeState("Idle");
 }
 

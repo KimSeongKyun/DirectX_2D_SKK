@@ -94,8 +94,6 @@ void Ariel::ComponentSetting()
 
 	for (size_t i = 0; i < 5; i++)
 	{
-	
-		
 		std::shared_ptr< GameEngineSpriteRenderer> SkillRenderer = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
 		SkillRenderer->CreateAnimation("ArielAttack1Hit","ArielAttack1Hit",0.15f);
 		SkillRenderer->CreateAnimation("ArielAttack2Hit","ArielAttack2Hit",0.15f);
@@ -150,4 +148,8 @@ void Ariel::SetHP(int _HP)
 void Ariel::Damage(int _Damge)
 {
 	int a = 0;
+}
+
+void Ariel::RendererSetting()
+{
 }

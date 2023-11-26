@@ -176,6 +176,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DamageNumber.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Ellinia0_Map.cpp">
       <SubType>
       </SubType>
@@ -189,6 +193,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineFSM.cpp" />
+    <ClCompile Include="Ladder.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="MapleStoryCore.cpp">
       <SubType>
       </SubType>
@@ -228,6 +236,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="QuickSlot.cpp" />
+    <ClCompile Include="Rope.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Snale.cpp" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="TitleLevel.cpp">
@@ -249,6 +261,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DamageNumber.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Ellinia0_Map.h">
       <SubType>
       </SubType>
@@ -262,6 +278,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineFSM.h" />
+    <ClInclude Include="Ladder.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="MapleStoryCore.h">
       <SubType>
       </SubType>
@@ -296,6 +316,10 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="QuickSlot.h" />
+    <ClInclude Include="Rope.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Snale.h" />
     <ClInclude Include="Status.h" />
     <ClInclude Include="TitleLevel.h">

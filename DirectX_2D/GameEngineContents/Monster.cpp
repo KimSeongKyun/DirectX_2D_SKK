@@ -11,6 +11,10 @@ Monster::~Monster()
 }
 
 
+void Monster::RendererSetting()
+{
+}
+
 void Monster::Start()
 {
 
@@ -62,8 +66,9 @@ void Monster::SetMonsterSize(float4 _Size)
 	MonsterScale = _Size;
 }
  
-void Monster::Damage(int _Damge)
-{	
+void  Monster::Damage(int _Damge)
+{
+
 }
 
 void Monster::SetKnockBack()	

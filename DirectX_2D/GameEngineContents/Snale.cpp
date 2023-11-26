@@ -57,7 +57,7 @@ void Snale::Update(float _Delta)
 					Render0->LeftFlip();
 					Transform.AddWorldPosition(float4::RIGHT * Speed * _Delta);
 
-					if (ColMap->GetColor(NextPosition.X, GetMonsterSize().hY() - NextPosition.Y, GetWallColor()) == GetWallColor())
+					if (ColMap->GetColor(static_cast<unsigned int>(NextPosition.X), static_cast<unsigned int>(GetMonsterSize().hY() - NextPosition.Y), GetWallColor()) == GetWallColor())
 					{
 						Transform.SetWorldPosition(CurPos);
 
@@ -131,6 +131,10 @@ void Snale::Update(float _Delta)
 	}
 
 
+}
+
+void Snale::RendererSetting()
+{
 }
 
 

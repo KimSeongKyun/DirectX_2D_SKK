@@ -43,6 +43,7 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void StateInit();
+	void Damage(int Damage) override;
 
 private:
 	GameEngineFSM FSM;
@@ -68,15 +69,16 @@ private:
 
 	std::shared_ptr<class GameEngineCollision> ColAttack;
 	std::shared_ptr<class GameEngineCollision> ColBody;
+	std::shared_ptr<class GameEngineCollision> ColLadder;
 	std::shared_ptr<class PlayerSkill> Skill0;
 	std::shared_ptr<class GameEngineTexture> CurMap;
-	
+	//std::shared_ptr<class DamageNumber> Test;
 	
 	void RendererStateChange(std::string_view _State);
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerBody;
 
 	void LRColCheck(float _DeltaTime, float4 _LeftOrRight);
-	
+	void RopeCheck();
 
 
 	void Attack();

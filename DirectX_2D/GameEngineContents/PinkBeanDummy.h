@@ -24,6 +24,7 @@ protected:
 private:
 	void ComponetSetting();
 	void ChangeState(int _StateNum);
+	void RendererSetting() override;
 
 	int StateNumber = 11;
 

@@ -30,3 +30,8 @@ void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	int a = 0;
 }
+
+void TitleLevel::ResourceLoad()
+{
+
+}

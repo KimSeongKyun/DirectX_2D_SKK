@@ -21,6 +21,7 @@ protected:
 	void Update(float _Delta) override;
 	void SetHP(int _HP) override;
 	void Damage(int _Damge) override;
+	void RendererSetting() override;
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ArielRender = nullptr;

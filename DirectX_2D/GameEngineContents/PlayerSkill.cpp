@@ -23,12 +23,22 @@ void PlayerSkill::Start()
 }
 void PlayerSkill::Update(float _Delta)
 {
-	if (CurSkill == SkillList::MagicBolt)
+	/*if (CurSkill == SkillList::MagicBolt)
 	{
 		MagicBoltUpdate(_Delta);
 		MagicBoltColCheck();
+	}*/
+	switch (CurSkill)
+	{
+	case SkillList::None:
+		break;
+	case SkillList::MagicBolt:
+		MagicBoltUpdate(_Delta);
+		MagicBoltColCheck();
+		break;
+	default:
+		break;
 	}
-
 }
 
 

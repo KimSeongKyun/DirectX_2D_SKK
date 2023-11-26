@@ -27,6 +27,7 @@ protected:
 	void Update(float _Delta) override;
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void DebugSwitch();
+	virtual void ResourceLoad() = 0;
 	//std::shared_ptr<class FadePostEffect> FadeEffect;
 
 private:

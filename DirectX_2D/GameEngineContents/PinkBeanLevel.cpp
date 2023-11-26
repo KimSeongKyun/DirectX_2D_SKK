@@ -9,6 +9,8 @@
 #include "Status.h"
 #include "QuickSlot.h"
 #include "MiniMap.h"
+#include "Ladder.h"
+#include "DamageNumber.h"
 #include <GameEngineCore/FadePostEffect.h>
 
 
@@ -19,6 +21,7 @@ PinkBeanLevel::PinkBeanLevel()
 
 PinkBeanLevel::~PinkBeanLevel() 
 {
+	
 }
 
 void PinkBeanLevel::Start()
@@ -32,6 +35,9 @@ void PinkBeanLevel::Start()
 void PinkBeanLevel::Update(float _Delta)
 {
 	DebugSwitch();
+	
+
+	
 }
 void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
@@ -43,6 +49,10 @@ void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	CurMapName = "PinkBeanMiniMap.png";
 	CameraSetting();
 	ActorSetting();
+
+	std::shared_ptr< DamageNumber> Test0 = CreateActor< DamageNumber>();
+	Test0->Transform.SetLocalPosition({ 720.0f, -500.0f });
+	Test0->Damage(100);
 }
 void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -51,6 +61,8 @@ void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 
 void PinkBeanLevel::ResourceLoad()
 {
+	BasicLevel::ResourceLoad();
+
 	// 플레이어 로드
 	{
 		if (nullptr == GameEngineSprite::Find("Idle0"))
@@ -87,6 +99,133 @@ void PinkBeanLevel::ResourceLoad()
 				GameEngineDirectory& Dir = Directorys[i];
 				GameEngineSprite::CreateFolder(Dir.GetStringPath());
 			}
+		}
+	}
+	//UI Status 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("AniGauge,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("Status");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("AniGauge.png");
+			GameEngineSprite::CreateSingle("HPBar.png");
+			GameEngineSprite::CreateSingle("MPBar.png");
+			GameEngineSprite::CreateSingle("StatusLayer.png");
+			GameEngineSprite::CreateSingle("StatusLayer.png");
+		}
+
+	}
+
+	//QuickSlot UI 리소스
+	{
+		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("Quick");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("QuickBack.png");
+			GameEngineSprite::CreateSingle("QuickButton.png");
+			GameEngineSprite::CreateSingle("QuickCover.png");
+
+		}
+
+	}
+
+	//MiniMap 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("MiniMap");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("MinMapLeft.png");
+			GameEngineSprite::CreateSingle("MiniMapBottom.png");
+			GameEngineSprite::CreateSingle("MiniMapLeft.png");
+			GameEngineSprite::CreateSingle("MiniMapLeftBottom.png");
+			GameEngineSprite::CreateSingle("MiniMapLeftTop.png");
+			GameEngineSprite::CreateSingle("MiniMapRight.png");
+			GameEngineSprite::CreateSingle("MiniMapRightBottom.png");
+			GameEngineSprite::CreateSingle("MiniMapRightTop.png");
+			GameEngineSprite::CreateSingle("MiniMapTop.png");
+			GameEngineSprite::CreateSingle("MiniMapUser.png");
+
+
+		}
+
+	}
+
+	{
+		if (nullptr == GameEngineSprite::Find("0.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Number");
+
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("0.png");
+			GameEngineSprite::CreateSingle("1.png");
+			GameEngineSprite::CreateSingle("2.png");
+			GameEngineSprite::CreateSingle("3.png");
+			GameEngineSprite::CreateSingle("4.png");
+			GameEngineSprite::CreateSingle("5.png");
+			GameEngineSprite::CreateSingle("6.png");
+			GameEngineSprite::CreateSingle("7.png");
+			GameEngineSprite::CreateSingle("8.png");
+			GameEngineSprite::CreateSingle("9.png");
 		}
 	}
 
@@ -177,101 +316,7 @@ void PinkBeanLevel::ResourceLoad()
 		}
 	}
 
-	//UI Status 리소스 로드
-	{
-		if (nullptr == GameEngineSprite::Find("AniGauge,png"))
-		{
-			GameEngineDirectory Dir;
-			Dir.MoveParentToExistsChild("GameEngineResources");
-			Dir.MoveChild("ContentsResources");
-			Dir.MoveChild("Texture");
-			Dir.MoveChild("UI");
-			Dir.MoveChild("Status");
-
-			
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
-				GameEngineFile& File = Files[i];
-				GameEngineTexture::Load(File.GetStringPath());
-			}
-
-			GameEngineSprite::CreateSingle("AniGauge.png");
-			GameEngineSprite::CreateSingle("HPBar.png");
-			GameEngineSprite::CreateSingle("MPBar.png");
-			GameEngineSprite::CreateSingle("StatusLayer.png");
-			GameEngineSprite::CreateSingle("StatusLayer.png");
-					}
-
-	}
-
-	//QuickSlot UI 리소스
-	{
-		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
-		{
-			GameEngineDirectory Dir;
-			Dir.MoveParentToExistsChild("GameEngineResources");
-			Dir.MoveChild("ContentsResources");
-			Dir.MoveChild("Texture");
-			Dir.MoveChild("UI");
-			Dir.MoveChild("Quick");
-
-
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
-				GameEngineFile& File = Files[i];
-				GameEngineTexture::Load(File.GetStringPath());
-			}
-
-			GameEngineSprite::CreateSingle("QuickBack.png");
-			GameEngineSprite::CreateSingle("QuickButton.png");
-			GameEngineSprite::CreateSingle("QuickCover.png");
-
-		}
-
-	}
-
-	//MiniMap 리소스 로드
-	{
-		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
-		{
-			GameEngineDirectory Dir;
-			Dir.MoveParentToExistsChild("GameEngineResources");
-			Dir.MoveChild("ContentsResources");
-			Dir.MoveChild("Texture");
-			Dir.MoveChild("UI");
-			Dir.MoveChild("MiniMap");
-
-
-			std::vector<GameEngineFile> Files = Dir.GetAllFile();
-
-			for (size_t i = 0; i < Files.size(); i++)
-			{
-				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
-				GameEngineFile& File = Files[i];
-				GameEngineTexture::Load(File.GetStringPath());
-			}
-
-			GameEngineSprite::CreateSingle("MinMapLeft.png");
-			GameEngineSprite::CreateSingle("MiniMapBottom.png");
-			GameEngineSprite::CreateSingle("MiniMapLeft.png");
-			GameEngineSprite::CreateSingle("MiniMapLeftBottom.png");
-			GameEngineSprite::CreateSingle("MiniMapLeftTop.png");
-			GameEngineSprite::CreateSingle("MiniMapRight.png");
-			GameEngineSprite::CreateSingle("MiniMapRightBottom.png");
-			GameEngineSprite::CreateSingle("MiniMapRightTop.png");
-			GameEngineSprite::CreateSingle("MiniMapTop.png");
-			GameEngineSprite::CreateSingle("MiniMapUser.png");
-
-
-		}
-
-	}
+	
 }
 
 void PinkBeanLevel::ActorSetting()
@@ -328,6 +373,13 @@ void PinkBeanLevel::ActorSetting()
 		
 		MiniMap0->Transform.SetWorldPosition({ 0.0f, 0.0f });
 		
+	}
+
+	if (Ladder0 == nullptr)
+	{
+		Ladder0 = CreateActor<Ladder>(ContentsObjectType::Object);
+		Ladder0->Transform.SetWorldPosition({ 894.0f, -425.0f });
+		Ladder0->SetLadderScale({50.0f, 100.0f});
 	}
 }
 

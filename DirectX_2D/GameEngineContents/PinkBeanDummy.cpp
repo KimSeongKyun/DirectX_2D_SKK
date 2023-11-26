@@ -147,3 +147,7 @@ void PinkBeanDummy::ChangeState(int _StateNum)
 
 	PinkBeanDummyRender->ChangeAnimation(CurState);
 }
+
+void PinkBeanDummy::RendererSetting()
+{
+}

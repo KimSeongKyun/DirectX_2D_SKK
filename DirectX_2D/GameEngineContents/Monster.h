@@ -29,11 +29,11 @@ public:
 	float4 GetMonsterSize();
 	void SetMonsterSize(float4 _Size);
 
-	
+	virtual void Damage(int _Damge) override;
 	virtual void SetHP(int _HP) = 0;
 	bool IsKnockBack() { return KnockBack; };
 	void ChangeKnockBack() { KnockBack = !KnockBack; };
-
+	void RendererSetting() override;
 	
 
 
@@ -55,7 +55,7 @@ private:
 	bool KnockBack = false;
 
 public:
-	virtual void Damage(int _Damge) = 0;
+	
 	void SetKnockBack();
 	
 	

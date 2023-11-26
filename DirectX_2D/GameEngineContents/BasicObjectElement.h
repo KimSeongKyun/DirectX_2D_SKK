@@ -18,7 +18,9 @@ public:
 	void GravityCheck(float _DeltaTime);
 	void SetColMap(const std::string_view& _ColMap) { ColMap = GameEngineTexture::Find(_ColMap); };
 	void SetObjectSize(float4 _Size) { ObjectSize = _Size; };
+	virtual void Damage(int _Damge) = 0;
 	
+
 	std::shared_ptr<class GameEngineTexture> ColMap;
 	GameEngineColor ColColor = { 255, 0, 255 , 255 };
 
@@ -30,8 +32,9 @@ public:
 
 
 protected:
-	virtual void RendererSetting();
-private:
+	virtual void RendererSetting() = 0;
+	
 
+private:
 };
 

@@ -175,33 +175,38 @@ void  Player::LRColCheck(float _DeltaTime, float4 _LeftOrRight)
 
 void Player::RopeCheck()
 {	
-	if (false != ColLadder->Collision(ObjectCollision::Ladder) )
-	{
+	std::function<void(std::vector<GameEngineCollision*>& _Collisions)> Collisions;
+	ColLadder->Collision(ObjectCollision::Ladder, [&](std::vector<GameEngineCollision*>& _Collisions) {
+
+		float4 PlayerPos1 = Transform.GetWorldPosition();
+		PlayerPos1.X = _Collisions[0]->Transform.GetWorldPosition().X;
+
+		Transform.SetWorldPosition(PlayerPos1);
+
 		FSM.ChangeState("Ladder");
-	}
-	int a = 0;
-	if (false != ColLadder->Collision(ObjectCollision::Rope))
-	{
+	});
+	
+	ColLadder->Collision(ObjectCollision::Rope, [&](std::vector<GameEngineCollision*>& _Collisions) {
+		
+		float4 PlayerPos1 = Transform.GetWorldPosition();
+		PlayerPos1.X = _Collisions[0]->Transform.GetWorldPosition().X;
+		
+		Transform.SetWorldPosition(PlayerPos1);
+
 		FSM.ChangeState("Rope");
-	}
+	});
 	
 }
 
 void Player::Attack()
 {
-	//std::shared_ptr<GameEngineCollision> Attack = ColAttack->Collision(static_cast<int>(ContentsObjectType::Monster), );
-	//
-	//if (Attack == nullptr)
-	//{
-	//	return;
-	//}
-	//
-	//if (Attack != nullptr)
-	//{
-	//	std::shared_ptr<Monster> ColMonster = Attack->GetActor()->GetDynamic_Cast_This<Monster>();
-	//
-	//	ColMonster->Damage(10);
-	//}
+	ColAttack->Collision(static_cast<int>(ContentsObjectType::Monster), [&](std::vector<GameEngineCollision*>&_Collisions) {
+		
+			std::shared_ptr<Monster> ColMonster = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Monster>();
+
+			ColMonster->Damage(10);
+		
+	});
 }
 
 void Player::MagicBolt()

@@ -327,7 +327,7 @@ void Player::StateInit()
 
 			if (true == GameEngineInput::IsDown('X',this))
 			{
-				if(true == GameEngineInput::IsPress(VK_RIGHT, this))
+				
 				
 				IsGravity = true;
 				FSM.ChangeState("Jump");

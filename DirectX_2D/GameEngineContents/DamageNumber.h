@@ -23,6 +23,7 @@ private:
 	std::vector<std::shared_ptr<GameEngineSpriteRenderer>>NumberLists;
 	std::shared_ptr< GameEngineSpriteRenderer>Test0;
 
+	float LiveTime = 0.0f;
 	bool IsStart = false;
 };
 

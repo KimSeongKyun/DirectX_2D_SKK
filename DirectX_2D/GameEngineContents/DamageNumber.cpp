@@ -15,6 +15,7 @@ void DamageNumber::Start()
 
 void DamageNumber::Update(float _Delta)
 {
+	LiveTime += _Delta;
 	if (NumberLists.size() != 0)
 	{
 		for (size_t i = 0; i < NumberLists.size(); i++)
@@ -24,6 +25,10 @@ void DamageNumber::Update(float _Delta)
 		}
 	}
 	
+	if (LiveTime >= 0.7f)
+	{
+		Death();
+	}
 }
 void DamageNumber::Damage(int _Damage)
 {
@@ -40,13 +45,15 @@ void DamageNumber::Damage(int _Damage)
 		Damage /= 10;
 	}
 
-	for (size_t i = DamageList.size() - 1; 0 < i; --i)
+	int a = 0;
+	for (int i = static_cast<int>(DamageList.size() - 1); 0 <= i; --i)
 	{
 		std::shared_ptr<GameEngineSpriteRenderer> Number;
 		Number = CreateComponent<GameEngineSpriteRenderer>(ContentsObjectType::DamageNumber);
 		Number->SetSprite(std::to_string(DamageList[i]) + ".png");
-		Number->Transform.SetLocalPosition({ static_cast<float>(20 * i), 0.0f });
+		Number->Transform.SetLocalPosition({ static_cast<float>(20 * a), 0.0f });
 		NumberLists.push_back(Number);
+		a++;
 	}
 
 

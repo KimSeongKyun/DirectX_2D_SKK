@@ -32,8 +32,6 @@ void DamageNumber::Update(float _Delta)
 }
 void DamageNumber::Damage(int _Damage)
 {
-
-	
 	std::vector<int> DamageList;
 
 	int Damage = _Damage;

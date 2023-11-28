@@ -3,8 +3,9 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include "PlayMap.h"
-#include "PlayerSkill.h"
+#include "MagicBolt.h"
 #include "Monster.h"
+#include "ColdBim.h"
 #include "DamageNumber.h"
 
 float4 Player::PlayerPos = { 0.0f, 0.0f, 0.0f };
@@ -46,16 +47,34 @@ void Player::Update(float _Delta)
 		MagicBolt();
 	}
 
-	if (SkillOn == true)
+	if (GameEngineInput::IsDown('S', this))
+	{
+		ColdBim();
+	}
+
+	if (ColdBimOn == true)
 	{
 		SkillTime += _Delta;
 
 		if (SkillTime >= MaxSkillTime != 0.0f)
 		{
-			Skill0->Death();
-			Skill0 = nullptr;
+			ColdBim0->Death();
+			ColdBim0 = nullptr;
 			SkillTime = 0.0f;
-			SkillOn = false;
+			ColdBimOn = false;
+		}
+	}
+
+	if (MagicBoltOn == true)
+	{
+		SkillTime += _Delta;
+
+		if (SkillTime >= MaxSkillTime != 0.0f)
+		{
+			MagicBolt0->Death();
+			MagicBolt0 = nullptr;
+			SkillTime = 0.0f;
+			MagicBoltOn = false;
 		}
 	}
 }
@@ -69,9 +88,9 @@ void Player::RendererSetting()
 		PlayerBody->CreateAnimation("Idle", "Idle", 0.2f);
 		PlayerBody->CreateAnimation("Move", "Move", 0.2f);
 		PlayerBody->CreateAnimation("Jump", "Jump", 0.2f);
-		PlayerBody->CreateAnimation("Swing0", "Swing0", 0.2f);
-		PlayerBody->CreateAnimation("Swing1", "Swing1", 0.2f);
-		PlayerBody->CreateAnimation("Swing2", "Swing2", 0.2f);
+		PlayerBody->CreateAnimation("Swing0", "Swing0", 0.1f);
+		PlayerBody->CreateAnimation("Swing1", "Swing1", 0.1f);
+		PlayerBody->CreateAnimation("Swing2", "Swing2", 0.1f);
 		PlayerBody->CreateAnimation("Rope", "Rope", 0.2f);
 		PlayerBody->CreateAnimation("RopeMove", "RopeMove");
 		PlayerBody->CreateAnimation("Ladder", "Ladder", 0.2f);
@@ -175,7 +194,7 @@ void  Player::LRColCheck(float _DeltaTime, float4 _LeftOrRight)
 
 void Player::RopeCheck()
 {	
-	std::function<void(std::vector<GameEngineCollision*>& _Collisions)> Collisions;
+	//std::function<void(std::vector<GameEngineCollision*>& _Collisions)> Collisions;
 	ColLadder->Collision(ObjectCollision::Ladder, [&](std::vector<GameEngineCollision*>& _Collisions) {
 
 		float4 PlayerPos1 = Transform.GetWorldPosition();
@@ -211,14 +230,25 @@ void Player::Attack()
 
 void Player::MagicBolt()
 {
-	if (Skill0 == nullptr)
+	if (MagicBolt0 == nullptr)
 	{
-		Skill0 = GetLevel()->CreateActor<PlayerSkill>(5);
-		Skill0->Transform.SetWorldPosition(Transform.GetWorldPosition());
-		Skill0->SetSkillName(SkillList::MagicBolt);
+		MagicBolt0 = GetLevel()->CreateActor<class MagicBolt>(5);
+		MagicBolt0->Transform.SetWorldPosition(Transform.GetWorldPosition());
 		RendererStateChange("Swing");
 		MaxSkillTime = 1.0f;
-		SkillOn = true;
+		MagicBoltOn = true;
+	}
+}
+
+void Player::ColdBim()
+{
+	if (ColdBim0 == nullptr)
+	{
+		ColdBim0 = GetLevel()->CreateActor<class ColdBim>(5);
+		ColdBim0->Transform.SetWorldPosition(Transform.GetWorldPosition());
+		RendererStateChange("Swing");
+		MaxSkillTime = 1.0f;
+		ColdBimOn = true;
 	}
 }
 

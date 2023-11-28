@@ -9,6 +9,7 @@ enum class EArielState
 	Genesis,
 	Mteor,
 	Die,
+	Hit,
 
 };
 
@@ -53,11 +54,14 @@ private:
 
 	void StandUpdate(float _Delta);
 	void GenesisUpdate(float _Delta);
+	void HitUpdate(float _Delta);
 
-	int HP = 0;
+	int HP = 1000;
 
 	int SkillRange = 385;
 	float SkillTime = 0.0f;
+
+	float HitTime = 0.0f;
 
 	bool SkillOn = false;
 	bool DifCheck = false;

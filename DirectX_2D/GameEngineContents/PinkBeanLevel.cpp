@@ -11,6 +11,8 @@
 #include "MiniMap.h"
 #include "Ladder.h"
 #include "DamageNumber.h"
+#include "Solomon.h"
+#include "Rex.h"
 #include <GameEngineCore/FadePostEffect.h>
 
 
@@ -27,21 +29,14 @@ PinkBeanLevel::~PinkBeanLevel()
 void PinkBeanLevel::Start()
 {
 	BasicLevel::Start();
-	
-
-	
-	
 }
 void PinkBeanLevel::Update(float _Delta)
 {
 	DebugSwitch();
-	
 
-	
 }
 void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-
 	BasicLevel::LevelStart(_PrevLevel);
 	ResourceLoad();
 	CurMiniMap = GameEngineTexture::Find("PinkBeanMiniMap.png");
@@ -61,7 +56,6 @@ void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 
 void PinkBeanLevel::ResourceLoad()
 {
-	BasicLevel::ResourceLoad();
 
 	// 플레이어 로드
 	{
@@ -91,7 +85,6 @@ void PinkBeanLevel::ResourceLoad()
 			Dir.MoveChild("Texture");
 			Dir.MoveChild("Player");
 			Dir.MoveChild("Skill");
-			Dir.MoveChild("MagicBolt");
 			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 			for (size_t i = 0; i < Directorys.size(); i++)
@@ -103,7 +96,7 @@ void PinkBeanLevel::ResourceLoad()
 	}
 	//UI Status 리소스 로드
 	{
-		if (nullptr == GameEngineSprite::Find("AniGauge,png"))
+		if (nullptr == GameEngineSprite::Find("AniGauge.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -133,7 +126,7 @@ void PinkBeanLevel::ResourceLoad()
 
 	//QuickSlot UI 리소스
 	{
-		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
+		if (nullptr == GameEngineSprite::Find("QuickBack.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -191,10 +184,7 @@ void PinkBeanLevel::ResourceLoad()
 			GameEngineSprite::CreateSingle("MiniMapRightTop.png");
 			GameEngineSprite::CreateSingle("MiniMapTop.png");
 			GameEngineSprite::CreateSingle("MiniMapUser.png");
-
-
 		}
-
 	}
 
 	{
@@ -272,9 +262,7 @@ void PinkBeanLevel::ResourceLoad()
 			GameEngineSprite::CreateSingle("PinkBeanMap.png");
 			GameEngineSprite::CreateSingle("PinkBeanBackGround.png");
 			GameEngineSprite::CreateSingle("PinkBeanMiniMap.png");
-
 		}
-
 	}
 
 	//아리엘 이미지 로드
@@ -315,6 +303,45 @@ void PinkBeanLevel::ResourceLoad()
 			}
 		}
 	}
+	//솔로몬 이미지 로드
+
+	{
+		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("Solomon");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
+
+	{
+		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("Rex");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
 
 	
 }
@@ -337,7 +364,7 @@ void PinkBeanLevel::ActorSetting()
 	if (Ariel0 == nullptr)
 	{
 		Ariel0 = CreateActor<Ariel>();
-		Ariel0->Transform.SetWorldPosition({ 894.0f, -340.0f, 1.0f });
+		Ariel0->Transform.SetWorldPosition({ 903.0f, -340.0f, 1.0f });
 	}
 	
 	if (PinkBeanDummy0 == nullptr)
@@ -380,6 +407,18 @@ void PinkBeanLevel::ActorSetting()
 		Ladder0 = CreateActor<Ladder>(ContentsObjectType::Object);
 		Ladder0->Transform.SetWorldPosition({ 894.0f, -425.0f });
 		Ladder0->SetLadderScale({50.0f, 100.0f});
+	}
+
+	if (Solomon0 == nullptr)
+	{
+		Solomon0 = CreateActor<Solomon>();
+		Solomon0->Transform.SetWorldPosition({ 235.0f, -648.0f, 1.0f });
+	}
+
+	if (Rex0 == nullptr)
+	{
+		Rex0 = CreateActor<Rex>();
+		Rex0->Transform.SetWorldPosition({ 1577.0f, -648.0f, 1.0f });
 	}
 }
 

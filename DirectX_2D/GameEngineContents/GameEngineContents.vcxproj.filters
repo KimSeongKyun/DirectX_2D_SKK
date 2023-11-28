@@ -24,9 +24,6 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerSkill.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
@@ -76,6 +73,18 @@
     <ClCompile Include="DamageNumber.cpp">
       <Filter>Object\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Solomon.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Rex.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicBolt.cpp">
+      <Filter>Object\Player\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="ColdBim.cpp">
+      <Filter>Object\Player\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -100,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="GameEngineFSM.h">
       <Filter>Object\Player\StateFSM</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSkill.h">
-      <Filter>Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Object\Monster</Filter>
@@ -153,6 +159,18 @@
     <ClInclude Include="DamageNumber.h">
       <Filter>Object\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Solomon.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Rex.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicBolt.h">
+      <Filter>Object\Player\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="ColdBim.h">
+      <Filter>Object\Player\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -184,6 +202,9 @@
     </Filter>
     <Filter Include="Object\Object">
       <UniqueIdentifier>{1128ed00-1d5a-4ee4-ba5b-ca866eb679c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\Skill">
+      <UniqueIdentifier>{c3ee72a2-9756-474a-bcbe-38ff26b836ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

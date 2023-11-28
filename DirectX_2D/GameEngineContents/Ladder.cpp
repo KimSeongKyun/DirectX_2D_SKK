@@ -20,7 +20,7 @@ void Ladder::Update(float _delta)
 
 void Ladder::RenderSetting()
 {
-	LadderCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Rope);
+	LadderCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Ladder);
 	LadderCollision->SetCollisionType(ColType::AABBBOX2D);
 	
 }

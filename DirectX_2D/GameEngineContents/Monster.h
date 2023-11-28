@@ -45,6 +45,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineTexture> CurMap;
+	
 
 	GameEngineColor ColGroundColor = { 255, 0, 255, 255 };
 	GameEngineColor ColWallColor = { 0, 255, 255, 255 };

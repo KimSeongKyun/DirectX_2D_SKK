@@ -19,7 +19,7 @@ void Rope::Update(float _delta)
 
 void Rope::RenderSetting()
 {
-	RopeCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Ladder);
+	RopeCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Rope);
 	RopeCollision->SetCollisionType(ColType::AABBBOX2D);
 
 }

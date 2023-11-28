@@ -58,7 +58,8 @@ private:
 	
 
 	bool Attack_Ing = false;
-	bool SkillOn = false;
+	bool MagicBoltOn = false;
+	bool ColdBimOn = false;
 	
 
 	float SkillTime = 0.0f;
@@ -70,7 +71,8 @@ private:
 	std::shared_ptr<class GameEngineCollision> ColAttack;
 	std::shared_ptr<class GameEngineCollision> ColBody;
 	std::shared_ptr<class GameEngineCollision> ColLadder;
-	std::shared_ptr<class PlayerSkill> Skill0;
+	std::shared_ptr<class MagicBolt> MagicBolt0;
+	std::shared_ptr<class ColdBim> ColdBim0;
 	std::shared_ptr<class GameEngineTexture> CurMap;
 	//std::shared_ptr<class DamageNumber> Test;
 	
@@ -83,6 +85,7 @@ private:
 
 	void Attack();
 	void MagicBolt();
+	void ColdBim();
 	
 };
 

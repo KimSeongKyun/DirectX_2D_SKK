@@ -13,7 +13,7 @@ enum class ContentsObjectType
 	Ground,
 	Monster,
 	Player,
-	PlayerSkill,
+	Skill,
 	Object,
 	DamageNumber,
 };
@@ -22,6 +22,7 @@ enum class ObjectCollision
 {
 	PlayerBody,
 	PlayerBodyToLadder,
+	PlayerSkill,
 	Portal,
 	Ladder,
 	Rope,

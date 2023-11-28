@@ -41,6 +41,9 @@ void Ariel::Update(float _Delta)
 		break;
 	case EArielState::Die:
 		break;
+	case EArielState::Hit:
+		HitUpdate(_Delta);
+		break;
 	default:
 		break;
 	}
@@ -49,28 +52,6 @@ void Ariel::Update(float _Delta)
 void Ariel::GenesisUpdate(float _Delta)
 {
 
-	ArielGenesis[1]->SetFrameEvent("ArielAttack1Hit", 13, [&](GameEngineSpriteRenderer*)
-		{
-			for (size_t i = 0; i < 5; i++)
-			{
-				GenesisCollisions[i]->On();
-			}
-
-		});
-
-	ArielGenesis[1]->SetEndEvent("ArielAttack1Hit", [&](GameEngineSpriteRenderer*)
-		{
-		
-			for (size_t i = 0; i < 5; i++)
-			{
-				GenesisCollisions[i]->Off();
-			}
-
-			ChangeState("ArielStand");
-
-		});
-	
-	
 	
 	if (ArielState != "ArielStand")
 	{
@@ -88,9 +69,24 @@ void Ariel::StandUpdate(float _Delta)
 
 }
 
+void Ariel::HitUpdate(float _Delta)
+{
+	HitTime += _Delta;
+
+	if (HitTime >= 1.0f)
+	{
+		ChangeState("ArielStand");
+	}
+}
+
 
 void Ariel::ChangeState(std::string _State)
 {
+	if (ArielState == _State)
+	{
+		return;
+	}
+
 	RenderDifCheck();
 	ArielState = _State;
 
@@ -137,24 +133,14 @@ void Ariel::ChangeState(std::string _State)
 void Ariel::ComponentSetting()
 {
 	ArielRender = CreateComponent <GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
-	ArielRender->CreateAnimation("ArielStand","ArielStand",0.15f);
-	ArielRender->CreateAnimation("ArielDie", "ArielDie",0.15f);
-	ArielRender->CreateAnimation("ArielSkill1", "ArielSkill1",0.15f);
-	ArielRender->CreateAnimation("ArielSkill2", "ArielSkill2",0.15f);
-	ArielRender->CreateAnimation("ArielAttack1Effect", "ArielAttack1Effect",0.15f);
-	ArielRender->CreateAnimation("ArielAttack2Effect", "ArielAttack2Effect",0.15f);
+	ArielRender->CreateAnimation("ArielStand","ArielStand",0.15f,-1,-1,false);
+	ArielRender->CreateAnimation("ArielDie", "ArielDie",0.15f, - 1, -1, false);
+	ArielRender->CreateAnimation("ArielSkill1", "ArielSkill1",0.15f, - 1, -1, false);
+	ArielRender->CreateAnimation("ArielSkill2", "ArielSkill2",0.15f, - 1, -1, false);
+	ArielRender->CreateAnimation("ArielAttack1Effect", "ArielAttack1Effect",0.15f, - 1, -1, false);
+	ArielRender->CreateAnimation("ArielAttack2Effect", "ArielAttack2Effect",0.15f, - 1, -1, false);
+	ArielRender->CreateAnimation("ArielHit", "ArielHit", 0.15f);
 	ArielRender->AutoSpriteSizeOn();
-	std::shared_ptr<GameEngineFrameAnimation> _Animation;
-	//_Animation->Loop = false;
-	//_Animation = ArielRender->FindAnimation("ArielSkill1");
-	//_Animation->Loop = false;
-	//_Animation = ArielRender->FindAnimation("ArielSkill2");
-	//_Animation->Loop = false;
-	//_Animation = ArielRender->FindAnimation("ArielAttack1Effect");
-	//_Animation->Loop = false;
-	//_Animation = ArielRender->FindAnimation("ArielAttack2Effect");
-	//_Animation->Loop = false;
-	
 
 	ArielRender->ChangeAnimation("ArielStand");
 
@@ -165,8 +151,8 @@ void Ariel::ComponentSetting()
 		SkillRenderer->Transform.AddLocalPosition({ 0.0f, 90.0f });
 		SkillRenderer->AutoSpriteSizeOn();
 		SkillRenderer->ChangeAnimation("ArielAttack1Hit");
-		_Animation = SkillRenderer->FindAnimation("ArielAttack1Hit");
-		_Animation->Loop = false;
+		//_Animation = SkillRenderer->FindAnimation("ArielAttack1Hit");
+		//_Animation->Loop = false;
 		SkillRenderer->Off();
 		ArielGenesis.push_back(SkillRenderer);
 		
@@ -193,13 +179,39 @@ void Ariel::ComponentSetting()
 		SkillRenderer->Transform.AddLocalPosition({ 0.0f, 90.0f });
 		SkillRenderer->AutoSpriteSizeOn();
 		SkillRenderer->ChangeAnimation("ArielAttack2Hit");
-		_Animation = SkillRenderer->FindAnimation("ArielAttack2Hit");
-		_Animation->Loop = false;
+		//_Animation = SkillRenderer->FindAnimation("ArielAttack2Hit");
+		//_Animation->Loop = false;
 		SkillRenderer->Off();
 		ArielMteor.push_back(SkillRenderer);
 	}
 
-	
+	ArielGenesis[1]->SetFrameEvent("ArielAttack1Hit", 13, [&](GameEngineSpriteRenderer*)
+		{
+			for (size_t i = 0; i < 5; i++)
+			{
+				GenesisCollisions[i]->On();
+			}
+
+		});
+
+	ArielGenesis[1]->SetEndEvent("ArielAttack1Hit", [&](GameEngineSpriteRenderer*)
+		{
+
+			for (size_t i = 0; i < 5; i++)
+			{
+				GenesisCollisions[i]->Off();
+				ArielGenesis[i]->Off();
+			}
+
+			ChangeState("ArielStand");
+
+		});
+
+	ArielRender->SetEndEvent("ArielDie", [&](GameEngineSpriteRenderer*) 
+		{
+			Death();
+		});
+
 }
 void Ariel::RenderDifCheck()
 {
@@ -227,13 +239,13 @@ void Ariel::Genesis()
 		ArielGenesis[i]->ChangeAnimation("ArielAttack1Hit");
 		ArielGenesis[i]->Transform.SetLocalPosition({ 0.0f, 55.0f,1.0f });
 		ArielGenesis[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
+		
 		GenesisCollisions[i]->Transform.SetLocalPosition({ 0.0f, 55.0f,1.0f });
 		GenesisCollisions[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
 		GenesisCollisions[i]->Off();
 	}
 
 	ChangeState("ArielAttack1Effect");
-	//ArielRender->SetFrameEvent("ArielAttack1Effect", 15, {});
 }
 
 void Ariel::Mteor()
@@ -255,20 +267,24 @@ void Ariel::Mteor()
 
 void Ariel::SetHP(int _HP)
 {
-	int a = 0;
+	HP = _HP;
 }
 
 void Ariel::Damage(int _Damge)
 {
-	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>(ContentsObjectType::Object);
-	Object->Transform.SetLocalPosition(Transform.GetWorldPosition());
+	float4 Test = Transform.GetWorldPosition();
+	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
+	Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
+	Object->Damage(_Damge);
 
 	HP -= _Damge;
 
 	if (HP <= 0)
 	{
 		ChangeState("ArielDie");
+		BodyCollision->Off();
 	}
+
 }
 
 void Ariel::RendererSetting()

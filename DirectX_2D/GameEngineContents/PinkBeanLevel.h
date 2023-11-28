@@ -31,7 +31,8 @@ private:
 	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
 	std::shared_ptr<class Portal> Portal0 = nullptr;
 	std::shared_ptr<class Portal> Portal1 = nullptr;
-	
+	std::shared_ptr<class Solomon> Solomon0 = nullptr;
+	std::shared_ptr<class Rex> Rex0 = nullptr;
 	//UI
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;

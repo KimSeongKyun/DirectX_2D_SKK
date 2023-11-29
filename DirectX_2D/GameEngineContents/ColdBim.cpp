@@ -60,25 +60,36 @@ void ColdBim::ComponentSetting()
 void ColdBim::ColdBimUpdate(float _Delta)
 {
 	TickTime += _Delta;
-
+	float4 PlayerPos1 = Player::PlayerPos;
 	if (DirectionSet == true)
 	{
 		DirectionSet = false;
 		CurPlayerDirection = static_cast<int>(Player::CurDirection);
 
+		if (CurPlayerDirection == 0)
+		{
+			
+			SkillRenderer1->Transform.SetWorldPosition(PlayerPos1 + float4::LEFT * 200 + float4::UP * 85.0f);
+		}
+
+		if (CurPlayerDirection == 1)
+		{
+			
+			SkillRenderer1->Transform.SetWorldPosition(PlayerPos1 + float4::RIGHT * 200 + float4::UP * 85.0f);
+		}
 	}
 
-	float4 PlayerPos1 = Player::PlayerPos;
+	
 	if (CurPlayerDirection == 0)
 	{
 		SkillRenderer0->Transform.SetWorldPosition(PlayerPos1 + float4::LEFT * 40);
-		SkillRenderer1->Transform.SetWorldPosition(PlayerPos1 + float4::LEFT * 200 + float4::UP * 85.0f);
+		
 	}
 
 	if (CurPlayerDirection == 1)
 	{
 		SkillRenderer0->Transform.SetWorldPosition(PlayerPos1 + float4::RIGHT * 40);
-		SkillRenderer1->Transform.SetWorldPosition(PlayerPos1 + float4::RIGHT * 200 + float4::UP * 85.0f);
+		
 	}
 
 	if (true == SkillRenderer0->IsCurAnimationEnd())
@@ -98,6 +109,12 @@ void ColdBim::ColdBimColCheck()
 
 		for (size_t i = 0; i < _Collisions.size(); i++)
 		{
+			bool PlayerReflect = Player::MainPlayer->GetReflect();
+			if (true == PlayerReflect)
+			{
+				Player::MainPlayer->Damage(20);
+				return;
+			}
 			std::shared_ptr<Monster> HitMonster = _Collisions[i]->GetActor()->GetDynamic_Cast_This<Monster>();
 			HitMonster->Damage(100);
 			ColSkill->Off();

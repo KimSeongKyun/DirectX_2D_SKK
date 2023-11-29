@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Ariel.h"
+#include "Player.h"
 #include "DamageNumber.h"
 
 Ariel::Ariel() 
@@ -18,31 +19,27 @@ void Ariel::Start()
 void Ariel::Update(float _Delta)
 {
 	
-
-	SkillTime += _Delta;
-
-	if (SkillTime >= 5.0f)
+	if (ArielState == "ArielDie")
 	{
-		Genesis();
-		SkillTime = 0.0f;
+		return;
 	}
 
+	if (false == CognitiveRange->Collision(ObjectCollision::PlayerBody))
+	{
+		return;
+	}
+	
+	SkillTime += _Delta;
 
+	CoolTimeCheck(_Delta);
 
 	switch (ArielStateE)
 	{
-	case EArielState::Stand:
-		StandUpdate(_Delta);
-		break;
 	case EArielState::Genesis:
 		GenesisUpdate(_Delta);
 		break;
 	case EArielState::Mteor:
-		break;
-	case EArielState::Die:
-		break;
-	case EArielState::Hit:
-		HitUpdate(_Delta);
+		MteorUpdate(_Delta);
 		break;
 	default:
 		break;
@@ -52,33 +49,29 @@ void Ariel::Update(float _Delta)
 void Ariel::GenesisUpdate(float _Delta)
 {
 
-	
-	if (ArielState != "ArielStand")
+	for (size_t i = 0; i < GenesisCollisions.size(); i++)
 	{
-		if (true == ArielRender->IsCurAnimationEnd())
-		{
-			ChangeState("ArielStand");
-			ArielRender->ChangeAnimation("ArielStand");
-		}
+		GenesisCollisions[i]->Collision(ObjectCollision::PlayerBody, [&](std::vector<GameEngineCollision*>& _Collisions) {
+
+			std::shared_ptr<Player> Player0 = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Player>();
+			Player0->Damage(100);
+			});
 	}
 	
+	
 }
 
-void Ariel::StandUpdate(float _Delta)
+void Ariel::MteorUpdate(float _Delta)
 {
-
-}
-
-void Ariel::HitUpdate(float _Delta)
-{
-	HitTime += _Delta;
-
-	if (HitTime >= 1.0f)
+	for (size_t i = 0; i < MteorCollisions.size(); i++)
 	{
-		ChangeState("ArielStand");
+		MteorCollisions[i]->Collision(ObjectCollision::PlayerBody, [&](std::vector<GameEngineCollision*>& _Collisions) {
+
+			std::shared_ptr<Player> Player0 = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Player>();
+			Player0->Damage(100);
+			});
 	}
 }
-
 
 void Ariel::ChangeState(std::string _State)
 {
@@ -90,10 +83,6 @@ void Ariel::ChangeState(std::string _State)
 	RenderDifCheck();
 	ArielState = _State;
 
-	if (ArielState == "ArielStand")
-	{
-		ArielStateE = EArielState::Stand;
-	}
 
 	if (ArielState == "ArielDie")
 	{
@@ -157,10 +146,20 @@ void Ariel::ComponentSetting()
 		ArielGenesis.push_back(SkillRenderer);
 		
 	}
-
+	if (BodyCollision == nullptr)
+	{
 	BodyCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
 	BodyCollision->Transform.SetWorldScale({ 124.0f, 144.0f });
+
+	}
+	if (CognitiveRange == nullptr)
+	{
+	CognitiveRange = CreateComponent<GameEngineCollision>(ObjectCollision::Range);
+	CognitiveRange->SetCollisionType(ColType::AABBBOX2D);
+	CognitiveRange->Transform.SetWorldScale({ 600.0f, 500.0f });
+	CognitiveRange->Transform.AddLocalPosition(float4::DOWN * 100.0f);
+	}
 
 	for (size_t i = 0; i < 5; i++)
 	{
@@ -170,6 +169,16 @@ void Ariel::ComponentSetting()
 		Collision0->Off();
 		
 		GenesisCollisions.push_back(Collision0);
+	}
+
+	for (size_t i = 0; i < 5; i++)
+	{
+		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+		Collision0->SetCollisionType(ColType::AABBBOX2D);
+		Collision0->Transform.SetWorldScale({ 120.0f, 120.0f });
+		Collision0->Off();
+
+		MteorCollisions.push_back(Collision0);
 	}
 
 	for (size_t i = 0; i < 5; i++)
@@ -203,7 +212,28 @@ void Ariel::ComponentSetting()
 				ArielGenesis[i]->Off();
 			}
 
-			ChangeState("ArielStand");
+			//ChangeState("ArielStand");
+
+		});
+
+	ArielMteor[1]->SetFrameEvent("ArielAttack2Hit", 13, [&](GameEngineSpriteRenderer*)
+		{
+			for (size_t i = 0; i < 5; i++)
+			{
+				MteorCollisions[i]->On();
+			}
+
+		});
+
+	ArielMteor[1]->SetEndEvent("ArielAttack2Hit", [&](GameEngineSpriteRenderer*)
+		{
+
+			for (size_t i = 0; i < 5; i++)
+			{
+				MteorCollisions[i]->Off();
+				ArielMteor[i]->Off();
+			}
+			
 
 		});
 
@@ -215,8 +245,6 @@ void Ariel::ComponentSetting()
 }
 void Ariel::RenderDifCheck()
 {
-	if (ArielRender->IsCurAnimationEnd() == true)
-	{
 		if (ArielState != "ArielStand")
 		{
 			if (DifCheck == true)
@@ -225,11 +253,10 @@ void Ariel::RenderDifCheck()
 				DifCheck = false;
 			}
 		}
-	}
 }
 void Ariel::Genesis()
 {
-	SkillOn = true;
+	GenesisOn = true;
 
 	for (size_t i = 0; i < 5; i++)
 	{
@@ -250,7 +277,7 @@ void Ariel::Genesis()
 
 void Ariel::Mteor()
 {
-	SkillOn = true;
+	MteorOn = true;
 
 	for (size_t i = 0; i < 5; i++)
 	{
@@ -260,9 +287,20 @@ void Ariel::Mteor()
 		ArielMteor[i]->ChangeAnimation("ArielAttack2Hit");
 		ArielMteor[i]->Transform.SetLocalPosition({ 0.0f, -105.0f,1.0f });
 		ArielMteor[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
+
+		MteorCollisions[i]->Transform.SetLocalPosition({ 0.0f, -292.0f,1.0f });
+		MteorCollisions[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
+		MteorCollisions[i]->Off();
 	}
 
 	ChangeState("ArielAttack2Effect");
+}
+
+void Ariel::Reflect()
+{
+	ReflectOn = true;
+	ChangeState("ArielSkill1");
+	Player::MainPlayer->SetReflect(true);
 }
 
 void Ariel::SetHP(int _HP)
@@ -272,7 +310,7 @@ void Ariel::SetHP(int _HP)
 
 void Ariel::Damage(int _Damge)
 {
-	float4 Test = Transform.GetWorldPosition();
+	
 	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
 	Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
 	Object->Damage(_Damge);
@@ -281,10 +319,67 @@ void Ariel::Damage(int _Damge)
 
 	if (HP <= 0)
 	{
-		ChangeState("ArielDie");
 		BodyCollision->Off();
+		ChangeState("ArielDie");
 	}
 
+}
+
+void Ariel::CoolTimeCheck(float _Delta)
+{
+	if (GenesisOn == true)
+	{
+		GenesisCoolTime += _Delta;
+
+		if (GenesisCoolTime >= 10.0f)
+		{
+			ChangeState("ArielStand");
+			GenesisCoolTime = 1.0f;
+			GenesisOn = false;
+		}
+		return;
+	}
+
+	if (MteorOn == true)
+	{
+		MteorCoolTime += _Delta;
+
+		if (MteorCoolTime >= 10.0f)
+		{
+			ChangeState("ArielStand");
+			MteorCoolTime = 1.0f;
+			MteorOn = false;
+		}
+		return;
+	}
+
+	if (ReflectOn == true)
+	{
+		ReflectCoolTime += _Delta;
+
+		if (ReflectCoolTime >= 20.0f)
+		{
+			ChangeState("ArielStand");
+			ReflectCoolTime = 1.0f;
+			ReflectOn = false;
+		}
+		return;
+	}
+
+	int RandomNum = Random.RandomInt(0, 2);
+
+	if (RandomNum == 0)
+	{
+		Genesis();
+	}
+	if (RandomNum == 1)
+	{
+		Mteor();
+	}
+	if (RandomNum == 2)
+	{
+		Reflect();
+	}
 }
 
 void Ariel::RendererSetting()

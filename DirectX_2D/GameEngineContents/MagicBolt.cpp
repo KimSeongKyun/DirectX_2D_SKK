@@ -128,6 +128,12 @@ void MagicBolt::MagicBoltColCheck()
 
 	ColSkill->Collision(ObjectCollision::Monster, [&](std::vector<GameEngineCollision*>& _Collisions) {
 
+		bool PlayerReflect = Player::MainPlayer->GetReflect();
+		if (true == PlayerReflect)
+		{
+			Player::MainPlayer->Damage(10);
+			return;
+		}
 		std::shared_ptr<Monster> HitMonster = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Monster>();
 		HitMonster->Damage(255);
 		ColSkill->Off();

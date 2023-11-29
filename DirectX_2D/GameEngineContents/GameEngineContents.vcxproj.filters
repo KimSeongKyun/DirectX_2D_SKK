@@ -73,9 +73,6 @@
     <ClCompile Include="DamageNumber.cpp">
       <Filter>Object\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Solomon.cpp">
-      <Filter>Object\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="Rex.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
@@ -84,6 +81,15 @@
     </ClCompile>
     <ClCompile Include="ColdBim.cpp">
       <Filter>Object\Player\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Whigin.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Solomon.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Munin.cpp">
+      <Filter>Object\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +165,6 @@
     <ClInclude Include="DamageNumber.h">
       <Filter>Object\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Solomon.h">
-      <Filter>Object\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="Rex.h">
       <Filter>Object\Monster</Filter>
     </ClInclude>
@@ -170,6 +173,15 @@
     </ClInclude>
     <ClInclude Include="ColdBim.h">
       <Filter>Object\Player\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Whigin.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Solomon.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Munin.h">
+      <Filter>Object\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

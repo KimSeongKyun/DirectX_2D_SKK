@@ -27,5 +27,6 @@ enum class ObjectCollision
 	Ladder,
 	Rope,
 	Monster,
+	Range,
 
 };

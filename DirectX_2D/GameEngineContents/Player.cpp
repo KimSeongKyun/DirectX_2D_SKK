@@ -10,10 +10,11 @@
 
 float4 Player::PlayerPos = { 0.0f, 0.0f, 0.0f };
 PlayerDirection Player::CurDirection = PlayerDirection::Left;
-
+int Player::HP = 100000;
+Player* Player::MainPlayer;
 Player::Player() 
 {
-	
+	MainPlayer = this;
 }
 
 Player::~Player() 
@@ -36,11 +37,11 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	
-	
+
 	FSM.Update(_Delta);
 	CameraMove();
-	
+	CoolTimeCount(_Delta);
+	ReflectCheck();
 
 	if (GameEngineInput::IsDown('A',this))
 	{
@@ -52,36 +53,17 @@ void Player::Update(float _Delta)
 		ColdBim();
 	}
 
-	if (ColdBimOn == true)
+	if (GameEngineInput::IsDown('V', this))
 	{
-		SkillTime += _Delta;
-
-		if (SkillTime >= MaxSkillTime != 0.0f)
-		{
-			ColdBim0->Death();
-			ColdBim0 = nullptr;
-			SkillTime = 0.0f;
-			ColdBimOn = false;
-		}
+		Teleport();
 	}
 
-	if (MagicBoltOn == true)
-	{
-		SkillTime += _Delta;
-
-		if (SkillTime >= MaxSkillTime != 0.0f)
-		{
-			MagicBolt0->Death();
-			MagicBolt0 = nullptr;
-			SkillTime = 0.0f;
-			MagicBoltOn = false;
-		}
-	}
+	
 }
 
 
 void Player::RendererSetting()
-{	
+{
 	if (nullptr == PlayerBody)
 	{
 		PlayerBody = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Player));
@@ -94,12 +76,32 @@ void Player::RendererSetting()
 		PlayerBody->CreateAnimation("Rope", "Rope", 0.2f);
 		PlayerBody->CreateAnimation("RopeMove", "RopeMove");
 		PlayerBody->CreateAnimation("Ladder", "Ladder", 0.2f);
+		PlayerBody->CreateAnimation("LadderMove", "LadderMove", 0.2f);
 		PlayerBody->AutoSpriteSizeOn();
 		PlayerBody->ChangeAnimation("Idle");
 	}
-	
-}
 
+	if (nullptr == Teleport0)
+	{
+		Teleport0 = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Skill));
+		Teleport0->CreateAnimation("Teleport", "Teleport", 0.05f);
+		Teleport0->AutoSpriteSizeOn();
+		Teleport0->ChangeAnimation("Teleport");
+		Teleport0->SetEndEvent("Teleport", [&](GameEngineSpriteRenderer*) {
+			Teleport0->Off();
+			});
+		Teleport0->Off();
+	}
+	if (nullptr == ReflectIcon)
+	{
+		ReflectIcon = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Skill));
+		ReflectIcon->SetSprite("ReflectIcon.png");
+		ReflectIcon->AutoSpriteSizeOn();
+		ReflectIcon->Transform.SetLocalPosition({ 20.0f,40.0f });
+	}
+
+
+}
 void Player::ColSetting()
 {
 	if (ColBody == nullptr)
@@ -119,6 +121,7 @@ void Player::ColSetting()
 
 void Player::RendererStateChange(std::string_view _State)
 {
+	
 	if (CurPlayerState == _State)
 	{
 		return;
@@ -252,10 +255,169 @@ void Player::ColdBim()
 	}
 }
 
-void Player::Damage(int Damage)
+void Player::Teleport()
+{
+	if (TeleportOn == true)
+	{
+		return;
+	}
+
+	Teleport0->On();
+
+	if (GameEngineInput::IsPress(VK_LEFT, this))
+	{
+		Transform.AddLocalPosition(float4::LEFT * 200);
+	}
+
+	if (GameEngineInput::IsPress(VK_RIGHT, this))
+	{
+		Transform.AddLocalPosition(float4::RIGHT * 200);
+	}
+
+	if (GameEngineInput::IsPress(VK_UP, this))
+	{
+		Transform.AddLocalPosition(float4::UP * 200);
+	}
+
+	if (GameEngineInput::IsPress(VK_DOWN, this))
+	{
+		Transform.AddLocalPosition(float4::DOWN * 150);
+	}
+
+
+	float4 CurPlayerPos = Transform.GetWorldPosition();
+	CurPlayerPos.Y = PlayerSize.hY() - CurPlayerPos.Y;
+	CurPlayerPos;
+	if (ColColor != ColMap->GetColor(CurPlayerPos, ColColor))
+	{
+		while (ColColor != ColMap->GetColor(CurPlayerPos, ColColor))
+		{
+			GameEngineColor Test = ColMap->GetColor(CurPlayerPos, ColColor);
+			Transform.AddWorldPosition(float4::DOWN);
+			CurPlayerPos += float4::UP;
+		}
+	}
+	if (ColColor == ColMap->GetColor(CurPlayerPos, ColColor))
+	{
+		while (ColColor == ColMap->GetColor(CurPlayerPos, ColColor))
+		{
+			Transform.AddWorldPosition(float4::UP);
+			CurPlayerPos += float4::DOWN;
+		}
+	}
+
+	TeleportOn = true;
+}
+
+void Player::ReflectCheck()
+{
+	if (ReflectOn == true)
+	{
+		ReflectIcon->On();
+	}
+	if (ReflectOn == false)
+	{
+		ReflectIcon->Off();
+	}
+}
+
+void Player::CoolTimeCount(float _Delta)
 {
 
+	if (TeleportOn == true)
+	{
+		TeleportCoolTime += _Delta;
+	}
+
+	if (TeleportCoolTime >= 0.7f)
+	{
+		TeleportOn = false;
+		TeleportCoolTime = 0.0f;
+	}
+
+	if (ReflectOn == true)
+	{
+		ReflectAliveTime += _Delta;
+	}
+
+	if (ReflectAliveTime >= 5.0f)
+	{
+		ReflectAliveTime = 0.0f;
+		ReflectOn = false;
+	}
+
+	if (Invincibility == true)
+	{
+		InvincibilityCoolTime += _Delta;
+	}
+
+	if (InvincibilityCoolTime >= 1.5f)
+	{
+		Invincibility = false;
+		InvincibilityCoolTime = 0.0f;
+	}
+	if (ColdBimOn == true)
+	{
+		SkillTime += _Delta;
+
+		if (SkillTime >= MaxSkillTime != 0.0f)
+		{
+			ColdBim0->Death();
+			ColdBim0 = nullptr;
+			SkillTime = 0.0f;
+			ColdBimOn = false;
+		}
+	}
+
+	if (MagicBoltOn == true)
+	{
+		SkillTime += _Delta;
+
+		if (SkillTime >= MaxSkillTime != 0.0f)
+		{
+			MagicBolt0->Death();
+			MagicBolt0 = nullptr;
+			SkillTime = 0.0f;
+			MagicBoltOn = false;
+		}
+	}
 }
+
+void Player::Damage(int _Damage)
+{
+	if (Invincibility == true)
+	{
+		return;
+	}
+
+	HP -= _Damage;
+
+	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
+	Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
+	Object->Damage(_Damage);
+	knockBack();
+	Invincibility = true;
+}
+
+void Player::knockBack()
+{
+	JumpPower = { 0.0f, 2.5f, 1.0f };
+	IsGravity = true;
+	if (CurDirection == PlayerDirection::Left)
+	{
+		Directionfloat = float4::LEFT;
+	}
+	if (CurDirection == PlayerDirection::Right)
+	{
+		Directionfloat = float4::RIGHT;
+	}
+	FSM.ChangeState("Jump");
+	
+
+}
+
+
+
 void Player::CameraMove()
 {
 	

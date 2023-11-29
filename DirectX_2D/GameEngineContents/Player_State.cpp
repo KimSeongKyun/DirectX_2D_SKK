@@ -209,7 +209,7 @@ void Player::StateInit()
 
 					float4 PlayerGravityValue = JumpPower + (float4::DOWN * Gravity);
 					float4 CurPosition = Transform.GetWorldPosition();
-					Transform.AddWorldPosition(PlayerGravityValue);
+					Transform.AddWorldPosition(PlayerGravityValue /*+ Directionfloat * 100* _DeltaTime*/);
 					
 					
 					float4 NextPosition = CurPosition + PlayerGravityValue;
@@ -259,6 +259,7 @@ void Player::StateInit()
 							JumpPower = { 0,4.5f ,0 };
 							if (CurPlayerState != "Swing")
 							{
+								Directionfloat = { 0.0f,0.0f };
 								FSM.ChangeState("Move");
 								return;
 							}
@@ -268,10 +269,6 @@ void Player::StateInit()
 
 					}
 
-					if (true == GameEngineInput::IsDown(VK_UP,this))
-					{
-						//RopeCheck();
-					}
 				}
 
 				float4 Pos = Transform.GetLocalPosition();

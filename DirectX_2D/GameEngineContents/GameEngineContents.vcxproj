@@ -210,6 +210,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Munin.cpp" />
     <ClCompile Include="PinkBeanDummy.cpp">
       <SubType>
       </SubType>
@@ -246,15 +247,13 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Snale.cpp" />
-    <ClCompile Include="Solomon.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="Solomon.cpp" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="TitleLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Whigin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameEngineCore\GameEngineState.h" />
@@ -305,6 +304,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Munin.h" />
     <ClInclude Include="PinkBeanDummy.h">
       <SubType>
       </SubType>
@@ -335,15 +335,13 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Snale.h" />
-    <ClInclude Include="Solomon.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="Solomon.h" />
     <ClInclude Include="Status.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Whigin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

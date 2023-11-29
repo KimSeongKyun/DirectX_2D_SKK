@@ -63,6 +63,8 @@ void Ellinia0_Level::ResourceLoad()
 			{
 				GameEngineDirectory& Dir = Directorys[i];
 				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+
+				GameEngineSprite::CreateSingle("ReflectIcon.png");
 			}
 		}
 	}

@@ -13,6 +13,8 @@
 #include "DamageNumber.h"
 #include "Solomon.h"
 #include "Rex.h"
+#include "Whigin.h"
+#include "Munin.h"
 #include <GameEngineCore/FadePostEffect.h>
 
 
@@ -59,7 +61,7 @@ void PinkBeanLevel::ResourceLoad()
 
 	// 플레이어 로드
 	{
-		if (nullptr == GameEngineSprite::Find("Idle0"))
+		if (nullptr == GameEngineSprite::Find("Idle0.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -77,7 +79,7 @@ void PinkBeanLevel::ResourceLoad()
 	}
 	// 스킬 리소스 로드
 	{
-		if (nullptr == GameEngineSprite::Find("MagicBoltBall0"))
+		if (nullptr == GameEngineSprite::Find("MagicBoltBall0.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -91,6 +93,8 @@ void PinkBeanLevel::ResourceLoad()
 			{
 				GameEngineDirectory& Dir = Directorys[i];
 				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+
+				GameEngineSprite::CreateSingle("ReflectIcon.png");
 			}
 		}
 	}
@@ -155,7 +159,7 @@ void PinkBeanLevel::ResourceLoad()
 
 	//MiniMap 리소스 로드
 	{
-		if (nullptr == GameEngineSprite::Find("QuickBack,png"))
+		if (nullptr == GameEngineSprite::Find("MinMapLeft.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -221,7 +225,7 @@ void PinkBeanLevel::ResourceLoad()
 
 	//포탈 리소스 로드
 	{
-		if (nullptr == GameEngineSprite::Find("Portal0"))
+		if (nullptr == GameEngineSprite::Find("Portal0.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -242,7 +246,7 @@ void PinkBeanLevel::ResourceLoad()
 
 	//맵 이미지 로드
 	{
-		if (nullptr == GameEngineSprite::Find("PinkBeanMap,png"))
+		if (nullptr == GameEngineSprite::Find("PinkBeanMap.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -267,7 +271,7 @@ void PinkBeanLevel::ResourceLoad()
 
 	//아리엘 이미지 로드
 	{
-		if (nullptr == GameEngineSprite::Find("ArielAttack1Effect01"))
+		if (nullptr == GameEngineSprite::Find("ArielAttack1Effect01.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -286,7 +290,7 @@ void PinkBeanLevel::ResourceLoad()
 	}
 	//핑크빈 이미지 로드
 	{
-		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01"))
+		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -306,7 +310,7 @@ void PinkBeanLevel::ResourceLoad()
 	//솔로몬 이미지 로드
 
 	{
-		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01"))
+		if (nullptr == GameEngineSprite::Find("SolomonAttack1Effect00.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -325,7 +329,7 @@ void PinkBeanLevel::ResourceLoad()
 	}
 
 	{
-		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01"))
+		if (nullptr == GameEngineSprite::Find("RexAttack1Effect00.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
@@ -343,7 +347,45 @@ void PinkBeanLevel::ResourceLoad()
 		}
 	}
 
-	
+	// 휘긴 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("WhiginAttack1Effect0.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("Whigin");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
+
+	// 무닌 리소스 로드
+	{
+		if (nullptr == GameEngineSprite::Find("MuninAttack1Effect0.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("Munin");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
 }
 
 void PinkBeanLevel::ActorSetting()
@@ -419,6 +461,18 @@ void PinkBeanLevel::ActorSetting()
 	{
 		Rex0 = CreateActor<Rex>();
 		Rex0->Transform.SetWorldPosition({ 1577.0f, -648.0f, 1.0f });
+	}
+
+	if (Whigin0 == nullptr)
+	{
+		Whigin0 = CreateActor<Whigin>();
+		Whigin0->Transform.SetWorldPosition({ 590.0f, -622.0f, 1.0f });
+	}
+
+	if (Munin0 == nullptr)
+	{
+		Munin0 = CreateActor<Munin>();
+		Munin0->Transform.SetWorldPosition({1217.0f, -622.0f, 1.0f });
 	}
 }
 

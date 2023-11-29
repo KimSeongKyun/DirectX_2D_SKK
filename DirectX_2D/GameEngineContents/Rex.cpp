@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "Rex.h"
+#include "Player.h"
+#include "DamageNumber.h"
 
 Rex::Rex()
 {
@@ -13,14 +15,36 @@ void Rex::Start()
 {
 	ComponentSetting();
 }
+
 void Rex::Update(float _Delta)
 {
-	Timeh += _Delta;
-	
-	if (Timeh >= 5.0f)
+	//ChangeState("RexAttack1Effect");
+	if (RexState == "RexDie")
 	{
-		ChangeState("RexAttack3Effect");
-		Timeh = 0.0f;
+		return;
+	}
+
+	if (false == CognitiveRange->Collision(ObjectCollision::PlayerBody))
+	{
+		return;
+	}
+
+	RexSkill1->Transform.SetWorldPosition(Player::MainPlayer->Transform.GetWorldPosition());
+	RexThunder->Transform.SetWorldPosition({ Player::MainPlayer->Transform.GetWorldPosition().X , -300.0f });
+
+	CoolTimeCheck(_Delta);
+
+	SkillTime += _Delta;
+	
+	CoolTimeCheck(_Delta);
+	
+	switch (RexStateE)
+	{
+	case ERexState::Mteor:
+		MteorUpdate(_Delta);
+		break;
+	default:
+		break;
 	}
 }
 void Rex::SetHP(int _HP)
@@ -29,7 +53,17 @@ void Rex::SetHP(int _HP)
 }
 void Rex::Damage(int _Damge)
 {
+	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
+	Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
+	Object->Damage(_Damge);
 
+	HP -= _Damge;
+
+	if (HP <= 0)
+	{
+		BodyCollision->Off();
+		ChangeState("RexDie");
+	}
 }
 void Rex::RendererSetting()
 {
@@ -38,6 +72,7 @@ void Rex::RendererSetting()
 
 void Rex::ChangeState(std::string _State)
 {
+	
 
 	if (RexState == _State)
 	{
@@ -54,15 +89,15 @@ void Rex::ChangeState(std::string _State)
 
 	if (RexState == "RexDie")
 	{
-		RexRender->Transform.AddLocalPosition({ 1.0f, -10.0f });
-		RexDif = { 1.0f, -10.0f };
+		RexRender->Transform.AddLocalPosition({ 1.0f, -11.0f });
+		RexDif = { 1.0f, -9.0f };
 	}
 
 	if (RexState == "RexAttack1Effect")
 	{
 		RexStateE = ERexState::Thunder;
-		RexRender->Transform.AddLocalPosition({ 66.0f, -60.0f });
-		RexDif = { 67.0f, -60.0f };
+		RexRender->Transform.AddLocalPosition({ 66.0f, -61.0f });
+		RexDif = { 66.0f, -59.0f };
 	}
 
 	if (RexState == "RexAttack2Effect")
@@ -76,7 +111,7 @@ void Rex::ChangeState(std::string _State)
 	{
 		RexStateE = ERexState::Mteor;
 		RexRender->Transform.AddLocalPosition({ -47.0f, -17.0f });
-		RexDif = { -45.0f, -16.0f };
+		RexDif = { -47.0f, -17.0f };
 	}
 
 	RexRender->ChangeAnimation(RexState);
@@ -85,73 +120,118 @@ void Rex::ChangeState(std::string _State)
 
 void Rex::ComponentSetting()
 {
+
 	RexRender = CreateComponent <GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
-	RexRender->CreateAnimation("RexStand", "RexStand", 0.15f);
-	RexRender->CreateAnimation("RexDie", "RexDie", 0.15f);
-	RexRender->CreateAnimation("RexHit", "RexHit", 0.15f);
-	RexRender->CreateAnimation("RexAttack1Effect", "RexAttack1Effect", 0.15f);
-	RexRender->CreateAnimation("RexAttack2Effect", "RexAttack2Effect", 0.15f);
-	RexRender->CreateAnimation("RexAttack3Effect", "RexAttack3Effect", 0.15f);
+	RexRender->CreateAnimation("RexStand", "RexStand", 0.15f, -1, -1, false);
+	RexRender->CreateAnimation("RexDie", "RexDie", 0.15f, -1, -1, false);
+	RexRender->CreateAnimation("RexHit", "RexHit", 0.15f, -1, -1, false);
+	RexRender->CreateAnimation("RexAttack1Effect", "RexAttack1Effect", 0.15f, -1, -1, false);
+	RexRender->CreateAnimation("RexAttack2Effect", "RexAttack2Effect", 0.15f, -1, -1, false);
+	RexRender->CreateAnimation("RexAttack3Effect", "RexAttack3Effect", 0.15f, -1, -1, false);
 	RexRender->AutoSpriteSizeOn();
 	RexRender->SetPivotType(PivotType::Bottom);
 	RexRender->ChangeAnimation("RexStand");
 
-
-	std::shared_ptr<GameEngineFrameAnimation> _Animation = RexRender->FindAnimation("RexAttack1Effect");;
-	_Animation->Loop = false;
-	_Animation = RexRender->FindAnimation("RexAttack1Effect");
-	_Animation->Loop = false;
-	_Animation = RexRender->FindAnimation("RexAttack2Effect");
-	_Animation->Loop = false;
-	_Animation = RexRender->FindAnimation("RexDie");
-	_Animation->Loop = false;
-
-
-
-	
 	RexThunder = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
-	RexThunder->CreateAnimation("RexAttack1Hit", "RexAttack1Hit", 0.15f);
+	RexThunder->CreateAnimation("RexAttack2Hit", "RexAttack2Hit", 0.15f);
 	RexThunder->Transform.AddLocalPosition({ 0.0f, 90.0f });
 	RexThunder->AutoSpriteSizeOn();
-	RexThunder->ChangeAnimation("RexAttack1Hit");
-	_Animation = RexThunder->FindAnimation("RexAttack1Hit");
-	_Animation->Loop = false;
+	RexThunder->ChangeAnimation("RexAttack2Hit");
 	RexThunder->Off();
-		
+
+	RexSkill1 = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Skill));
+	RexSkill1->CreateAnimation("RexAttack3Hit", "RexAttack3Hit", 0.15f);
+	RexSkill1->AutoSpriteSizeOn();
+	RexSkill1->ChangeAnimation("RexAttack3Hit");
+	RexSkill1->Off();
 
 	BodyCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
 	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
-	BodyCollision->Transform.SetWorldScale({ 124.0f, 144.0f });
+	BodyCollision->Transform.SetWorldScale({ 216.0f, 452.0f });
+	BodyCollision->Transform.AddWorldPosition(float4::UP * 226);
+
+	CognitiveRange = CreateComponent<GameEngineCollision>(ObjectCollision::Range);
+	CognitiveRange->SetCollisionType(ColType::AABBBOX2D);
+	CognitiveRange->Transform.SetWorldScale({ 780.0f, 500.0f });
+	CognitiveRange->Transform.AddLocalPosition(float4::UP * 210);
 
 
-	ThunderCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
-	ThunderCollision->SetCollisionType(ColType::AABBBOX2D);
-	ThunderCollision->Transform.SetWorldScale({ 45.0f, 847.0f });
-	ThunderCollision->Off();
 
-		
-	
 
 	for (size_t i = 0; i < 5; i++)
 	{
 		std::shared_ptr< GameEngineSpriteRenderer> SkillRenderer = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Monster));
-		SkillRenderer->CreateAnimation("ArielAttack2Hit", "ArielAttack2Hit", 0.15f);
+		SkillRenderer->CreateAnimation("RexAttack1Hit", "RexAttack1Hit");
 		SkillRenderer->Transform.AddLocalPosition({ 0.0f, 90.0f });
 		SkillRenderer->AutoSpriteSizeOn();
-		SkillRenderer->ChangeAnimation("ArielAttack2Hit");
-		_Animation = SkillRenderer->FindAnimation("ArielAttack2Hit");
-		_Animation->Loop = false;
+		SkillRenderer->ChangeAnimation("RexAttack1Hit");
 		SkillRenderer->Off();
 		RexMteor.push_back(SkillRenderer);
 	}
 
+	for (size_t i = 0; i < 5; i++)
+	{
+		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+		Collision0->SetCollisionType(ColType::AABBBOX2D);
+		Collision0->Transform.SetWorldScale({ 120.0f, 120.0f });
+		Collision0->Off();
+
+		MteorCollisions.push_back(Collision0);
+	}
+
+	RexMteor[0]->SetEndEvent("RexAttack1Hit", [&](GameEngineSpriteRenderer*)
+		{
+			for (size_t i = 0; i < RexMteor.size(); i++)
+			{
+				RexMteor[i]->Off();
+				MteorCollisions[i]->Off();
+			}
+		});
+
+	RexRender->SetFrameEvent("RexAttack1Effect",11, [&](GameEngineSpriteRenderer*)
+		{
+			for (size_t i = 0; i < RexMteor.size(); i++)
+			{
+				RexMteor[i]->On();
+				MteorCollisions[i]->On();
+			}
+		});
+	RexRender->SetFrameEvent("RexAttack2Effect", 11, [&](GameEngineSpriteRenderer*)
+		{
+			RexThunder->On();
+			Player::MainPlayer->Damage(156);
+		});
+	RexThunder->SetEndEvent("RexAttack2Hit", [&](GameEngineSpriteRenderer*)
+		{
+			RexThunder->Off();
+		});
+
+	RexRender->SetFrameEvent("RexAttack3Effect", 11, [&](GameEngineSpriteRenderer*)
+		{
+			RexSkill1->On();
+		});
+
+	RexSkill1->SetEndEvent("RexAttack3Hit", [&](GameEngineSpriteRenderer*)
+		{
+			RexSkill1->Off();
+		});
+
+	RexSkill1->SetFrameEvent("RexAttack3Hit", 3, [&](GameEngineSpriteRenderer*)
+		{
+			Player::MainPlayer->Damage(256);
+	
+		});
+	RexRender->SetEndEvent("RexDie",  [&](GameEngineSpriteRenderer*)
+		{
+			Death();
+
+		});
 }
 
 void Rex::RenderDifCheck()
 {
-	if (RexRender->IsCurAnimationEnd() == true)
-	{
-		if (RexState != "ArielStand")
+	
+		if (RexState != "RexStand")
 		{
 			if (DifCheck == true)
 			{
@@ -159,5 +239,119 @@ void Rex::RenderDifCheck()
 				DifCheck = false;
 			}
 		}
+	
+}
+
+void Rex::Thunder()
+{
+	ThunderOn = true;
+
+	float4 CurPlayerPos_ = Player::MainPlayer->Transform.GetWorldPosition();
+	RexThunder->Off();
+	RexThunder->ChangeAnimation("RexAttack2Hit");
+	
+	
+
+	ChangeState("RexAttack2Effect");
+}
+
+
+void Rex::Mteor()
+{
+	MteorOn = true;
+
+	for (size_t i = 0; i < 5; i++)
+	{
+
+		int RandomNum = Random.RandomInt(-385, 100);
+		RexMteor[i]->Off();
+		RexMteor[i]->ChangeAnimation("RexAttack1Hit");
+		RexMteor[i]->Transform.SetLocalPosition({ 0.0f, 10.0f,1.0f });
+		RexMteor[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
+
+		MteorCollisions[i]->Transform.SetLocalPosition({ 0.0f, 20.0f});
+		MteorCollisions[i]->Transform.AddLocalPosition({ static_cast<float>(RandomNum), 0.0f });
+		MteorCollisions[i]->Off();
+	}
+
+	ChangeState("RexAttack1Effect");
+}
+
+void Rex::Skill1()
+{
+	
+	Skill1On = true;
+
+	float4 CurPlayerPos_ = Player::MainPlayer->Transform.GetWorldPosition();
+	
+	ChangeState("RexAttack3Effect");
+}
+
+void Rex::CoolTimeCheck(float _Delta)
+{
+	if (ThunderOn == true)
+	{
+		ThunderCoolTime += _Delta;
+
+		if (ThunderCoolTime >= 10.0f)
+		{
+			ChangeState("RexStand");
+			ThunderCoolTime = 1.0f;
+			ThunderOn = false;
+		}
+		return;
+	}
+
+	if (MteorOn == true)
+	{
+		MteorCoolTime += _Delta;
+
+		if (MteorCoolTime >= 10.0f)
+		{
+			ChangeState("RexStand");
+			MteorCoolTime = 1.0f;
+			MteorOn = false;
+		}
+		return;
+	}
+
+	if (Skill1On == true)
+	{
+		Skill1CoolTime += _Delta;
+
+		if (Skill1CoolTime >= 20.0f)
+		{
+			ChangeState("RexStand");
+			Skill1CoolTime = 1.0f;
+			Skill1On = false;
+		}
+		return;
+	}
+
+	int RandomNum = Random.RandomInt(0, 2);
+
+	if (RandomNum == 0)
+	{
+		Thunder();
+	}
+	if (RandomNum == 1)
+	{
+		Mteor();
+	}
+	if (RandomNum == 2)
+	{
+		Skill1();
+	}
+}
+
+void Rex::MteorUpdate(float _Delta)
+{
+	for (size_t i = 0; i < MteorCollisions.size(); i++)
+	{
+		MteorCollisions[i]->Collision(ObjectCollision::PlayerBody, [&](std::vector<GameEngineCollision*>& _Collisions) {
+
+			std::shared_ptr<Player> Player0 = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Player>();
+			Player0->Damage(250);
+			});
 	}
 }

@@ -19,9 +19,11 @@ enum class PlayerDirection
 };
 
 
+
 class Player : public BasicObjectElement
 {
 public:
+	static Player* MainPlayer;
 	// constrcuter destructer
 	Player();
 	~Player();
@@ -36,14 +38,16 @@ public:
 	static PlayerDirection CurDirection;
 	static float4 PlayerPos;
 	void SetCurMap(const std::string_view& _ColMap) { CurMap = GameEngineTexture::Find(_ColMap); };
-	
+	void Damage(int _Damage) override;
+	bool GetReflect() { return ReflectOn; };
+	void SetReflect(bool _bool) { ReflectOn = _bool; };
 	
 
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void StateInit();
-	void Damage(int Damage) override;
+	static int HP;
 
 private:
 	GameEngineFSM FSM;
@@ -52,21 +56,30 @@ private:
 	void ColSetting();
 
 
+
 	std::string CurPlayerState;
 
 	float Speed = 100.0f;
+	float KnockBackPower = 0.0f;
 	
-
+	bool ReflectOn = false;
 	bool Attack_Ing = false;
 	bool MagicBoltOn = false;
 	bool ColdBimOn = false;
-	
+	bool TeleportOn = false;
+	bool Invincibility = false;
+
+	//ÄðÅ¸ÀÓ
+	float TeleportCoolTime = 0.0f;
+	float InvincibilityCoolTime = 0.0f;
+	float ReflectAliveTime = 0.0f;
 
 	float SkillTime = 0.0f;
 	float MaxSkillTime = 0.0f;
 
 	float4 PlayerSize = { 39.0f, 82.0f };
 	float4 JumpPower = { 0.0f, 4.5f, 1.0f };
+	float4 Directionfloat = { 0.0f,0.0f };
 
 	std::shared_ptr<class GameEngineCollision> ColAttack;
 	std::shared_ptr<class GameEngineCollision> ColBody;
@@ -78,14 +91,20 @@ private:
 	
 	void RendererStateChange(std::string_view _State);
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerBody;
+	std::shared_ptr<class GameEngineSpriteRenderer> Teleport0;
+	std::shared_ptr<class GameEngineSpriteRenderer> ReflectIcon;
 
 	void LRColCheck(float _DeltaTime, float4 _LeftOrRight);
 	void RopeCheck();
+	void ReflectCheck();
+	void knockBack();
+
 
 
 	void Attack();
 	void MagicBolt();
 	void ColdBim();
-	
+	void Teleport();
+	void CoolTimeCount(float _Delta);
 };
 

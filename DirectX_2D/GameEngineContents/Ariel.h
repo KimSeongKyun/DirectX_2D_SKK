@@ -5,11 +5,11 @@
 // Ό³Έν :
 enum class EArielState
 {
-	Stand,
+	None,
+	Skill1,
 	Genesis,
 	Mteor,
-	Die,
-	Hit,
+	
 
 };
 
@@ -38,6 +38,9 @@ private:
 	std::vector<std::shared_ptr<class GameEngineSpriteRenderer>> ArielGenesis;
 	std::vector<std::shared_ptr<class GameEngineSpriteRenderer>> ArielMteor;
 	std::vector<std::shared_ptr<class GameEngineCollision>> GenesisCollisions;
+	std::vector<std::shared_ptr<class GameEngineCollision>> MteorCollisions;
+	
+	std::shared_ptr<class GameEngineCollision> CognitiveRange;
 	std::shared_ptr<class GameEngineCollision> BodyCollision;
 	std::shared_ptr<class Collision> SkillCol = nullptr;
 
@@ -50,11 +53,14 @@ private:
 	void RenderDifCheck();
 	void Genesis();
 	void Mteor();
+	void Reflect();
 
 
-	void StandUpdate(float _Delta);
+	
 	void GenesisUpdate(float _Delta);
-	void HitUpdate(float _Delta);
+	void MteorUpdate(float _Delta);
+	
+	void CoolTimeCheck(float _Delta);
 
 	int HP = 1000;
 
@@ -66,7 +72,14 @@ private:
 	bool SkillOn = false;
 	bool DifCheck = false;
 
-	EArielState ArielStateE = EArielState::Stand;
+	bool GenesisOn = false;
+	bool MteorOn = false;
+	bool ReflectOn = false;
+
+	float GenesisCoolTime= false;
+	float MteorCoolTime = false;
+	float ReflectCoolTime = false;
+	EArielState ArielStateE = EArielState::None;
 
 	GameEngineRandom Random;
 };

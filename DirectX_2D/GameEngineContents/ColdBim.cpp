@@ -35,6 +35,13 @@ void ColdBim::ComponentSetting()
 	SkillRenderer1->ChangeAnimation("ColdBimObjEffect");
 	SkillRenderer1->AutoSpriteSizeOn();
 
+	
+
+	ColSkill = CreateComponent<GameEngineCollision>(ObjectCollision::PlayerSkill);
+	ColSkill->SetCollisionType(ColType::AABBBOX2D);
+	ColSkill->Transform.SetWorldScale({300.0f, 300.0f});
+	ColSkill->Off();
+
 	SkillRenderer1->SetEndEvent("ColdBimObjEffect", [&](GameEngineSpriteRenderer*)
 		{
 
@@ -46,15 +53,9 @@ void ColdBim::ComponentSetting()
 	SkillRenderer1->SetFrameEvent("ColdBimObjEffect", 6, [&](GameEngineSpriteRenderer*)
 		{
 			ColSkill->On();
-			ColSkill->Transform.SetWorldPosition(SkillRenderer1->Transform.GetWorldPosition() + float4::UP *25.0f);
+			ColSkill->Transform.SetWorldPosition(SkillRenderer1->Transform.GetWorldPosition() + float4::UP * 25.0f);
 			float4 Testfloat = ColSkill->Transform.GetWorldPosition();
 		});
-
-	ColSkill = CreateComponent<GameEngineCollision>(ObjectCollision::PlayerSkill);
-	ColSkill->SetCollisionType(ColType::AABBBOX2D);
-	ColSkill->Transform.SetWorldScale({300.0f, 300.0f});
-	ColSkill->Off();
-
 }
 
 void ColdBim::ColdBimUpdate(float _Delta)

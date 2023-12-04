@@ -23,6 +23,11 @@ void Whigin::Update(float _Delta)
 		return;
 	}
 
+	if (false == CognitiveRange->Collision(ObjectCollision::PlayerBody))
+	{
+		return;
+	}
+
 	CoolTimeCheck(_Delta);
 
 
@@ -109,7 +114,7 @@ void Whigin::ComponentSetting()
 	BodyCollision->Transform.SetWorldScale({ 158, 216.0f });
 	BodyCollision->Transform.AddLocalPosition(float4::UP * 120.0f +  float4::LEFT * 10);
 
-	CognitiveRange = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+	CognitiveRange = CreateComponent<GameEngineCollision>(ObjectCollision::Range);
 	CognitiveRange->SetCollisionType(ColType::AABBBOX2D);
 	CognitiveRange->Transform.SetWorldScale({ 660.0f, 300.0f });
 	CognitiveRange->Transform.AddLocalPosition(float4::UP * 75.0f);
@@ -151,7 +156,7 @@ void Whigin::CoolTimeCheck(float _Delta)
 	{
 		ReflectCoolTime += _Delta;
 
-		if (ReflectCoolTime >= 20.0f)
+		if (ReflectCoolTime >= 10.0f)
 		{
 			ChangeState("WhiginStand");
 			ReflectCoolTime = 0.0f;
@@ -163,7 +168,7 @@ void Whigin::CoolTimeCheck(float _Delta)
 	{
 		AmorCoolTime += _Delta;
 
-		if (AmorCoolTime >= 20.0f)
+		if (AmorCoolTime >= 10.0f)
 		{
 			ChangeState("WhiginStand");
 			AmorCoolTime = 0.0f;

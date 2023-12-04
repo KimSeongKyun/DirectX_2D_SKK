@@ -197,6 +197,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineFSM.cpp" />
+    <ClCompile Include="Inventory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Ladder.cpp">
       <SubType>
       </SubType>
@@ -210,6 +214,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Mouse.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Munin.cpp" />
     <ClCompile Include="PinkBeanDummy.cpp">
       <SubType>
@@ -290,6 +298,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineFSM.h" />
+    <ClInclude Include="Inventory.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Ladder.h">
       <SubType>
       </SubType>
@@ -304,6 +316,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Mouse.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Munin.h" />
     <ClInclude Include="PinkBeanDummy.h">
       <SubType>

@@ -14,7 +14,6 @@ Munin::~Munin()
 void Munin::Start()
 {
 	ComponentSetting();
-	GameEngineInput::AddInputObject(this);
 }
 void Munin::Update(float _Delta)
 {
@@ -23,9 +22,12 @@ void Munin::Update(float _Delta)
 	{
 		return;
 	}
-
+	if (false == CognitiveRange->Collision(ObjectCollision::PlayerBody))
+	{
+		return;
+	}
+	
 	CoolTimeCheck(_Delta);
-
 
 }
 void Munin::SetHP(int _HP)
@@ -114,7 +116,7 @@ void Munin::ComponentSetting()
 	BodyCollision->Transform.SetWorldScale({ 158.0f, 216.0f });
 	BodyCollision->Transform.AddLocalPosition(float4::UP * 120.0f +  float4::RIGHT * 10);
 
-	CognitiveRange = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+	CognitiveRange = CreateComponent<GameEngineCollision>(ObjectCollision::Range);
 	CognitiveRange->SetCollisionType(ColType::AABBBOX2D);
 	CognitiveRange->Transform.SetWorldScale({ 660.0f, 300.0f });
 	CognitiveRange->Transform.AddLocalPosition(float4::UP * 75.0f);
@@ -156,7 +158,7 @@ void Munin::CoolTimeCheck(float _Delta)
 	{
 		ReflectCoolTime += _Delta;
 
-		if (ReflectCoolTime >= 20.0f)
+		if (ReflectCoolTime >= 10.0f)
 		{
 			ChangeState("MuninStand");
 			ReflectCoolTime = 0.0f;
@@ -168,7 +170,7 @@ void Munin::CoolTimeCheck(float _Delta)
 	{
 		AmorCoolTime += _Delta;
 
-		if (AmorCoolTime >= 20.0f)
+		if (AmorCoolTime >= 10.0f)
 		{
 			ChangeState("MuninStand");
 			AmorCoolTime = 0.0f;

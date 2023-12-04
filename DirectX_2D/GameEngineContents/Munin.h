@@ -52,8 +52,6 @@ private:
 	void Reflect();
 	void Amor();
 
-	
-
 	GameEngineRandom Random;
 };
 

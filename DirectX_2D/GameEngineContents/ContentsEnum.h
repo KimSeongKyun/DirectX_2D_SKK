@@ -28,5 +28,8 @@ enum class ObjectCollision
 	Rope,
 	Monster,
 	Range,
+	Mouse,
+	Item,
+	DropItem,
 
 };

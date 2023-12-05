@@ -35,6 +35,8 @@ private:
 	std::shared_ptr<class Rex> Rex0 = nullptr;
 	std::shared_ptr<class Whigin> Whigin0 = nullptr;
 	std::shared_ptr<class Munin> Munin0 = nullptr;
+	std::shared_ptr<class Mouse> Mouse0 = nullptr;
+	std::shared_ptr<class Inventory> Inventory0 = nullptr;
 	//UI
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;

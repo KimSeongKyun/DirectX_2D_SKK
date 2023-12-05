@@ -62,7 +62,7 @@ private:
 	
 	void CoolTimeCheck(float _Delta);
 
-	int HP = 1000;
+	int HP = 100;
 
 	int SkillRange = 385;
 	float SkillTime = 0.0f;

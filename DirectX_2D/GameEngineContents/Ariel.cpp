@@ -2,6 +2,7 @@
 #include "Ariel.h"
 #include "Player.h"
 #include "DamageNumber.h"
+#include "DropItem.h"
 
 Ariel::Ariel() 
 {
@@ -239,6 +240,9 @@ void Ariel::ComponentSetting()
 
 	ArielRender->SetEndEvent("ArielDie", [&](GameEngineSpriteRenderer*) 
 		{
+			std::shared_ptr<DropItem> DropItem0 = GetLevel()->CreateActor<DropItem>(ContentsObjectType::DamageNumber);
+			DropItem0->Transform.SetWorldPosition(Transform.GetWorldPosition());
+			
 			Death();
 		});
 

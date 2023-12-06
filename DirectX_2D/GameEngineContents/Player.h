@@ -52,7 +52,7 @@ protected:
 private:
 	GameEngineFSM FSM;
 	void RendererSetting() override;
-	void CameraMove();
+	void CameraMove(float _Delta);
 	void ColSetting();
 
 

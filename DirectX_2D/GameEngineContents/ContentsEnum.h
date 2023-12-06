@@ -31,5 +31,14 @@ enum class ObjectCollision
 	Mouse,
 	Item,
 	DropItem,
+	UI,
+};
 
+enum class EItemType
+{
+	Equip,
+	Use,
+	Etc,
+	Setup,
+	Cash
 };

@@ -31,12 +31,13 @@ void Ellinia1_Level::Update(float _Delta)
 void Ellinia1_Level::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	BasicLevel::LevelStart(_PrevLevel);
-	CameraSetting();
 	ResourceLoad();
 	CurMiniMap = GameEngineTexture::Find("Ellinia1MiniMap.png");
 	CurMap = GameEngineTexture::Find("Ellinia1.png");
 	CurMapName = "Ellinia1MiniMap.png";
 	ActorSetting();
+	CameraSetting();
+
 
 }
 void Ellinia1_Level::LevelEnd(GameEngineLevel* _NextLevel)
@@ -148,7 +149,7 @@ void Ellinia1_Level::ActorSetting()
 }
 void Ellinia1_Level::CameraSetting()
 {
-	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,1371.0f,0.0f });
+	GetMainCamera()->Transform.AddLocalPosition(Player0->Transform.GetWorldPosition());
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	std::shared_ptr<GameEngineCamera> UICamera = GetCamera(static_cast<int>(ECAMERAORDER::UI));

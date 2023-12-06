@@ -13,8 +13,6 @@ DropItem::~DropItem()
 void DropItem::Start()
 {
 	ComponentSetting();
-	
-
 }
 
 void DropItem::Update(float _Delta)

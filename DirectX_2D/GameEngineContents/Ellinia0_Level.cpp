@@ -151,7 +151,7 @@ void Ellinia0_Level::ActorSetting()
 
 void Ellinia0_Level::CameraSetting()
 {
-	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,1371.0f,0.0f });
+	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,-500.0f,0.0f });
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	std::shared_ptr<GameEngineCamera> UICamera = GetCamera(static_cast<int>(ECAMERAORDER::UI));

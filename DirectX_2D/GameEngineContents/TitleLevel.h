@@ -24,6 +24,9 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	std::shared_ptr<class TitleScene> TitleScene0 = nullptr;
+
+	void CameraSetting();
 
 };
 

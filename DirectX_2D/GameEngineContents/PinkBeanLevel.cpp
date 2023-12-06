@@ -306,7 +306,7 @@ void PinkBeanLevel::ActorSetting()
 	if (Inventory0 == nullptr)
 	{
 		Inventory0 = CreateActor<Inventory>(12);
-		Inventory0->Transform.SetWorldPosition({ 500.0f,-500.0f });
+		Inventory0->Transform.SetWorldPosition({ 0.0f ,0.0f });
 		//Mouse0->Transform.SetWorldPosition({ 0.0f, 0.0f });
 
 	}

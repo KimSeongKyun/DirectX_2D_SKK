@@ -39,7 +39,7 @@ void Player::Update(float _Delta)
 {
 
 	FSM.Update(_Delta);
-	CameraMove();
+	CameraMove(_Delta);
 	CoolTimeCount(_Delta);
 	ReflectCheck();
 
@@ -418,11 +418,11 @@ void Player::knockBack()
 
 
 
-void Player::CameraMove()
+void Player::CameraMove(float _Delta)
 {
 	
 	PlayerPos = Transform.GetLocalPosition();
-	float4 CurCameraPos = GetLevel()->GetMainCamera()->Transform.GetLocalPosition();
+	float4 CurCameraPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
 	float4 CameraScale = { 1280.0f,720.0f };
 	float4 MapScale = CurMap->GetScale();
 	float LeftEnd = CameraScale.hX();
@@ -430,20 +430,72 @@ void Player::CameraMove()
 	float UpEnd = -CameraScale.hY();
 	float DownEnd = -MapScale.Y + CameraScale.hY();
 
-	GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Transform.GetLocalPosition());
+	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(Transform.GetWorldPosition());
 	
-	float4 NextCameraPos = GetLevel()->GetMainCamera()->Transform.GetLocalPosition();
+	float4 NextCameraPos = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
 
-	if (RightEnd < NextCameraPos.X || NextCameraPos.X < LeftEnd)
+	
+	
+	float4 LerpValue = float4::LerpClamp(CurCameraPos, NextCameraPos,2* _Delta);
+
+	if (LerpValue.X > RightEnd)
 	{
-		NextCameraPos = { CurCameraPos.X, NextCameraPos.Y, NextCameraPos.Z };
-		GetLevel()->GetMainCamera()->Transform.SetLocalPosition(NextCameraPos);
+		LerpValue.X = RightEnd;
+		CurCameraPos.X = RightEnd;
+		
+	}
+
+	if (LerpValue.X < LeftEnd)
+	{
+		LerpValue.X = LeftEnd;
+		CurCameraPos.X = LeftEnd;
+		
+	}
+
+	if (LerpValue.Y > UpEnd)
+	{
+		LerpValue.Y = UpEnd;
+		CurCameraPos.Y = UpEnd;
+	
+	}
+
+	if (LerpValue.Y < DownEnd)
+	{
+		LerpValue.Y = DownEnd;
+		CurCameraPos.Y = DownEnd;
+		
+	}
+
+	CurCameraPos;
+
+	GetLevel()->GetMainCamera()->Transform.SetWorldPosition(LerpValue);
+
+	/*if (RightEnd < NextCameraPos.X || NextCameraPos.X < LeftEnd)
+	{
+		if (UpEnd < NextCameraPos.Y || NextCameraPos.Y < DownEnd)
+		{
+			NextCameraPos = CurCameraPos;
+			GetLevel()->GetMainCamera()->Transform.SetWorldPosition(NextCameraPos);
+		}
+		else
+		{
+			NextCameraPos = { CurCameraPos.X, NextCameraPos.Y, NextCameraPos.Z };
+			GetLevel()->GetMainCamera()->Transform.SetWorldPosition(NextCameraPos);
+		}
 	}
 
 	if (UpEnd < NextCameraPos.Y || NextCameraPos.Y < DownEnd)
 	{
-		NextCameraPos = { NextCameraPos.X,  CurCameraPos.Y, NextCameraPos.Z };
-		GetLevel()->GetMainCamera()->Transform.SetLocalPosition(NextCameraPos);
-	}
+		if (RightEnd < NextCameraPos.X || NextCameraPos.X < LeftEnd)
+		{
+			NextCameraPos = CurCameraPos;
+			GetLevel()->GetMainCamera()->Transform.SetWorldPosition(NextCameraPos);
+		}
+		else
+		{
+			NextCameraPos = { NextCameraPos.X,  CurCameraPos.Y, NextCameraPos.Z };
+			GetLevel()->GetMainCamera()->Transform.SetWorldPosition(NextCameraPos);
+		}
+	}*/
 }
 

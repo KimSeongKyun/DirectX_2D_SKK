@@ -49,10 +49,13 @@ void Mouse::MousePosUpdate()
 {
 	MousePosSet = GetLevel()->GetMainCamera()->GetScreenMousePos();
 	MousePosSet.Y = -MousePosSet.Y;
+	float4 Test = GetLevel()->GetMainCamera()->Transform.GetWorldPosition();
+	float4 WindowScale = { 640.0f, -360.0f };
+	float4 CurWindow = GetLevel()->GetMainCamera()->Transform.GetWorldPosition() - WindowScale;
 
-	MouseColDif = { 255.0f, -130.0f };
+	
 	MouseImage->Transform.SetWorldPosition(MousePosSet + MouseImageDif);
-	MouseCollision->Transform.SetWorldPosition(MousePosSet + MouseColDif);
+	MouseCollision->Transform.SetLocalPosition(CurWindow + MousePosSet);
 }
 
 void Mouse::MouseClickCheck(float _Delta)

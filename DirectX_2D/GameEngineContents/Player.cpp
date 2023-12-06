@@ -113,9 +113,12 @@ void Player::ColSetting()
 	if (ColLadder == nullptr)
 	{
 		ColLadder = CreateComponent<GameEngineCollision>(ObjectCollision::PlayerBodyToLadder);
-		PlayerSize.X = PlayerSize.hX();
-		ColLadder->Transform.SetLocalScale(PlayerSize);
+		float4 ColLadderSize;
+		ColLadderSize.X = PlayerSize.hX();
+		ColLadderSize.Y = PlayerSize.hY();
+		ColLadder->Transform.SetLocalScale(ColLadderSize);
 		ColLadder->SetCollisionType(ColType::AABBBOX2D);
+		ColLadder->Transform.AddLocalPosition({ 0.0f,-ColLadderSize.hY() });
 	}
 }
 

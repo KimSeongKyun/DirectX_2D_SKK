@@ -21,6 +21,7 @@ void Rex::Update(float _Delta)
 	//ChangeState("RexAttack1Effect");
 	if (RexState == "RexDie")
 	{
+		RexRender->GetColorData().PlusColor.A -= 0.5 * _Delta;
 		return;
 	}
 

@@ -109,6 +109,9 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Object\Map\Title</Filter>
     </ClCompile>
+    <ClCompile Include="FadeInOut.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Object\Map\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOut.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

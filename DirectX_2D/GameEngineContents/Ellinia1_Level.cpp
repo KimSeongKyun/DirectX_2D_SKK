@@ -7,6 +7,9 @@
 #include "Status.h"
 #include "QuickSlot.h"
 #include "MiniMap.h"
+#include "Ladder.h"
+#include "Portal.h"
+#include "MapleStoryCore.h"
 
 Ellinia1_Level::Ellinia1_Level() 
 {
@@ -37,12 +40,70 @@ void Ellinia1_Level::LevelStart(GameEngineLevel* _PrevLevel)
 	CurMapName = "Ellinia1MiniMap.png";
 	ActorSetting();
 	CameraSetting();
-
+	Player0->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
+	BasicLevel::FadeIn();
 
 }
 void Ellinia1_Level::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	int a = 0;
+	BasicLevel::LevelEnd(_NextLevel);
+	if (nullptr != Player0)
+	{
+		Player0->Death();
+		Player0 = nullptr;
+	}
+
+	if (nullptr != Map0)
+	{
+		Map0->Death();
+		Map0 = nullptr;
+	}
+
+	if (nullptr != Snale0)
+	{
+		Snale0->Death();
+		Snale0 = nullptr;
+	}
+
+	if (nullptr != Status0)
+	{
+		Status0->Death();
+		Status0 = nullptr;
+	}
+	if (nullptr != QuickSlot0)
+	{
+		QuickSlot0->Death();
+		QuickSlot0 = nullptr;
+	}
+
+	if (nullptr != MiniMap0)
+	{
+		MiniMap0->Death();
+		MiniMap0 = nullptr;
+	}
+
+	if (nullptr != Ladder0)
+	{
+		Ladder0->Death();
+		Ladder0 = nullptr;
+	}
+	if (nullptr != Ladder1)
+	{
+		Ladder1->Death();
+		Ladder1 = nullptr;
+	}
+
+	if (nullptr != Portal0)
+	{
+		Portal0->Death();
+		Portal0 = nullptr;
+	}
+
+	if (nullptr != Portal1)
+	{
+		Portal1->Death();
+		Portal1 = nullptr;
+	}
 }
 
 void Ellinia1_Level::ResourceLoad()
@@ -146,10 +207,48 @@ void Ellinia1_Level::ActorSetting()
 		MiniMap0->Transform.SetWorldPosition({ 0.0f, 0.0f });
 
 	}
+
+	if (Ladder0 == nullptr)
+	{
+		Ladder0 = CreateActor<Ladder>(12);
+
+		Ladder0->Transform.SetWorldPosition({ 855.0f, -1303.0f });
+		Ladder0->SetLadderScale({ 36.0f,700.0f });
+
+	}
+	if (Ladder1 == nullptr)
+	{
+		Ladder1 = CreateActor<Ladder>(12);
+
+		Ladder1->Transform.SetWorldPosition({ 1069.0f,-736.0f });
+		Ladder1->SetLadderScale({ 36.0f,287.0f });
+		
+	}
+	if (Portal0 == nullptr)
+	{
+		Portal0 = CreateActor<Portal>(12);
+
+		Portal0->Transform.SetWorldPosition({ 48.0f, -1862.0f });
+		Portal0->SetLevelName("PinkBeanLevel");
+		Portal0->SetPlayerMovePos({ 100.0f , -630.0f });
+		
+		
+	}
+
+	if (Portal1 == nullptr)
+	{
+		Portal1 = CreateActor<Portal>(12);
+
+		Portal1->Transform.SetWorldPosition({ 48.0f, -782.0f });
+		Portal1->SetLevelName("Ellinia0_Level");
+		Portal1->SetPlayerMovePos({ 1480.0f ,-1770.0f });
+	}
+
+		
 }
 void Ellinia1_Level::CameraSetting()
 {
-	GetMainCamera()->Transform.AddLocalPosition(Player0->Transform.GetWorldPosition());
+	GetMainCamera()->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	std::shared_ptr<GameEngineCamera> UICamera = GetCamera(static_cast<int>(ECAMERAORDER::UI));

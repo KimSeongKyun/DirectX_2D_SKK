@@ -28,6 +28,11 @@ private:
 	std::shared_ptr<class Ellinia1_Map> Map0 = nullptr;
 	std::shared_ptr<class Snale> Snale0 = nullptr;
 
+	std::shared_ptr<class Ladder> Ladder0 = nullptr;
+	std::shared_ptr<class Ladder> Ladder1 = nullptr;
+
+	std::shared_ptr<class Portal> Portal0 = nullptr;
+	std::shared_ptr<class Portal> Portal1 = nullptr;
 	//UI
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;

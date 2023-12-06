@@ -16,6 +16,7 @@ enum class ContentsObjectType
 	Skill,
 	Object,
 	DamageNumber,
+	Fade,
 };
 
 enum class ObjectCollision

@@ -1,6 +1,12 @@
 #include "PreCompile.h"
 #include "PinkBeanDummy.h"
 
+bool PinkBeanDummy::Ariel;
+bool PinkBeanDummy::Munin;
+bool PinkBeanDummy::Rex;
+bool PinkBeanDummy::Solomon;
+bool PinkBeanDummy::Whigin;
+
 PinkBeanDummy::PinkBeanDummy() 
 {
 }
@@ -15,6 +21,11 @@ void PinkBeanDummy::Start()
 }
 void PinkBeanDummy::Update(float _Delta)
 {
+	if (Ariel == false && Munin == false && Rex == false && Solomon == false && Whigin == false)
+	{
+
+	}
+
 	if (PinkBeanDummyRender->IsCurAnimationEnd() == true)
 	{
 		if (PinkBeanState == "Stand")
@@ -64,6 +75,7 @@ void PinkBeanDummy::ComponetSetting()
 		PinkBeanDummyRender->CreateAnimation("PinkBeanSkill11", "PinkBeanSkill11",0.15f);
 		PinkBeanDummyRender->CreateAnimation("PinkBeanSkill12", "PinkBeanSkill12",0.15f);
 		PinkBeanDummyRender->CreateAnimation("PinkBeanStand0", "PinkBeanStand0",0.15f);
+		PinkBeanDummyRender->CreateAnimation("PinkBeanDie", "PinkBeanDie");
 		PinkBeanDummyRender->AutoSpriteSizeOn();
 		PinkBeanDummyRender->ChangeAnimation("PinkBeanStand0");
 	}

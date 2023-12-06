@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "BasicLevel.h"
+#include "FadeInOut.h"
 //#include <GameEngineCore/FadePostEffect.h>
 
 std::shared_ptr<class GameEngineTexture> BasicLevel::CurMiniMap = nullptr;
@@ -18,6 +19,8 @@ BasicLevel::~BasicLevel()
 void BasicLevel::Start()
 {
 	GameEngineInput::AddInputObject(this);
+	ResourceLoad();
+	
 }
 
 void BasicLevel::Update(float _Delta)
@@ -27,11 +30,33 @@ void BasicLevel::Update(float _Delta)
 
 void BasicLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	if (FadeOutEffect == nullptr)
+	{
+		FadeOutEffect = CreateActor<FadeInOut>();
+	}
+
+	if (FadeInEffect == nullptr)
+	{
+		FadeInEffect = CreateActor<FadeInOut>();
+	}
 	//if (FadeEffect == nullptr)
 	//{
 	//	FadeEffect = GetLevelRenderTarget()->CreateEffect<FadePostEffect>();
 	//	FadeEffect->Off();
 	//}
+}
+void BasicLevel::LevelEnd(GameEngineLevel* _NextLevel)
+{
+	if (FadeOutEffect != nullptr)
+	{
+		FadeOutEffect->Death();
+		FadeOutEffect = nullptr;
+	}
+	if (FadeInEffect != nullptr)
+	{
+		FadeInEffect->Death();
+		FadeInEffect = nullptr;
+	}
 }
 
 void BasicLevel::DebugSwitch()
@@ -309,4 +334,40 @@ void BasicLevel::ResourceLoad()
 
 		}
 	}
+
+	{
+		if (nullptr == GameEngineSprite::Find("FadeOut.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("FadeOut");
+
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("FadeOut.png");
+			
+
+
+		}
+	}
 }
+
+void BasicLevel::FadeOut()
+{
+	FadeOutEffect->FadeOut();
+}
+void BasicLevel::FadeIn()
+{
+	FadeInEffect->FadeIn();
+}
+

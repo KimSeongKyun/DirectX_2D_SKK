@@ -32,5 +32,11 @@ private:
 	std::string PinkBeanState;
 	std::shared_ptr<class GameEngineSpriteRenderer> PinkBeanDummyRender = nullptr;
 
+	static bool Ariel;
+	static bool Munin;
+	static bool Rex;
+	static bool Solomon;
+	static bool Whigin;
+
 };
 

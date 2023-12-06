@@ -20,6 +20,7 @@ void Munin::Update(float _Delta)
 
 	if (MuninState == "MuninDie")
 	{
+		MuninRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
 		return;
 	}
 	if (false == CognitiveRange->Collision(ObjectCollision::PlayerBody))

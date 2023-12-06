@@ -51,6 +51,11 @@ void Player::StateInit()
 					RopeCheck();
 				}
 
+				if (true == GameEngineInput::IsDown(VK_DOWN, this))
+				{
+					RopeCheck();
+				}
+
 
 				if (false == GameEngineInput::IsPress(VK_LEFT,this) &&
 					false == GameEngineInput::IsPress(VK_RIGHT,this) &&
@@ -130,7 +135,7 @@ void Player::StateInit()
 
 				if (true == GameEngineInput::IsPress(VK_DOWN,this))
 				{
-					return;
+					RopeCheck();
 				}
 
 				if (true == GameEngineInput::IsDown('Z',this))
@@ -185,9 +190,10 @@ void Player::StateInit()
 
 				Pos.Z -= 100;
 				//GetLevel()->GetMainCamera()->Transform.SetLocalPosition(Pos);
-			}
+			},
+			
 		}
-
+		
 	);
 
 	FSM.CreateState(
@@ -201,6 +207,7 @@ void Player::StateInit()
 			{
 				if (IsGravity == true)
 				{
+					JumpPower;
 					Gravity += 10 * _DeltaTime;
 					if (Gravity > 9.0f)
 					{
@@ -236,6 +243,11 @@ void Player::StateInit()
 					}
 
 					if (true == GameEngineInput::IsDown(VK_UP, this))
+					{
+						RopeCheck();
+					}
+
+					if (true == GameEngineInput::IsDown(VK_DOWN, this))
 					{
 						RopeCheck();
 					}
@@ -286,7 +298,14 @@ void Player::StateInit()
 						FSM.ChangeState("Idle");
 					}
 				}
-			}
+			},
+
+				.End = [this]()
+			{
+				JumpPower = { 0.0f, 4.5f, 1.0f };
+				Gravity = 0.0f;
+
+			}, 
 		}
 
 	);
@@ -301,6 +320,12 @@ void Player::StateInit()
 			.Update = [this](float _DeltaTime)
 		{
 			IsGravity = false;
+			if (false == ColLadder->Collision(static_cast<int>(ObjectCollision::Rope)))
+			{
+				IsGravity = true;
+				JumpPower = { 0.0f,0.0f, 0.0f };
+				FSM.ChangeState("Jump");
+			}
 
 			if (true == GameEngineInput::IsPress(VK_UP,this))
 			{
@@ -327,6 +352,7 @@ void Player::StateInit()
 				
 				
 				IsGravity = true;
+				JumpPower = { 0.0f,2.0f, 0.0f };
 				FSM.ChangeState("Jump");
 			}
 
@@ -344,6 +370,12 @@ void Player::StateInit()
 			.Update = [this](float _DeltaTime)
 		{
 			IsGravity = false;
+			if (false == ColLadder->Collision(static_cast<int>(ObjectCollision::Ladder)))
+			{
+				IsGravity = true;
+				JumpPower = {0.0f,0.0f, 0.0f};
+				FSM.ChangeState("Jump");
+			}
 
 			if (true == GameEngineInput::IsPress(VK_UP,this))
 			{
@@ -367,9 +399,9 @@ void Player::StateInit()
 
 			if (true == GameEngineInput::IsDown('X',this))
 			{
-				if (true == GameEngineInput::IsPress(VK_RIGHT, this))
 
 				IsGravity = true;
+				JumpPower = { 0.0f,2.0f, 0.0f };
 				FSM.ChangeState("Jump");
 			}
 

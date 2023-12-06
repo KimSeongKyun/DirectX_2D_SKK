@@ -20,6 +20,7 @@ void Whigin::Update(float _Delta)
 	
 	if (WhiginState == "WhiginDie")
 	{
+		WhiginRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
 		return;
 	}
 

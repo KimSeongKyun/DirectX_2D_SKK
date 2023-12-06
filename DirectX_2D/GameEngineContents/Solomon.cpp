@@ -21,6 +21,7 @@ void Solomon::Update(float _Delta)
 	//ChangeState("SolomonAttack1Effect");
 	if (SolomonState == "SolomonDie")
 	{
+		SolomonRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
 		return;
 	}
 	

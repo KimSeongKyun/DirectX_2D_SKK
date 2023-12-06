@@ -22,6 +22,7 @@ void Ariel::Update(float _Delta)
 	
 	if (ArielState == "ArielDie")
 	{
+		ArielRender->GetColorData().PlusColor.A -= 0.5 * _Delta;
 		return;
 	}
 

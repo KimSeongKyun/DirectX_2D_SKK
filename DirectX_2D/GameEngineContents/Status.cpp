@@ -24,6 +24,7 @@ void Status::Start()
 			BackHP->SetSprite("AniGauge.png");
 			BackHP->AutoSpriteSizeOn();
 			BackHP->Transform.SetLocalPosition({ 10.0f, -2.0f, 1.0f });
+			
 		}
 
 		{
@@ -39,6 +40,7 @@ void Status::Start()
 			HPBar->SetSprite("HPBar.png");
 			HPBar->AutoSpriteSizeOn();
 			HPBar->Transform.SetLocalPosition({ 10.0f, -2.0f, 1.0f });
+			
 		}
 
 		{

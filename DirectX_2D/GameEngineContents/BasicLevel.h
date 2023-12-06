@@ -22,16 +22,19 @@ public:
 	static std::shared_ptr<class GameEngineTexture> CurMiniMap;
 	static std::shared_ptr<class GameEngineTexture> CurMap;
 	static std::string CurMapName;
+	void FadeOut();
+	void FadeIn();
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
 	void DebugSwitch();
+	
 	virtual void ResourceLoad() = 0;
-	//std::shared_ptr<class FadePostEffect> FadeEffect;
+	std::shared_ptr<class FadeInOut> FadeOutEffect;
+	std::shared_ptr<class FadeInOut> FadeInEffect;
 
 private:
-
-	bool FadeOut = false;
 };
 

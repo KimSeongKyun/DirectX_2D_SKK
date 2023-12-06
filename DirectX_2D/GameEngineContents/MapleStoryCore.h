@@ -31,6 +31,8 @@ public:
 	MapleStoryCore& operator=(const MapleStoryCore& _Other) = delete;
 	MapleStoryCore& operator=(MapleStoryCore&& _Other) noexcept = delete;
 
+	static float4 PlayerPos;
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

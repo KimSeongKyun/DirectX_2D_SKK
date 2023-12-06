@@ -31,6 +31,8 @@ private:
 	float4 Coordinate;
 	float4 PortalSize = {};
 
+	float4 PlayerMovePos;
+
 	bool ChageLevelStart = false;
 	float TimeCheck = 0.0f;
 	std::shared_ptr<class FadePostEffect> FadeEffect;

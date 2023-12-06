@@ -3,7 +3,8 @@
 
 #include "BasicObjectElement.h"
 #include "BasicLevel.h"
-#include <GameEngineCore/FadePostEffect.h>
+#include "MapleStoryCore.h"
+
 
 
 
@@ -37,11 +38,7 @@ void Portal::Start()
 		ColToPlayer->SetCollisionType(ColType::AABBBOX2D);
 		//ColToPlayer->Transform.AddWorldPosition({ 0, - PortalScale.hY() + 2 ,0.0f});
 	}
-	if (FadeEffect == nullptr)
-	{
-		FadeEffect = GetLevel()->GetLevelRenderTarget()->CreateEffect<FadePostEffect>();
-		FadeEffect->Off();
-	}
+	
 	//float4 PortalSize = Render0->Transform.GetWorldScale();
 	//PortalSize.hX();
 	//PortalSize;
@@ -57,10 +54,12 @@ void Portal::Update(float _Delta)
 	{
 		if (false != ColToPlayer->Collision(ObjectCollision::PlayerBody))
 		{
-			FadeEffect->On();
+			GetLevel()->GetDynamic_Cast_This<BasicLevel>()->FadeOut();
+			MapleStoryCore::PlayerPos = PlayerMovePos;
 			ChageLevelStart = true;
 		}
 	}
+
 	if (ChageLevelStart == true)
 	{
 		TimeCheck += _Delta;
@@ -80,7 +79,7 @@ void Portal::SetLevelName(const std::string_view& _LevelName)
 
 void Portal::SetPlayerMovePos(float4 _Pos)
 {
-	//ContentsCore::PlayerMovePos = _Pos;
+	PlayerMovePos = _Pos;
 }
 
 void Portal::SetCoordinate(float4 _Pos)

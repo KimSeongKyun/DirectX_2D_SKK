@@ -31,6 +31,15 @@ private:
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ellinia0_Map> Map0 = nullptr;
 	std::shared_ptr<class Snale> Snale0 = nullptr;
+	std::shared_ptr<class Ladder> Ladder0 = nullptr;
+	std::shared_ptr<class Ladder> Ladder1 = nullptr;
+	std::shared_ptr<class Ladder> Ladder2 = nullptr;
+	std::shared_ptr<class Ladder> Ladder3 = nullptr;
+	std::shared_ptr<class Ladder> Ladder4 = nullptr;
+	std::shared_ptr<class Ladder> Ladder5 = nullptr;
+	std::shared_ptr<class Ladder> Ladder6 = nullptr;
+	std::shared_ptr<class Portal> Portal0 = nullptr;
+
 
 	//UI
 	std::shared_ptr<class Status> Status0 = nullptr;

@@ -17,7 +17,9 @@
 #include "Munin.h"
 #include "Mouse.h"
 #include "Inventory.h"
-#include <GameEngineCore/FadePostEffect.h>
+#include "Rope.h"
+#include "MapleStoryCore.h"
+
 
 
 
@@ -48,14 +50,124 @@ void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	CurMapName = "PinkBeanMiniMap.png";
 	CameraSetting();
 	ActorSetting();
-
-	std::shared_ptr< DamageNumber> Test0 = CreateActor< DamageNumber>();
-	Test0->Transform.SetLocalPosition({ 720.0f, -500.0f });
-	Test0->Damage(100);
+	Player0->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
+	//std::shared_ptr< DamageNumber> Test0 = CreateActor< DamageNumber>();
+	//Test0->Transform.SetLocalPosition({ 720.0f, -500.0f });
+	//Test0->Damage(100);
+	BasicLevel::FadeIn();
 }
 void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	BasicLevel::LevelEnd(_NextLevel);
+	BasicLevel::LevelEnd(_NextLevel);
+
+	if (nullptr != Player0)
+	{
+		Player0->Death();
+		Player0 = nullptr;
+	}
+
+	if (nullptr != Map0)
+	{
+		Map0->Death();
+		Map0 = nullptr;
+	}
+
 	
+	if (nullptr != Status0)
+	{
+		Status0->Death();
+		Status0 = nullptr;
+	}
+	if (nullptr != QuickSlot0)
+	{
+		QuickSlot0->Death();
+		QuickSlot0 = nullptr;
+	}
+
+	if (nullptr != MiniMap0)
+	{
+		MiniMap0->Death();
+		MiniMap0 = nullptr;
+	}
+
+	if (nullptr != Ariel0)
+	{
+		Ariel0->Death();
+		Ariel0 = nullptr;
+	}
+
+	if (nullptr != PinkBeanDummy0)
+	{
+		PinkBeanDummy0->Death();
+		PinkBeanDummy0 = nullptr;
+	}
+	
+	if (nullptr != Rope0)
+	{
+		Rope0->Death();
+		Rope0 = nullptr;
+	}
+	if (nullptr != Rope1)
+	{
+		Rope1->Death();
+		Rope1 = nullptr;
+	}
+
+	if (nullptr != Rope2)
+	{
+		Rope2->Death();
+		Rope2 = nullptr;
+	}
+
+	if (nullptr != Rope3)
+	{
+		Rope3->Death();
+		Rope3 = nullptr;
+	}
+
+	if (nullptr != Portal0)
+	{
+		Portal0->Death();
+		Portal0 = nullptr;
+	}
+
+	if (nullptr != Solomon0)
+	{
+		Solomon0->Death();
+		Solomon0 = nullptr;
+	}
+
+	if (nullptr != Rex0)
+	{
+		Rex0->Death();
+		Rex0 = nullptr;
+	}
+
+	if (nullptr != Whigin0)
+	{
+		Whigin0->Death();
+		Whigin0 = nullptr;
+	}
+
+	
+	if (nullptr != Munin0)
+	{
+		Munin0->Death();
+		Munin0 = nullptr;
+	}
+	
+	if (nullptr != Mouse0)
+	{
+		Mouse0->Death();
+		Mouse0 = nullptr;
+	}
+
+	if (nullptr != Inventory0)
+	{
+		Inventory0->Death();
+		Inventory0 = nullptr;
+	}
 }
 
 void PinkBeanLevel::ResourceLoad()
@@ -108,6 +220,25 @@ void PinkBeanLevel::ResourceLoad()
 		}
 	}
 	//핑크빈 이미지 로드
+	{
+		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("Monster");
+			Dir.MoveChild("PinkBeanDummy");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+			}
+		}
+	}
+
 	{
 		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01.png"))
 		{
@@ -238,7 +369,7 @@ void PinkBeanLevel::ActorSetting()
 	{
 		Portal0 = CreateActor<Portal>(11);
 		Portal0->Transform.SetWorldPosition({ 100.0f, -700.0f, 1.0f });
-		Portal0->SetLevelName("Ellinia0_Level");
+		Portal0->SetLevelName("Ellinia1_Level");
 	}
 
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale();
@@ -263,11 +394,39 @@ void PinkBeanLevel::ActorSetting()
 		
 	}
 
-	if (Ladder0 == nullptr)
+	if (Rope0 == nullptr)
 	{
-		Ladder0 = CreateActor<Ladder>(ContentsObjectType::Object);
-		Ladder0->Transform.SetWorldPosition({ 894.0f, -425.0f });
-		Ladder0->SetLadderScale({50.0f, 100.0f});
+		Rope0 = CreateActor<Rope>(12);
+
+		Rope0->Transform.SetWorldPosition({ 1383.0f, -336.0f });
+		Rope0->SetLadderScale({ 9.0f, 126.0f });
+
+	}
+	if (Rope1 == nullptr)
+	{
+		Rope1 = CreateActor<Rope>(12);
+
+		Rope1->Transform.SetWorldPosition({ 437.0f,-336.0f });
+		Rope1->SetLadderScale({ 9.0f,126.0f });
+
+	}
+
+	if (Rope2 == nullptr)
+	{
+		Rope2 = CreateActor<Rope>(12);
+
+		Rope2->Transform.SetWorldPosition({ 1393, -522.0f });
+		Rope2->SetLadderScale({ 9.0f,100.0f });
+
+	}
+
+	if (Rope3 == nullptr)
+	{
+		Rope3 = CreateActor<Rope>(12);
+
+		Rope3->Transform.SetWorldPosition({ 358.0f, -512.0f });
+		Rope3->SetLadderScale({ 9.0f,120.0f });
+
 	}
 
 	if (Solomon0 == nullptr)
@@ -316,7 +475,7 @@ void PinkBeanLevel::ActorSetting()
 
 void PinkBeanLevel::CameraSetting()
 {
-	GetMainCamera()->Transform.AddLocalPosition({ 793.0f,1371.0f,0.0f });
+	GetMainCamera()->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 
 

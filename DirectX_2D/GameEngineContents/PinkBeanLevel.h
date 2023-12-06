@@ -30,7 +30,7 @@ private:
 	std::shared_ptr<class Ariel> Ariel0 = nullptr;
 	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
 	std::shared_ptr<class Portal> Portal0 = nullptr;
-	std::shared_ptr<class Portal> Portal1 = nullptr;
+	
 	std::shared_ptr<class Solomon> Solomon0 = nullptr;
 	std::shared_ptr<class Rex> Rex0 = nullptr;
 	std::shared_ptr<class Whigin> Whigin0 = nullptr;
@@ -41,7 +41,12 @@ private:
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
 	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;
-	std::shared_ptr<class Ladder> Ladder0 = nullptr;
+	std::shared_ptr<class Rope> Rope0 = nullptr;
+	std::shared_ptr<class Rope> Rope1 = nullptr;
+	std::shared_ptr<class Rope> Rope2 = nullptr;
+	std::shared_ptr<class Rope> Rope3 = nullptr;
+
+
 
 	
 	void ResourceLoad();

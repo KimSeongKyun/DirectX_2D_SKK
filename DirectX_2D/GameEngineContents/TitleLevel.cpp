@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "TitleLevel.h"
 #include "TitleScene.h"
+#include "MapleStoryCore.h"
 
 TitleLevel::TitleLevel() 
 {
@@ -12,7 +13,7 @@ TitleLevel::~TitleLevel()
 
 void TitleLevel::Start()
 {
-	
+	MapleStoryCore::PlayerPos = { 147.0f,-890.0f };
 }
 
 
@@ -36,7 +37,8 @@ void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	int a = 0;
+	
+
 }
 
 void TitleLevel::ResourceLoad()

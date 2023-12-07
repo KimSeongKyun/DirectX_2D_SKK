@@ -2,6 +2,7 @@
 #include "Rex.h"
 #include "Player.h"
 #include "DamageNumber.h"
+#include "PinkBeanDummy.h"
 
 Rex::Rex()
 {
@@ -21,7 +22,8 @@ void Rex::Update(float _Delta)
 	//ChangeState("RexAttack1Effect");
 	if (RexState == "RexDie")
 	{
-		RexRender->GetColorData().PlusColor.A -= 0.5 * _Delta;
+		RexRender->GetColorData().PlusColor.A -= static_cast<double>(0.5 * _Delta);
+		PinkBeanDummy::Rex = false;
 		return;
 	}
 
@@ -172,7 +174,7 @@ void Rex::ComponentSetting()
 
 	for (size_t i = 0; i < 5; i++)
 	{
-		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
 		Collision0->SetCollisionType(ColType::AABBBOX2D);
 		Collision0->Transform.SetWorldScale({ 120.0f, 120.0f });
 		Collision0->Off();

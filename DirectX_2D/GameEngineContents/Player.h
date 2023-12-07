@@ -41,7 +41,7 @@ public:
 	void Damage(int _Damage) override;
 	bool GetReflect() { return ReflectOn; };
 	void SetReflect(bool _bool) { ReflectOn = _bool; };
-	
+	void SuperKnockBack();
 
 protected:
 	void Start() override;
@@ -60,7 +60,7 @@ private:
 	std::string CurPlayerState;
 
 	float Speed = 100.0f;
-	float KnockBackPower = 0.0f;
+	float KnockBackPower = 100.0f;
 	
 	bool ReflectOn = false;
 	bool Attack_Ing = false;
@@ -68,6 +68,7 @@ private:
 	bool ColdBimOn = false;
 	bool TeleportOn = false;
 	bool Invincibility = false;
+	bool IsKnockBack = false;
 
 	//ÄðÅ¸ÀÓ
 	float TeleportCoolTime = 0.0f;
@@ -98,6 +99,7 @@ private:
 	void RopeCheck();
 	void ReflectCheck();
 	void knockBack();
+	
 
 
 

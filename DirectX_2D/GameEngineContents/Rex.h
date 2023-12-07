@@ -23,11 +23,11 @@ public:
 	Rex& operator=(const Rex& _Other) = delete;
 	Rex& operator=(Rex&& _Other) noexcept = delete;
 
+	void Damage(int _Damge) override;
 protected:
 	void Start();
 	void Update(float _Delta) override;
 	void SetHP(int _HP) override;
-	void Damage(int _Damge) override;
 	void RendererSetting() override;
 
 private:
@@ -44,7 +44,7 @@ private:
 	float4 RexDif;
 	bool DifCheck = false;
 
-	int HP = 10;
+	int HP = 100;
 
 	std::string RexState;
 	float Timeh = 0.0f;

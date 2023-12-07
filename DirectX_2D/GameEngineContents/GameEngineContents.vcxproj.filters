@@ -3,12 +3,6 @@
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp" />
     <ClCompile Include="MapleStoryCore.cpp" />
-    <ClCompile Include="Ellinia0_Level.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleLevel.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
     <ClCompile Include="BasicObjectElement.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -30,14 +24,8 @@
     <ClCompile Include="Snale.cpp">
       <Filter>Object\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="Ellinia1_Level.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
     <ClCompile Include="Ellinia1_Map.cpp">
       <Filter>Object\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="PinkBeanLevel.cpp">
-      <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="PinkBeanMap.cpp">
       <Filter>Object\Map</Filter>
@@ -50,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Object\Portal</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicLevel.cpp">
-      <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="..\GameEngineCore\GameEngineState.cpp" />
     <ClCompile Include="QuickSlot.cpp">
@@ -112,16 +97,28 @@
     <ClCompile Include="FadeInOut.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="PinkBean.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellinia1_Level.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellinia0_Level.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PinkBeanLevel.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicLevel.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="MapleStoryCore.h" />
-    <ClInclude Include="Ellinia0_Level.h">
-      <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleLevel.h">
-      <Filter>Level</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -143,14 +140,8 @@
     <ClInclude Include="Snale.h">
       <Filter>Object\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="Ellinia1_Level.h">
-      <Filter>Level</Filter>
-    </ClInclude>
     <ClInclude Include="Ellinia1_Map.h">
       <Filter>Object\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="PinkBeanLevel.h">
-      <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="PinkBeanMap.h">
       <Filter>Object\Map</Filter>
@@ -163,9 +154,6 @@
     </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Object\Portal</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicLevel.h">
-      <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="..\GameEngineCore\GameEngineState.h" />
     <ClInclude Include="QuickSlot.h">
@@ -225,11 +213,26 @@
     <ClInclude Include="FadeInOut.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="PinkBean.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellinia1_Level.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellinia0_Level.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PinkBeanLevel.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicLevel.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Level">
-      <UniqueIdentifier>{c9a2e832-8d6b-49de-ac34-3e11f6f95c4b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{5149ea30-97f1-47b8-922c-87826f277675}</UniqueIdentifier>
     </Filter>
@@ -268,6 +271,9 @@
     </Filter>
     <Filter Include="Object\Map\Title">
       <UniqueIdentifier>{d99820cc-e9bc-457a-b9da-a3b058af2ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Level">
+      <UniqueIdentifier>{0c812bf0-6812-4f02-bd0d-686aaf7f5d92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

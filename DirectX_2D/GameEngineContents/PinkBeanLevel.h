@@ -27,17 +27,19 @@ private:
 	std::shared_ptr<class PinkBeanMap> Map0 = nullptr;
 	
 	std::shared_ptr<class Player> Player0 = nullptr;
-	std::shared_ptr<class Ariel> Ariel0 = nullptr;
-	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
 	std::shared_ptr<class Portal> Portal0 = nullptr;
 	
+	std::shared_ptr<class PinkBeanDummy> PinkBeanDummy0 = nullptr;
+	std::shared_ptr<class Ariel> Ariel0 = nullptr;
 	std::shared_ptr<class Solomon> Solomon0 = nullptr;
 	std::shared_ptr<class Rex> Rex0 = nullptr;
 	std::shared_ptr<class Whigin> Whigin0 = nullptr;
 	std::shared_ptr<class Munin> Munin0 = nullptr;
+	std::shared_ptr<class PinkBean> PinkBean0 = nullptr;
+
+	//UI
 	std::shared_ptr<class Mouse> Mouse0 = nullptr;
 	std::shared_ptr<class Inventory> Inventory0 = nullptr;
-	//UI
 	std::shared_ptr<class Status> Status0 = nullptr;
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
 	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;

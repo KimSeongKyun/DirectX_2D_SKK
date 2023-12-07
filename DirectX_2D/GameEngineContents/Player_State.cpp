@@ -216,9 +216,10 @@ void Player::StateInit()
 
 					float4 PlayerGravityValue = JumpPower + (float4::DOWN * Gravity);
 					float4 CurPosition = Transform.GetWorldPosition();
-					Transform.AddWorldPosition(PlayerGravityValue /*+ Directionfloat * 100* _DeltaTime*/);
 					
-					
+					Transform.AddWorldPosition(PlayerGravityValue + Directionfloat * KnockBackPower * _DeltaTime);
+					float4 Test0 = Directionfloat;
+					float Test1 = KnockBackPower;
 					float4 NextPosition = CurPosition + PlayerGravityValue;
 
 					if (true == GameEngineInput::IsPress(VK_LEFT,this))
@@ -226,7 +227,7 @@ void Player::StateInit()
 
 						PlayerBody->RightFlip();
 						Transform.AddWorldPosition(float4::LEFT * Speed * _DeltaTime);						
-						
+						CurDirection = PlayerDirection::Left;
 						NextPosition += float4::LEFT * Speed * _DeltaTime;												
 					}
 
@@ -234,7 +235,7 @@ void Player::StateInit()
 					{
 						PlayerBody->LeftFlip();
 						Transform.AddWorldPosition(float4::RIGHT * Speed * _DeltaTime);					
-						
+						CurDirection = PlayerDirection::Right;
 						NextPosition += float4::RIGHT * Speed * _DeltaTime;
 					}
 					if (true == GameEngineInput::IsDown('Z',this))
@@ -302,6 +303,7 @@ void Player::StateInit()
 
 				.End = [this]()
 			{
+				KnockBackPower = 0.0f;
 				JumpPower = { 0.0f, 4.5f, 1.0f };
 				Gravity = 0.0f;
 

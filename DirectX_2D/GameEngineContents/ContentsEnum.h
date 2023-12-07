@@ -28,6 +28,7 @@ enum class ObjectCollision
 	Ladder,
 	Rope,
 	Monster,
+	MonsterSkill,
 	Range,
 	Mouse,
 	Item,

@@ -2,6 +2,7 @@
 #include "Solomon.h"
 #include "Player.h"
 #include "DamageNumber.h"
+#include "PinkBeanDummy.h"
 
 Solomon::Solomon()
 {
@@ -22,6 +23,7 @@ void Solomon::Update(float _Delta)
 	if (SolomonState == "SolomonDie")
 	{
 		SolomonRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
+		PinkBeanDummy::Solomon = false;
 		return;
 	}
 	
@@ -172,7 +174,7 @@ void Solomon::ComponentSetting()
 
 	for (size_t i = 0; i < 5; i++)
 	{
-		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
 		Collision0->SetCollisionType(ColType::AABBBOX2D);
 		Collision0->Transform.SetWorldScale({ 120.0f, 120.0f });
 		Collision0->Off();

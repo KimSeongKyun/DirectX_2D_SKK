@@ -19,6 +19,7 @@
 #include "Inventory.h"
 #include "Rope.h"
 #include "MapleStoryCore.h"
+#include "PinkBean.h"
 
 
 
@@ -39,6 +40,15 @@ void PinkBeanLevel::Start()
 void PinkBeanLevel::Update(float _Delta)
 {
 	DebugSwitch();
+	if (GameEngineInput::IsDown(VK_F1,this))
+	{
+		Ariel0->Damage(1000000);
+		Rex0->Damage(1000000);
+		Solomon0->Damage(1000000);
+		Whigin0->Damage(1000000);
+		Munin0->Damage(1000000);
+
+	}
 
 }
 void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
@@ -50,125 +60,13 @@ void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	CurMapName = "PinkBeanMiniMap.png";
 	CameraSetting();
 	ActorSetting();
-	Player0->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
+	//Player0->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
 	//std::shared_ptr< DamageNumber> Test0 = CreateActor< DamageNumber>();
 	//Test0->Transform.SetLocalPosition({ 720.0f, -500.0f });
 	//Test0->Damage(100);
 	BasicLevel::FadeIn();
 }
-void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
-{
-	BasicLevel::LevelEnd(_NextLevel);
-	BasicLevel::LevelEnd(_NextLevel);
 
-	if (nullptr != Player0)
-	{
-		Player0->Death();
-		Player0 = nullptr;
-	}
-
-	if (nullptr != Map0)
-	{
-		Map0->Death();
-		Map0 = nullptr;
-	}
-
-	
-	if (nullptr != Status0)
-	{
-		Status0->Death();
-		Status0 = nullptr;
-	}
-	if (nullptr != QuickSlot0)
-	{
-		QuickSlot0->Death();
-		QuickSlot0 = nullptr;
-	}
-
-	if (nullptr != MiniMap0)
-	{
-		MiniMap0->Death();
-		MiniMap0 = nullptr;
-	}
-
-	if (nullptr != Ariel0)
-	{
-		Ariel0->Death();
-		Ariel0 = nullptr;
-	}
-
-	if (nullptr != PinkBeanDummy0)
-	{
-		PinkBeanDummy0->Death();
-		PinkBeanDummy0 = nullptr;
-	}
-	
-	if (nullptr != Rope0)
-	{
-		Rope0->Death();
-		Rope0 = nullptr;
-	}
-	if (nullptr != Rope1)
-	{
-		Rope1->Death();
-		Rope1 = nullptr;
-	}
-
-	if (nullptr != Rope2)
-	{
-		Rope2->Death();
-		Rope2 = nullptr;
-	}
-
-	if (nullptr != Rope3)
-	{
-		Rope3->Death();
-		Rope3 = nullptr;
-	}
-
-	if (nullptr != Portal0)
-	{
-		Portal0->Death();
-		Portal0 = nullptr;
-	}
-
-	if (nullptr != Solomon0)
-	{
-		Solomon0->Death();
-		Solomon0 = nullptr;
-	}
-
-	if (nullptr != Rex0)
-	{
-		Rex0->Death();
-		Rex0 = nullptr;
-	}
-
-	if (nullptr != Whigin0)
-	{
-		Whigin0->Death();
-		Whigin0 = nullptr;
-	}
-
-	
-	if (nullptr != Munin0)
-	{
-		Munin0->Death();
-		Munin0 = nullptr;
-	}
-	
-	if (nullptr != Mouse0)
-	{
-		Mouse0->Death();
-		Mouse0 = nullptr;
-	}
-
-	if (nullptr != Inventory0)
-	{
-		Inventory0->Death();
-		Inventory0 = nullptr;
-	}
-}
 
 void PinkBeanLevel::ResourceLoad()
 {
@@ -240,14 +138,14 @@ void PinkBeanLevel::ResourceLoad()
 	}
 
 	{
-		if (nullptr == GameEngineSprite::Find("PinkBeanSkill1_01.png"))
+		if (nullptr == GameEngineSprite::Find("PinkBeanGenesis00.png"))
 		{
 			GameEngineDirectory Dir;
 			Dir.MoveParentToExistsChild("GameEngineResources");
 			Dir.MoveChild("ContentsResources");
 			Dir.MoveChild("Texture");
 			Dir.MoveChild("Monster");
-			Dir.MoveChild("PinkBeanDummy");
+			Dir.MoveChild("PinkBean");
 			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 			for (size_t i = 0; i < Directorys.size(); i++)
@@ -469,10 +367,129 @@ void PinkBeanLevel::ActorSetting()
 		//Mouse0->Transform.SetWorldPosition({ 0.0f, 0.0f });
 
 	}
-	
+	//if (PinkBean0 == nullptr)
+	//{
+	//	PinkBean0 = CreateActor<PinkBean>(12);
+	//	//PinkBean0->Transform.SetWorldPosition({ 0.0f ,0.0f });
+	//	PinkBean0->Transform.SetWorldPosition({ 920.0f, -650.0f, 1.0f });
+	//	
+	//
+	//}
 
 }
+void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
+{
+	BasicLevel::LevelEnd(_NextLevel);
+	BasicLevel::LevelEnd(_NextLevel);
 
+	if (nullptr != Player0)
+	{
+		Player0->Death();
+		Player0 = nullptr;
+	}
+
+	if (nullptr != Map0)
+	{
+		Map0->Death();
+		Map0 = nullptr;
+	}
+
+
+	if (nullptr != Status0)
+	{
+		Status0->Death();
+		Status0 = nullptr;
+	}
+	if (nullptr != QuickSlot0)
+	{
+		QuickSlot0->Death();
+		QuickSlot0 = nullptr;
+	}
+
+	if (nullptr != MiniMap0)
+	{
+		MiniMap0->Death();
+		MiniMap0 = nullptr;
+	}
+
+	if (nullptr != Ariel0)
+	{
+		Ariel0->Death();
+		Ariel0 = nullptr;
+	}
+
+	if (nullptr != PinkBeanDummy0)
+	{
+		PinkBeanDummy0->Death();
+		PinkBeanDummy0 = nullptr;
+	}
+
+	if (nullptr != Rope0)
+	{
+		Rope0->Death();
+		Rope0 = nullptr;
+	}
+	if (nullptr != Rope1)
+	{
+		Rope1->Death();
+		Rope1 = nullptr;
+	}
+
+	if (nullptr != Rope2)
+	{
+		Rope2->Death();
+		Rope2 = nullptr;
+	}
+
+	if (nullptr != Rope3)
+	{
+		Rope3->Death();
+		Rope3 = nullptr;
+	}
+
+	if (nullptr != Portal0)
+	{
+		Portal0->Death();
+		Portal0 = nullptr;
+	}
+
+	if (nullptr != Solomon0)
+	{
+		Solomon0->Death();
+		Solomon0 = nullptr;
+	}
+
+	if (nullptr != Rex0)
+	{
+		Rex0->Death();
+		Rex0 = nullptr;
+	}
+
+	if (nullptr != Whigin0)
+	{
+		Whigin0->Death();
+		Whigin0 = nullptr;
+	}
+
+
+	if (nullptr != Munin0)
+	{
+		Munin0->Death();
+		Munin0 = nullptr;
+	}
+
+	if (nullptr != Mouse0)
+	{
+		Mouse0->Death();
+		Mouse0 = nullptr;
+	}
+
+	if (nullptr != Inventory0)
+	{
+		Inventory0->Death();
+		Inventory0 = nullptr;
+	}
+}
 void PinkBeanLevel::CameraSetting()
 {
 	GetMainCamera()->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);

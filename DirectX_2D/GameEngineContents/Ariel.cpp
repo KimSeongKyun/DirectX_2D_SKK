@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "DamageNumber.h"
 #include "DropItem.h"
+#include "PinkBeanDummy.h"
 
 Ariel::Ariel() 
 {
@@ -22,7 +23,8 @@ void Ariel::Update(float _Delta)
 	
 	if (ArielState == "ArielDie")
 	{
-		ArielRender->GetColorData().PlusColor.A -= 0.5 * _Delta;
+		ArielRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
+		PinkBeanDummy::Ariel = false;
 		return;
 	}
 
@@ -165,7 +167,7 @@ void Ariel::ComponentSetting()
 
 	for (size_t i = 0; i < 5; i++)
 	{
-		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
 		Collision0->SetCollisionType(ColType::AABBBOX2D);
 		Collision0->Transform.SetWorldScale({ 45.0f, 847.0f });
 		Collision0->Off();
@@ -175,7 +177,7 @@ void Ariel::ComponentSetting()
 
 	for (size_t i = 0; i < 5; i++)
 	{
-		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+		std::shared_ptr< GameEngineCollision> Collision0 = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
 		Collision0->SetCollisionType(ColType::AABBBOX2D);
 		Collision0->Transform.SetWorldScale({ 120.0f, 120.0f });
 		Collision0->Off();

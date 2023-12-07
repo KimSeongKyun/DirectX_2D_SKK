@@ -15,6 +15,13 @@ public:
 	PinkBeanDummy& operator=(const PinkBeanDummy& _Other) = delete;
 	PinkBeanDummy& operator=(PinkBeanDummy&& _Other) noexcept = delete;
 
+
+	static bool Ariel;
+	static bool Munin;
+	static bool Rex;
+	static bool Solomon;
+	static bool Whigin;
+
 protected:
 	void Start();
 	void Update(float _Delta) override;
@@ -32,11 +39,7 @@ private:
 	std::string PinkBeanState;
 	std::shared_ptr<class GameEngineSpriteRenderer> PinkBeanDummyRender = nullptr;
 
-	static bool Ariel;
-	static bool Munin;
-	static bool Rex;
-	static bool Solomon;
-	static bool Whigin;
+
 
 };
 

@@ -2,6 +2,7 @@
 #include "Whigin.h"
 #include "Player.h"
 #include "DamageNumber.h"
+#include "PinkBeanDummy.h"
 
 Whigin::Whigin() 
 {
@@ -21,6 +22,7 @@ void Whigin::Update(float _Delta)
 	if (WhiginState == "WhiginDie")
 	{
 		WhiginRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
+		PinkBeanDummy::Whigin = false;
 		return;
 	}
 

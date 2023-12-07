@@ -26,11 +26,11 @@ public:
 	Ariel& operator=(const Ariel& _Other) = delete;
 	Ariel& operator=(Ariel&& _Other) noexcept = delete;
 
+	void Damage(int _Damge) override;
 protected:
 	void Start();
 	void Update(float _Delta) override;
 	void SetHP(int _HP) override;
-	void Damage(int _Damge) override;
 	void RendererSetting() override;
 
 private:

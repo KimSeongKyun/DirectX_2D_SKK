@@ -2,6 +2,7 @@
 #include "Munin.h"
 #include "Player.h"
 #include "DamageNumber.h"
+#include "PinkBeanDummy.h"
 
 Munin::Munin() 
 {
@@ -21,6 +22,7 @@ void Munin::Update(float _Delta)
 	if (MuninState == "MuninDie")
 	{
 		MuninRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
+		PinkBeanDummy::Munin = false;
 		return;
 	}
 	if (false == CognitiveRange->Collision(ObjectCollision::PlayerBody))

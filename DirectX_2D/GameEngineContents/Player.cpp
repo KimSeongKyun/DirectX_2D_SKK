@@ -406,6 +406,8 @@ void Player::knockBack()
 {
 	JumpPower = { 0.0f, 2.5f, 1.0f };
 	IsGravity = true;
+	IsKnockBack = true;
+	KnockBackPower = 100.0f;
 	if (CurDirection == PlayerDirection::Left)
 	{
 		Directionfloat = float4::LEFT;
@@ -417,6 +419,23 @@ void Player::knockBack()
 	FSM.ChangeState("Jump");
 	
 
+}
+
+void Player::SuperKnockBack()
+{
+	IsKnockBack = true;
+	KnockBackPower = 1000.0f;
+	JumpPower = { 0.0f, 2.5f, 1.0f };
+	if (CurDirection == PlayerDirection::Left)
+	{
+		Directionfloat = float4::RIGHT;
+	}
+	if (CurDirection == PlayerDirection::Right)
+	{
+		Directionfloat = float4::LEFT;
+	}
+	IsGravity = true;
+	FSM.ChangeState("Jump");
 }
 
 

@@ -168,10 +168,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BasicLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="BasicLevel.cpp" />
     <ClCompile Include="BasicObjectElement.cpp">
       <SubType>
       </SubType>
@@ -188,14 +185,12 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Ellinia0_Level.cpp" />
     <ClCompile Include="Ellinia0_Map.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Ellinia1_Level.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="Ellinia1_Level.cpp" />
     <ClCompile Include="Ellinia1_Map.cpp">
       <SubType>
       </SubType>
@@ -235,14 +230,15 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Munin.cpp" />
+    <ClCompile Include="PinkBean.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PinkBeanDummy.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="PinkBeanLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="PinkBeanLevel.cpp" />
     <ClCompile Include="PinkBeanMap.cpp">
       <SubType>
       </SubType>
@@ -253,10 +249,6 @@
     </ClCompile>
     <ClCompile Include="MagicBolt.cpp" />
     <ClCompile Include="Player_State.cpp" />
-    <ClCompile Include="Ellinia0_Level.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -273,10 +265,7 @@
     <ClCompile Include="Snale.cpp" />
     <ClCompile Include="Solomon.cpp" />
     <ClCompile Include="Status.cpp" />
-    <ClCompile Include="TitleLevel.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp" />
     <ClCompile Include="TitleScene.cpp">
       <SubType>
       </SubType>
@@ -289,10 +278,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BasicLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="BasicLevel.h" />
     <ClInclude Include="BasicObjectElement.h">
       <SubType>
       </SubType>
@@ -309,14 +295,12 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Ellinia0_Level.h" />
     <ClInclude Include="Ellinia0_Map.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Ellinia1_Level.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="Ellinia1_Level.h" />
     <ClInclude Include="Ellinia1_Map.h">
       <SubType>
       </SubType>
@@ -357,14 +341,15 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Munin.h" />
+    <ClInclude Include="PinkBean.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PinkBeanDummy.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="PinkBeanLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="PinkBeanLevel.h" />
     <ClInclude Include="PinkBeanMap.h">
       <SubType>
       </SubType>
@@ -374,10 +359,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MagicBolt.h" />
-    <ClInclude Include="Ellinia0_Level.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Portal.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="QuickSlot.h" />
@@ -389,10 +370,7 @@
     <ClInclude Include="Snale.h" />
     <ClInclude Include="Solomon.h" />
     <ClInclude Include="Status.h" />
-    <ClInclude Include="TitleLevel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="TitleLevel.h" />
     <ClInclude Include="TitleScene.h">
       <SubType>
       </SubType>

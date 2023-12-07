@@ -1,11 +1,12 @@
 #include "PreCompile.h"
 #include "PinkBeanDummy.h"
+#include "PinkBean.h"
 
-bool PinkBeanDummy::Ariel;
-bool PinkBeanDummy::Munin;
-bool PinkBeanDummy::Rex;
-bool PinkBeanDummy::Solomon;
-bool PinkBeanDummy::Whigin;
+bool PinkBeanDummy::Ariel = true;
+bool PinkBeanDummy::Munin = true;
+bool PinkBeanDummy::Rex = true;
+bool PinkBeanDummy::Solomon = true;
+bool PinkBeanDummy::Whigin = true;
 
 PinkBeanDummy::PinkBeanDummy() 
 {
@@ -23,7 +24,7 @@ void PinkBeanDummy::Update(float _Delta)
 {
 	if (Ariel == false && Munin == false && Rex == false && Solomon == false && Whigin == false)
 	{
-
+		PinkBeanDummyRender->ChangeAnimation("PinkBeanDie");
 	}
 
 	if (PinkBeanDummyRender->IsCurAnimationEnd() == true)
@@ -37,7 +38,7 @@ void PinkBeanDummy::Update(float _Delta)
 
 		if (PinkBeanState != "Stand")
 		{
-			PinkBeanDummyRender->ChangeAnimation("PinkBeanStand0");
+			PinkBeanDummyRender->ChangeAnimation("PinkBeanStand");
 			PinkBeanDummyRender->Transform.AddLocalPosition({ -ResourceDif.X, -ResourceDif.Y });
 			PinkBeanState = "Stand";
 
@@ -74,10 +75,16 @@ void PinkBeanDummy::ComponetSetting()
 		PinkBeanDummyRender->CreateAnimation("PinkBeanSkill10", "PinkBeanSkill10",0.15f);
 		PinkBeanDummyRender->CreateAnimation("PinkBeanSkill11", "PinkBeanSkill11",0.15f);
 		PinkBeanDummyRender->CreateAnimation("PinkBeanSkill12", "PinkBeanSkill12",0.15f);
-		PinkBeanDummyRender->CreateAnimation("PinkBeanStand0", "PinkBeanStand0",0.15f);
+		PinkBeanDummyRender->CreateAnimation("PinkBeanStand", "PinkBeanStand",0.15f);
 		PinkBeanDummyRender->CreateAnimation("PinkBeanDie", "PinkBeanDie");
 		PinkBeanDummyRender->AutoSpriteSizeOn();
-		PinkBeanDummyRender->ChangeAnimation("PinkBeanStand0");
+		PinkBeanDummyRender->ChangeAnimation("PinkBeanStand");
+		PinkBeanDummyRender->SetEndEvent("PinkBeanDie", [&](GameEngineSpriteRenderer*) {
+			std::shared_ptr<PinkBean>PinkBeanActor = GetLevel()->CreateActor<PinkBean>();
+			PinkBeanActor->Transform.SetWorldPosition({ 920.0f, -650.0f, 1.0f });
+			Death();
+			});
+
 	}
 }
 void PinkBeanDummy::ChangeState(int _StateNum)

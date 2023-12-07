@@ -432,13 +432,13 @@
     <Library Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.lib">
       <Filter>ThirdParty\Release</Filter>
     </Library>
-    <Library Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.dll">
-      <Filter>ThirdParty\Release</Filter>
-    </Library>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\lib\Debug\FW1FontWrapper.dll">
       <Filter>ThirdParty\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\lib\Release\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Release</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -14,9 +14,6 @@ void PinkBean::Start()
 {
 	RendererSetting();
 	GameEngineInput::AddInputObject(this);
-	
-	
-	
 }
 void PinkBean::Update(float _Delta)
 {

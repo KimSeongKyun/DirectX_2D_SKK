@@ -22,7 +22,7 @@ void TitleScene::Start()
 
 	TitleScenes->SetEndEvent("Wizet", [&](GameEngineSpriteRenderer*) {
 
-		GameEngineCore::ChangeLevel("Ellinia0_Level");
+		GameEngineCore::ChangeLevel("PinkBeanLevel");
 	});
 
 }

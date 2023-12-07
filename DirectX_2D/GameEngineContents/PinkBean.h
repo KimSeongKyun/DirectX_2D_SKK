@@ -27,6 +27,7 @@ private:
 
 
 	std::shared_ptr<class GameEngineCollision> GenesisCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> PinkBeanCollision = nullptr;
 
 	std::string PinkBeanState = "PinkBeanApear";
 

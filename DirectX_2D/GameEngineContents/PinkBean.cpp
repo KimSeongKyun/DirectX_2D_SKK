@@ -163,6 +163,11 @@ void PinkBean::RenderDifCheck()
 
 void PinkBean::CoolTimeCheck(float _Delta)
 {
+	if (GenesisOn == true && KnockBackOn == true && ReflectOn == true)
+	{
+		ChangeState("PinkBeanMove");
+	}
+
 	if (GenesisOn == true)
 	{
 		GenesisCoolTime += _Delta;
@@ -172,6 +177,7 @@ void PinkBean::CoolTimeCheck(float _Delta)
 			
 			GenesisCoolTime = 1.0f;
 			GenesisOn = false;
+			
 		}
 		
 	}
@@ -198,15 +204,13 @@ void PinkBean::CoolTimeCheck(float _Delta)
 			
 			ReflectCoolTime = 1.0f;
 			ReflectOn = false;
+			return;
 		}
 		
 	}
 
 
-	if (GenesisOn == true && KnockBackOn == true && ReflectOn == true)
-	{
-		ChangeState("PinkBeanMove");
-	}
+	
 
 	if (AllCoolTimeOn == true)
 	{
@@ -312,5 +316,10 @@ void PinkBean::RendererSetting()
 	GenesisCollision->Transform.SetWorldScale({ 844.0f, 100.0f });
 	GenesisCollision->SetCollisionType(ColType::AABBBOX2D);
 	GenesisCollision->Off();
+
+	PinkBeanCollision = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
+	PinkBeanCollision->Transform.SetWorldScale({ 86.0f, 86.0f });
+	PinkBeanCollision->SetCollisionType(ColType::AABBBOX2D);
+	
 }
 

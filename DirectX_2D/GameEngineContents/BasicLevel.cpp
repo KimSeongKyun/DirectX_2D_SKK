@@ -114,6 +114,8 @@ void BasicLevel::ResourceLoad()
 			}
 		}
 	}
+
+	
 	//UI Status 리소스 로드
 	{
 		if (nullptr == GameEngineSprite::Find("AniGauge.png"))

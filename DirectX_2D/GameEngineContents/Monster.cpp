@@ -28,29 +28,7 @@ void Monster::Update(float _Delta)
 
 void Monster::GravityCheck(float _Delta)
 {
-	//GravityOn = true;
-	//
-	//if (GravityOn == true)
-	//{
-	//	Gravity += 10 *_Delta;
-	//
-	//	if (Gravity > 5.0f)
-	//	{
-	//		Gravity = 5.0f;
-	//	}
-	//
-	//	float4 PlayerGravityValue = float4::DOWN * Gravity;
-	//	float4 CurPosition = Transform.GetWorldPosition();
-	//	Transform.AddWorldPosition(float4::DOWN * Gravity);
-	//
-	//	float4 ColMapDif = { ColMap->GetScale().hx(),ColMap->GetScale().hy() };
-	//	float4 NextPosition = CurPosition + float4::Down * Gravity;
-	//	if (ColMap->GetPixel(ColMapDif.ix() + NextPosition.ix(), ColMapDif.iy() + (int)MonsterScale.hy() - NextPosition.iy(), ColGroundColor) == ColGroundColor)
-	//	{
-	//		Transform.SetWorldPosition(CurPosition);
-	//		GravityOn = false;
-	//	}
-	//}
+	BasicObjectElement::GravityCheck(_Delta);
 }
 void Monster::SetCurMap(const std::string_view& _ColMap)
 {

@@ -111,13 +111,14 @@ void ColdBim::ColdBimColCheck()
 		for (size_t i = 0; i < _Collisions.size(); i++)
 		{
 			bool PlayerReflect = Player::MainPlayer->GetReflect();
+			int RandomNum = Random.RandomInt(40000, 50000);
 			if (true == PlayerReflect)
 			{
-				Player::MainPlayer->Damage(20);
+				Player::MainPlayer->Damage(RandomNum);
 				return;
 			}
 			std::shared_ptr<Monster> HitMonster = _Collisions[i]->GetActor()->GetDynamic_Cast_This<Monster>();
-			HitMonster->Damage(100);
+			HitMonster->Damage(RandomNum);
 			ColSkill->Off();
 			std::shared_ptr<GameEngineSpriteRenderer> HitEffect;
 			HitEffect = CreateComponent< GameEngineSpriteRenderer>(ContentsObjectType::Skill);

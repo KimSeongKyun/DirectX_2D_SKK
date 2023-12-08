@@ -29,6 +29,21 @@ void Ellinia1_Level::Start()
 void Ellinia1_Level::Update(float _Delta)
 {
 	DebugSwitch();
+	GameEngineInput::AddInputObject(this);
+	ReSpawn(_Delta);
+	if (true == GameEngineInput::IsDown(VK_F2, this))
+	{
+		for (size_t i = 0; i < Snales.size(); i++)
+		{
+			if (false == Snales[i]->IsUpdate())
+			{
+				Snales[i] = CreateActor<Snale>(20);
+				Snales[i]->SetColMap("ColEllinia0.png");
+				Snales[i]->Transform.SetLocalPosition(SnalePoses[i]);
+			}
+
+		}
+	}
 }
 
 void Ellinia1_Level::LevelStart(GameEngineLevel* _PrevLevel)
@@ -59,10 +74,10 @@ void Ellinia1_Level::LevelEnd(GameEngineLevel* _NextLevel)
 		Map0 = nullptr;
 	}
 
-	if (nullptr != Snale0)
+	for (size_t i = 0; i < Snales.size(); i++)
 	{
-		Snale0->Death();
-		Snale0 = nullptr;
+		Snales[i]->Release();
+		Snales[i] = nullptr;
 	}
 
 	if (nullptr != Status0)
@@ -178,13 +193,42 @@ void Ellinia1_Level::ActorSetting()
 		Map0->Transform.SetLocalPosition({ 648.0f , -1024.0f });
 	}
 
-	if (nullptr == Snale0)
-	{
-		Snale0 = CreateActor<Snale>(20);
-		Snale0->SetColMap("ColEllinia1.png");
-		Snale0->SetHP(100);
-		Snale0->Transform.SetLocalPosition({ 500.0f, -1000.0f });
-	}
+
+	std::shared_ptr<Snale> Snale0 = CreateActor<Snale>(20);
+	Snale0->SetColMap("ColEllinia0.png");
+	Snale0->Transform.SetLocalPosition({ 330.0f, -1165.0f });
+	Snales.push_back(Snale0);
+	SnalePoses.push_back({ 330.0f, -1165.0f });
+
+	std::shared_ptr<Snale> Snale1 = CreateActor<Snale>(20);
+	Snale1->SetColMap("ColEllinia0.png");
+	Snale1->Transform.SetLocalPosition({ 510.0f, -1165.0f });
+	Snales.push_back(Snale1);
+	SnalePoses.push_back({ 510.0f, -1165.0f });
+
+	std::shared_ptr<Snale> Snale2 = CreateActor<Snale>(20);
+	Snale2->SetColMap("ColEllinia0.png");
+	Snale2->Transform.SetLocalPosition({ 330.0f, -1350.0f });
+	Snales.push_back(Snale2);
+	SnalePoses.push_back({ 330.0f, -1350.0f });
+
+	std::shared_ptr<Snale> Snale3 = CreateActor<Snale>(20);
+	Snale3->SetColMap("ColEllinia0.png");
+	Snale3->Transform.SetLocalPosition({ 510.0f, -1350.0f });
+	Snales.push_back(Snale3);
+	SnalePoses.push_back({ 510.0f, -1350.0f });
+
+	std::shared_ptr<Snale> Snale4 = CreateActor<Snale>(20);
+	Snale4->SetColMap("ColEllinia0.png");
+	Snale4->Transform.SetLocalPosition({ 330.0f, -1530.0f });
+	Snales.push_back(Snale4);
+	SnalePoses.push_back({ 330.0f, -1530.0f });
+
+	std::shared_ptr<Snale> Snale5 = CreateActor<Snale>(20);
+	Snale5->SetColMap("ColEllinia0.png");
+	Snale5->Transform.SetLocalPosition({ 510.0f, -1530.0f });
+	Snales.push_back(Snale5);
+	SnalePoses.push_back({ 510.0f, -1530.0f });
 
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale();
 
@@ -253,4 +297,25 @@ void Ellinia1_Level::CameraSetting()
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	std::shared_ptr<GameEngineCamera> UICamera = GetCamera(static_cast<int>(ECAMERAORDER::UI));
 	UICamera->Transform.SetLocalPosition({ WindowScale.X, -WindowScale.Y });
+}
+
+void Ellinia1_Level::ReSpawn(float _Delta)
+{
+	RespawnTime += _Delta;
+
+	if (RespawnTime >= 30.0f)
+	{
+		RespawnTime = 0.0f;
+		for (size_t i = 0; i < Snales.size(); i++)
+		{
+			if (false == Snales[i]->IsUpdate())
+			{
+				Snales[i] = CreateActor<Snale>(20);
+				Snales[i]->SetColMap("ColEllinia0.png");
+				Snales[i]->Transform.SetLocalPosition(SnalePoses[i]);
+			}
+
+		}
+
+	}
 }

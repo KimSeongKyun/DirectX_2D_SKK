@@ -4,7 +4,9 @@
 // Ό³Έν :
 class PinkBean :public Monster
 {
+	friend class PinkBeanUI;
 public:
+	static PinkBean* MainPinkBean;
 	// constrcuter destructer
 	PinkBean();
 	~PinkBean();
@@ -15,12 +17,15 @@ public:
 	PinkBean& operator=(const PinkBean& _Other) = delete;
 	PinkBean& operator=(PinkBean&& _Other) noexcept = delete;
 
+	
 protected:
 	void Start();
 	void Update(float _Delta) override;
 	void SetHP(int _HP) override;
 	void Damage(int _Damge) override;
 	void RendererSetting() override;
+
+	int HP = 1000000;
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> PinkBeanRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> GenesisRender = nullptr;
@@ -53,6 +58,8 @@ private:
 	void SuperKnockBack();
 
 	void CoolTimeCheck(float _Delta);
+
+	void GenesisColCheck();
 
 	GameEngineRandom Random;
 };

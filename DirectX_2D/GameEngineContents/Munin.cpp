@@ -35,7 +35,7 @@ void Munin::Update(float _Delta)
 }
 void Munin::SetHP(int _HP)
 {
-
+	HP = _HP;
 }
 void Munin::Damage(int _Damge)
 {

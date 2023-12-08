@@ -4,6 +4,7 @@
 
 #include "Monster.h"
 #include "Player.h"
+#include "DamageNumber.h"
 #include "ContentsEnum.h"
 
 
@@ -18,6 +19,7 @@ Snale::~Snale()
 void Snale::Start()
 {
 	ComponetSetting();
+	SetObjectSize(SnaleSize);
 }
 
 void Snale::Update(float _Delta)
@@ -28,6 +30,7 @@ void Snale::Update(float _Delta)
 
 	if (IsKnockBack() == false)
 	{
+		IsGravity = true;
 		GravityCheck(_Delta);
 
 		if (IsGravity == false)
@@ -66,7 +69,7 @@ void Snale::Update(float _Delta)
 			}
 			if (IsGravity == false && StackTime >= 1.5f)
 			{
-				GameEngineRandom Random;
+				
 				int RandomNum = Random.RandomInt(0, 2);
 
 				if (RandomNum == 0)
@@ -145,9 +148,11 @@ void Snale::Damage(int _Damage)
 		ChangeKnockBack();
 	}
 	
+	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
+	Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
+	Object->Damage(_Damage);
 
 	HP -= _Damage;
-
 
 	if (HP <= 0)
 	{
@@ -189,10 +194,7 @@ void Snale::ComponetSetting()
 	Render0->ChangeAnimation("SnaleIdle");
 	Render0->AutoSpriteSizeOn();
 
-	ColBody = CreateComponent<GameEngineCollision>();
-	ColBody->Transform.SetWorldScale(SnaleSize);
-	ColBody->SetOrder(static_cast<int>(ContentsObjectType::Monster));
-
-	SetMonsterSize(SnaleSize);
-	SetHP(100);
+	BodyCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
+	BodyCollision->SetCollisionType(ColType::AABBBOX2D);
+	BodyCollision->Transform.SetWorldScale(SnaleSize);
 }

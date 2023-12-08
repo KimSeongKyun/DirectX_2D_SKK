@@ -26,7 +26,8 @@ protected:
 private:
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ellinia1_Map> Map0 = nullptr;
-	std::shared_ptr<class Snale> Snale0 = nullptr;
+	std::vector<std::shared_ptr<class Snale>> Snales;
+	std::vector<float4>SnalePoses;
 
 	std::shared_ptr<class Ladder> Ladder0 = nullptr;
 	std::shared_ptr<class Ladder> Ladder1 = nullptr;
@@ -38,8 +39,11 @@ private:
 	std::shared_ptr<class QuickSlot> QuickSlot0 = nullptr;
 	std::shared_ptr<class MiniMap> MiniMap0 = nullptr;
 
+	float RespawnTime = 0.0f;
+
 	void ResourceLoad();
 	void ActorSetting();
 	void CameraSetting();
+	void ReSpawn(float _Delta);
 };
 

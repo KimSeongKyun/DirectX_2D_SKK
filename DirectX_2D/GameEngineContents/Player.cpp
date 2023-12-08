@@ -7,6 +7,7 @@
 #include "Monster.h"
 #include "ColdBim.h"
 #include "DamageNumber.h"
+#include "FrozenOrb.h"
 
 float4 Player::PlayerPos = { 0.0f, 0.0f, 0.0f };
 PlayerDirection Player::CurDirection = PlayerDirection::Left;
@@ -56,6 +57,11 @@ void Player::Update(float _Delta)
 	if (GameEngineInput::IsDown('V', this))
 	{
 		Teleport();
+	}
+
+	if (GameEngineInput::IsDown('D', this))
+	{
+		FrozenOrb();
 	}
 
 	
@@ -311,7 +317,17 @@ void Player::Teleport()
 
 	TeleportOn = true;
 }
-
+void Player::FrozenOrb()
+{
+	if (FrozenOrb0 == nullptr)
+	{
+		FrozenOrb0 = GetLevel()->CreateActor<class FrozenOrb>(5);
+		FrozenOrb0->Transform.SetWorldPosition(Transform.GetWorldPosition());
+		RendererStateChange("Swing");
+		MaxSkillTime = 2.0f;
+		FrozenOrbOn = true;
+	}
+}
 void Player::ReflectCheck()
 {
 	if (ReflectOn == true)
@@ -382,6 +398,19 @@ void Player::CoolTimeCount(float _Delta)
 			MagicBolt0 = nullptr;
 			SkillTime = 0.0f;
 			MagicBoltOn = false;
+		}
+	}
+
+	if (FrozenOrbOn == true)
+	{
+		SkillTime += _Delta;
+
+		if (SkillTime >= MaxSkillTime != 0.0f)
+		{
+			FrozenOrb0->Death();
+			FrozenOrb0 = nullptr;
+			SkillTime = 0.0f;
+			FrozenOrbOn = false;
 		}
 	}
 }

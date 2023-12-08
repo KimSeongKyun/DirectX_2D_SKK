@@ -26,11 +26,14 @@ private:
 	void ResourceLoad();
 	void ActorSetting();
 	void CameraSetting();
+	void ReSpawn(float _Delta);
 	
+	float RespawnTime = 0.0f;
+	std::vector<float4> SnalePoses;
 
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ellinia0_Map> Map0 = nullptr;
-	std::shared_ptr<class Snale> Snale0 = nullptr;
+	std::vector<std::shared_ptr<class Snale>> Snales;
 	std::shared_ptr<class Ladder> Ladder0 = nullptr;
 	std::shared_ptr<class Ladder> Ladder1 = nullptr;
 	std::shared_ptr<class Ladder> Ladder2 = nullptr;

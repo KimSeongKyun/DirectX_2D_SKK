@@ -24,10 +24,10 @@ public:
 	Solomon& operator=(Solomon&& _Other) noexcept = delete;
 
 	void Damage(int _Damge) override;
+	void SetHP(int _HP) override;
 protected:
 	void Start();
 	void Update(float _Delta) override;
-	void SetHP(int _HP) override;
 	void RendererSetting() override;
 
 private:
@@ -44,7 +44,7 @@ private:
 	float4 SolomonDif;
 	bool DifCheck = false;
 
-	int HP = 100;
+	int HP = 1000000;
 
 	std::string SolomonState;
 	float Timeh = 0.0f;

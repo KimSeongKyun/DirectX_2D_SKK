@@ -129,15 +129,16 @@ void MagicBolt::MagicBoltColCheck()
 	ColSkill->Collision(ObjectCollision::Monster, [&](std::vector<GameEngineCollision*>& _Collisions) {
 
 		bool PlayerReflect = Player::MainPlayer->GetReflect();
+		int RandomNum = Random.RandomInt(5000, 7000);
 		if (true == PlayerReflect)
 		{
-			Player::MainPlayer->Damage(10);
+			Player::MainPlayer->Damage(RandomNum);
 			return;
 		}
 		std::shared_ptr<Monster> HitMonster = _Collisions[0]->GetActor()->GetDynamic_Cast_This<Monster>();
-		HitMonster->Damage(255);
+		HitMonster->Damage(RandomNum);
 		ColSkill->Off();
-		SkillRenderer1->ChangeAnimation("MagicBoltHit");
+		
 		});
 
 	

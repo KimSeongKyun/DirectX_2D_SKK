@@ -52,7 +52,7 @@ void Rex::Update(float _Delta)
 }
 void Rex::SetHP(int _HP)
 {
-
+	HP = _HP;
 }
 void Rex::Damage(int _Damge)
 {

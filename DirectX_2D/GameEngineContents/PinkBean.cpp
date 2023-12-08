@@ -1,9 +1,13 @@
 #include "PreCompile.h"
 #include "PinkBean.h"
 #include "Player.h"
+#include "PinkBeanUI.h"
+#include "DamageNumber.h"
 
+PinkBean* PinkBean::MainPinkBean = nullptr;
 PinkBean::PinkBean() 
 {
+	MainPinkBean = this;
 }
 
 PinkBean::~PinkBean() 
@@ -14,14 +18,19 @@ void PinkBean::Start()
 {
 	RendererSetting();
 	GameEngineInput::AddInputObject(this);
+	std::shared_ptr< PinkBeanUI> UI = GetLevel()->CreateActor<PinkBeanUI>();
+	UI->Transform.AddWorldPosition(float4::RIGHT * 240.0f + float4::DOWN*100.0f);
+	ChangeState("PinkBeanApear0");
 }
 void PinkBean::Update(float _Delta)
 {
-	//if (true == GameEngineInput::IsDown('Q', this))
-	//{
-	//	SuperKnockBack();
-	//
-	//}
+	if (true == GameEngineInput::IsDown(VK_F3, this))
+	{
+		HP = 1.0f;
+		Damage(100);
+		
+	}
+	
 	if (PinkBeanState == "PinkBeanDie")
 	{
 		PinkBeanRender->GetColorData().PlusColor.A -= 0.5f * _Delta;
@@ -49,6 +58,8 @@ void PinkBean::Update(float _Delta)
 	SkillTime += _Delta;
 
 	CoolTimeCheck(_Delta);
+	GenesisColCheck();
+
 }
 void PinkBean::SetHP(int _HP)
 {
@@ -56,17 +67,17 @@ void PinkBean::SetHP(int _HP)
 }
 void PinkBean::Damage(int _Damge)
 {
-	//std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
-	//Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
-	//Object->Damage(_Damge);
-	//
-	//HP -= _Damge;
-	//
-	//if (HP <= 0)
-	//{
-	//	BodyCollision->Off();
-	//	ChangeState("PinkBeanDie");
-	//}
+	std::shared_ptr<DamageNumber>Object = GetLevel()->CreateActor<DamageNumber>();
+	Object->Transform.SetWorldPosition(Transform.GetWorldPosition());
+	Object->Damage(_Damge);
+	
+	HP -= _Damge;
+	
+	if (HP <= 0)
+	{
+		PinkBeanCollision->Off();
+		ChangeState("PinkBeanDie");
+	}
 }
 
 void PinkBean::Genesis()
@@ -104,7 +115,7 @@ void PinkBean::ChangeState(std::string _State)
 
 	RenderDifCheck();
 	PinkBeanState = _State;
-
+	PinkBeanRender->ChangeAnimation(PinkBeanState);
 	if (PinkBeanState == "PinkBeanDie")
 	{
 		PinkBeanRender->Transform.AddLocalPosition({ 1.0f, 42.0f });
@@ -143,7 +154,8 @@ void PinkBean::ChangeState(std::string _State)
 		PinkBeanDif = { 3.0f, 2.0f };
 	}
 
-	PinkBeanRender->ChangeAnimation(PinkBeanState);
+	
+	PinkBeanRender->AutoSpriteSizeOn();
 	DifCheck = true;
 }
 
@@ -170,12 +182,23 @@ void PinkBean::CoolTimeCheck(float _Delta)
 
 	if (GenesisOn == true)
 	{
+		if (PinkBeanState == "PinkBeanGenesis" )
+		{
+
+			if (4.0f <= GenesisCoolTime)
+			{
+				int a = 0;
+				ChangeState("PinkBeanStand");
+
+			}
+		}
+
 		GenesisCoolTime += _Delta;
 
-		if (GenesisCoolTime >= 7.0f)
+		if (GenesisCoolTime >= 10.0f)
 		{
 			
-			GenesisCoolTime = 1.0f;
+			GenesisCoolTime = 0.0f;
 			GenesisOn = false;
 			
 		}
@@ -184,12 +207,22 @@ void PinkBean::CoolTimeCheck(float _Delta)
 
 	if (KnockBackOn == true)
 	{
+		if (PinkBeanState == "PinkBeanSuperKnockBack")
+		{
+
+			if (3.45f <= KnockBackCoolTime)
+			{
+				int a = 0;
+				ChangeState("PinkBeanStand");
+			}
+			
+		}
 		KnockBackCoolTime += _Delta;
 
 		if (KnockBackCoolTime >= 10.0f)
 		{
 			
-			KnockBackCoolTime = 1.0f;
+			KnockBackCoolTime = 0.0f;
 			KnockBackOn = false;
 		}
 		
@@ -197,12 +230,23 @@ void PinkBean::CoolTimeCheck(float _Delta)
 
 	if (ReflectOn == true)
 	{
+		if (PinkBeanState == "PinkBeanReflect")
+		{
+
+			if (2.9f <= ReflectCoolTime )
+			{
+				int a = 0;
+				ChangeState("PinkBeanStand");
+			}
+		
+		}
 		ReflectCoolTime += _Delta;
+
 
 		if (ReflectCoolTime >= 10.0f)
 		{
 			
-			ReflectCoolTime = 1.0f;
+			ReflectCoolTime = 0.0f;
 			ReflectOn = false;
 			return;
 		}
@@ -224,31 +268,43 @@ void PinkBean::CoolTimeCheck(float _Delta)
 		return;
 	}
 
-	int RandomNum = Random.RandomInt(0, 2);
+	if (PinkBeanState == "PinkBeanStand")
+	{
+		int RandomNum = Random.RandomInt(0, 2);
 
-	if (RandomNum == 0)
-	{
-		if (GenesisOn == true)
+		if (RandomNum == 0)
 		{
-			return;
+			if (GenesisOn == true)
+			{
+				return;
+			}
+			Genesis();
 		}
-		Genesis();
+		if (RandomNum == 1)
+		{
+			if (KnockBackOn == true)
+			{
+				return;
+			}
+			SuperKnockBack();
+		}
+		if (RandomNum == 2)
+		{
+			if (ReflectOn == true)
+			{
+				return;
+			}
+			Reflect();
+		}
 	}
-	if (RandomNum == 1)
+}
+
+void PinkBean::GenesisColCheck()
+{
+	if ( true == GenesisCollision->Collision(ObjectCollision::PlayerBody))
 	{
-		if (KnockBackOn == true)
-		{
-			return;
-		}
-		SuperKnockBack();
-	}
-	if (RandomNum == 2)
-	{
-		if (ReflectOn == true)
-		{
-			return;
-		}
-		Reflect();
+		int RandomNum = Random.RandomInt(100, 200);
+		Player::MainPlayer->Damage(RandomNum);
 	}
 }
 
@@ -263,39 +319,39 @@ void PinkBean::RendererSetting()
 	PinkBeanRender->CreateAnimation("PinkBeanReflect", "PinkBeanReflect", 0.15f, -1, -1, false);
 	PinkBeanRender->CreateAnimation("PinkBeanSuperKnockBack", "PinkBeanSuperKnockBack", 0.15f, -1, -1, false);
 	PinkBeanRender->AutoSpriteSizeOn();
-	PinkBeanRender->ChangeAnimation("PinkBeanApear0");
+	PinkBeanRender->ChangeAnimation("PinkBeanStand");
 
 	PinkBeanRender->SetFrameEvent("PinkBeanSuperKnockBack", 17, [&](GameEngineSpriteRenderer*)
 		{
 			Player::MainPlayer->SuperKnockBack();
 		});
 
-	PinkBeanRender->SetEndEvent("PinkBeanApear0", [&](GameEngineSpriteRenderer*)
+	PinkBeanRender->SetFrameEvent("PinkBeanApear0",12, [&](GameEngineSpriteRenderer*)
 		{
-			PinkBeanRender->ChangeAnimation("PinkBeanStand");
+			//PinkBeanRender->ChangeAnimation("PinkBeanStand");
 			ChangeState("PinkBeanStand");
 		});
 
-	PinkBeanRender->SetEndEvent("PinkBeanGenesis", [&](GameEngineSpriteRenderer*)
-		{
-			PinkBeanRender->ChangeAnimation("PinkBeanStand");
-			ChangeState("PinkBeanStand");
-		});
+	//PinkBeanRender->SetEndEvent("PinkBeanGenesis", [&](GameEngineSpriteRenderer*)
+	//	{
+	//		//PinkBeanRender->ChangeAnimation("PinkBeanStand");
+	//		ChangeState("PinkBeanStand");
+	//	});
 
-	PinkBeanRender->SetEndEvent("PinkBeanReflect", [&](GameEngineSpriteRenderer*)
-		{
-			PinkBeanRender->ChangeAnimation("PinkBeanStand");
-			ChangeState("PinkBeanStand");
-		});
+	//PinkBeanRender->SetFrameEvent("PinkBeanReflect",18, [&](GameEngineSpriteRenderer*)
+	//	{
+	//		//PinkBeanRender->ChangeAnimation("PinkBeanStand");
+	//		ChangeState("PinkBeanStand");
+	//	});
 
-	PinkBeanRender->SetEndEvent("PinkBeanSuperKnockBack", [&](GameEngineSpriteRenderer*)
-		{
-			PinkBeanRender->ChangeAnimation("PinkBeanStand");
-			ChangeState("PinkBeanStand");
-		});
+	//PinkBeanRender->SetFrameEvent("PinkBeanSuperKnockBack",22, [&](GameEngineSpriteRenderer*)
+	//	{
+	//		//PinkBeanRender->ChangeAnimation("PinkBeanStand");
+	//		ChangeState("PinkBeanStand");
+	//	});
 
 	GenesisRender = CreateComponent <GameEngineSpriteRenderer>(static_cast<int>(ContentsObjectType::Skill));
-	GenesisRender->CreateAnimation("PinkBeanGenesisHit", "PinkBeanGenesisHit", 0.15f, -1, -1, false);
+	GenesisRender->CreateAnimation("PinkBeanGenesisHit", "PinkBeanGenesisHit", 0.15f);
 	GenesisRender->ChangeAnimation("PinkBeanGenesisHit");
 	GenesisRender->AutoSpriteSizeOn();
 	GenesisRender->Transform.AddLocalPosition(float4::UP * 330.0f);
@@ -308,8 +364,9 @@ void PinkBean::RendererSetting()
 	GenesisRender->SetEndEvent("PinkBeanGenesisHit", [&](GameEngineSpriteRenderer*)
 		{
 			GenesisCollision->Off();
-			PinkBeanRender->ChangeAnimation("PinkBeanStand");
-			ChangeState("PinkBeanStand");
+			GenesisRender->Off();
+			//PinkBeanRender->ChangeAnimation("PinkBeanStand");
+			//ChangeState("PinkBeanStand");
 		});
 
 	GenesisCollision = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
@@ -317,7 +374,7 @@ void PinkBean::RendererSetting()
 	GenesisCollision->SetCollisionType(ColType::AABBBOX2D);
 	GenesisCollision->Off();
 
-	PinkBeanCollision = CreateComponent<GameEngineCollision>(ObjectCollision::MonsterSkill);
+	PinkBeanCollision = CreateComponent<GameEngineCollision>(ObjectCollision::Monster);
 	PinkBeanCollision->Transform.SetWorldScale({ 86.0f, 86.0f });
 	PinkBeanCollision->SetCollisionType(ColType::AABBBOX2D);
 	

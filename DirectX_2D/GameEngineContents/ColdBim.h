@@ -36,5 +36,7 @@ private:
 	bool DirectionSet = true;
 	bool MagicBoltShoot = false;
 	int CurPlayerDirection = 0;
+
+	GameEngineRandom Random;
 };
 

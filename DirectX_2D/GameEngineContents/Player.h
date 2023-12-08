@@ -67,6 +67,7 @@ private:
 	bool MagicBoltOn = false;
 	bool ColdBimOn = false;
 	bool TeleportOn = false;
+	bool FrozenOrbOn = false;
 	bool Invincibility = false;
 	bool IsKnockBack = false;
 
@@ -87,6 +88,7 @@ private:
 	std::shared_ptr<class GameEngineCollision> ColLadder;
 	std::shared_ptr<class MagicBolt> MagicBolt0;
 	std::shared_ptr<class ColdBim> ColdBim0;
+	std::shared_ptr<class FrozenOrb> FrozenOrb0;
 	std::shared_ptr<class GameEngineTexture> CurMap;
 	//std::shared_ptr<class DamageNumber> Test;
 	
@@ -107,6 +109,7 @@ private:
 	void MagicBolt();
 	void ColdBim();
 	void Teleport();
+	void FrozenOrb();
 	void CoolTimeCount(float _Delta);
 };
 

@@ -52,7 +52,7 @@ void Solomon::Update(float _Delta)
 }
 void Solomon::SetHP(int _HP)
 {
-
+	HP = _HP;
 }
 void Solomon::Damage(int _Damge)
 {

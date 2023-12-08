@@ -33,17 +33,18 @@ protected:
 	
 
 private:
-	std::shared_ptr<class GameEngineCollision> ColBody;
+	std::shared_ptr<class GameEngineCollision> BodyCollision;
 	std::shared_ptr<class GameEngineSpriteRenderer> Render0;
 	std::string StateString;
 	float4 SnaleSize = { 37.0f ,26.0f };
 	float StackTime = 0.0f;
 	float Speed = 40.0f;
 	float TickTime = 0.0f;
-	int HP = 100;
+	int HP = 100000;
 
 	void ComponetSetting();
 
+	GameEngineRandom Random;
 public:
 	void ChangeState(const std::string& _State);
 

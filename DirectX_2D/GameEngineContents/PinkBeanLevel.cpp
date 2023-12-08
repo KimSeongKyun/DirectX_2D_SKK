@@ -20,6 +20,7 @@
 #include "Rope.h"
 #include "MapleStoryCore.h"
 #include "PinkBean.h"
+#include "PinkBeanUI.h"
 
 
 
@@ -42,10 +43,15 @@ void PinkBeanLevel::Update(float _Delta)
 	DebugSwitch();
 	if (GameEngineInput::IsDown(VK_F1,this))
 	{
+		Ariel0->SetHP(1);
 		Ariel0->Damage(1000000);
+		Rex0->SetHP(1);
 		Rex0->Damage(1000000);
+		Solomon0->SetHP(1);
 		Solomon0->Damage(1000000);
+		Whigin0->SetHP(1);
 		Whigin0->Damage(1000000);
+		Munin0->SetHP(1);
 		Munin0->Damage(1000000);
 
 	}
@@ -234,6 +240,31 @@ void PinkBeanLevel::ResourceLoad()
 			}
 		}
 	}
+	// 핑크빈 체력바
+	{
+		if (nullptr == GameEngineSprite::Find("PinkBeanHPBar.png"))
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources");
+			Dir.MoveChild("Texture");
+			Dir.MoveChild("UI");
+			Dir.MoveChild("BossUI");
+			std::vector<GameEngineFile> Files = Dir.GetAllFile();
+
+			for (size_t i = 0; i < Files.size(); i++)
+			{
+				// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+				GameEngineFile& File = Files[i];
+				GameEngineTexture::Load(File.GetStringPath());
+			}
+
+			GameEngineSprite::CreateSingle("PinkBeanHPBar.png");
+			GameEngineSprite::CreateSingle("PinkBeanHPUI.png");
+			GameEngineSprite::CreateSingle("PinkHPBarBack.png");
+		}
+	}
+
 }
 
 void PinkBeanLevel::ActorSetting()
@@ -367,6 +398,14 @@ void PinkBeanLevel::ActorSetting()
 		//Mouse0->Transform.SetWorldPosition({ 0.0f, 0.0f });
 
 	}
+
+	//if (PinkBeanUI0 == nullptr)
+	//{
+	//	PinkBeanUI0 = CreateActor<PinkBeanUI>(12);
+	//	PinkBeanUI0->Transform.SetWorldPosition({ 0.0f ,0.0f });
+	//	//Mouse0->Transform.SetWorldPosition({ 0.0f, 0.0f });
+	//
+	//}
 	//if (PinkBean0 == nullptr)
 	//{
 	//	PinkBean0 = CreateActor<PinkBean>(12);
@@ -489,6 +528,8 @@ void PinkBeanLevel::LevelEnd(GameEngineLevel* _NextLevel)
 		Inventory0->Death();
 		Inventory0 = nullptr;
 	}
+
+	
 }
 void PinkBeanLevel::CameraSetting()
 {

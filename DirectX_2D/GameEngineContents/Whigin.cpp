@@ -37,7 +37,7 @@ void Whigin::Update(float _Delta)
 }
 void Whigin::SetHP(int _HP)
 {
-
+	HP = _HP;
 }
 void Whigin::Damage(int _Damge)
 {

@@ -17,10 +17,10 @@ public:
 	Whigin& operator=(Whigin&& _Other) noexcept = delete;
 
 	void Damage(int _Damge) override;
+	void SetHP(int _HP) override;
 protected:
 	void Start();
 	void Update(float _Delta) override;
-	void SetHP(int _HP) override;
 	void RendererSetting() override;
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> WhiginRender = nullptr;	
@@ -41,7 +41,7 @@ private:
 	float ReflectCoolTime = 0.0f;
 	float AmorCoolTime = 0.0f;
 
-	int HP = 100;
+	int HP = 1000000;
 
 	void ChangeState(std::string _State);
 	void ComponentSetting();

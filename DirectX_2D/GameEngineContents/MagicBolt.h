@@ -41,7 +41,7 @@ private:
 	bool MagicBoltShoot = false;
 	int CurPlayerDirection = 0;
 
-
+	GameEngineRandom Random;
 public:
 	void MagicBoltUpdate(float _Delta);
 	void MagicBoltColCheck();

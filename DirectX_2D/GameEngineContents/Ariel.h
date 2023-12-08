@@ -27,10 +27,10 @@ public:
 	Ariel& operator=(Ariel&& _Other) noexcept = delete;
 
 	void Damage(int _Damge) override;
+	void SetHP(int _HP) override;
 protected:
 	void Start();
 	void Update(float _Delta) override;
-	void SetHP(int _HP) override;
 	void RendererSetting() override;
 
 private:
@@ -62,7 +62,7 @@ private:
 	
 	void CoolTimeCheck(float _Delta);
 
-	int HP = 100;
+	int HP = 1000000;
 
 	int SkillRange = 385;
 	float SkillTime = 0.0f;

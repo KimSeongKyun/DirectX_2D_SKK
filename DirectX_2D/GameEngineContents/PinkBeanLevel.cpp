@@ -37,7 +37,9 @@ PinkBeanLevel::~PinkBeanLevel()
 void PinkBeanLevel::Start()
 {
 	BasicLevel::Start();
+	ResourceLoad();
 }
+
 void PinkBeanLevel::Update(float _Delta)
 {
 	DebugSwitch();
@@ -66,7 +68,7 @@ void PinkBeanLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	CurMapName = "PinkBeanMiniMap.png";
 	CameraSetting();
 	ActorSetting();
-	//Player0->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
+	Player0->Transform.SetWorldPosition(MapleStoryCore::PlayerPos);
 	//std::shared_ptr< DamageNumber> Test0 = CreateActor< DamageNumber>();
 	//Test0->Transform.SetLocalPosition({ 720.0f, -500.0f });
 	//Test0->Damage(100);

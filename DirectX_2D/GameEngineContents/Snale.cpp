@@ -31,7 +31,7 @@ void Snale::Update(float _Delta)
 	if (IsKnockBack() == false)
 	{
 		IsGravity = true;
-		GravityCheck(_Delta);
+		BasicObjectElement::GravityCheck(_Delta);
 
 		if (IsGravity == false)
 		{

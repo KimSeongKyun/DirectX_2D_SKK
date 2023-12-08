@@ -31,7 +31,7 @@ void Ellinia1_Level::Update(float _Delta)
 	DebugSwitch();
 	GameEngineInput::AddInputObject(this);
 	ReSpawn(_Delta);
-	if (true == GameEngineInput::IsDown(VK_F2, this))
+	/*if (true == GameEngineInput::IsDown(VK_F2, this))
 	{
 		for (size_t i = 0; i < Snales.size(); i++)
 		{
@@ -43,7 +43,7 @@ void Ellinia1_Level::Update(float _Delta)
 			}
 
 		}
-	}
+	}*/
 }
 
 void Ellinia1_Level::LevelStart(GameEngineLevel* _PrevLevel)
@@ -74,11 +74,11 @@ void Ellinia1_Level::LevelEnd(GameEngineLevel* _NextLevel)
 		Map0 = nullptr;
 	}
 
-	for (size_t i = 0; i < Snales.size(); i++)
-	{
-		Snales[i]->Release();
-		Snales[i] = nullptr;
-	}
+	//for (size_t i = 0; i < Snales.size(); i++)
+	//{
+	//	Snales[i]->Release();
+	//	Snales[i] = nullptr;
+	//}
 
 	if (nullptr != Status0)
 	{
@@ -194,7 +194,7 @@ void Ellinia1_Level::ActorSetting()
 	}
 
 
-	std::shared_ptr<Snale> Snale0 = CreateActor<Snale>(20);
+/*	std::shared_ptr<Snale> Snale0 = CreateActor<Snale>(20);
 	Snale0->SetColMap("ColEllinia0.png");
 	Snale0->Transform.SetLocalPosition({ 330.0f, -1165.0f });
 	Snales.push_back(Snale0);
@@ -228,7 +228,7 @@ void Ellinia1_Level::ActorSetting()
 	Snale5->SetColMap("ColEllinia0.png");
 	Snale5->Transform.SetLocalPosition({ 510.0f, -1530.0f });
 	Snales.push_back(Snale5);
-	SnalePoses.push_back({ 510.0f, -1530.0f });
+	SnalePoses.push_back({ 510.0f, -1530.0f });*/
 
 	float4 WindowScale = GameEngineCore::MainWindow.GetScale();
 
@@ -301,21 +301,21 @@ void Ellinia1_Level::CameraSetting()
 
 void Ellinia1_Level::ReSpawn(float _Delta)
 {
-	RespawnTime += _Delta;
+	//RespawnTime += _Delta;
 
-	if (RespawnTime >= 30.0f)
-	{
-		RespawnTime = 0.0f;
-		for (size_t i = 0; i < Snales.size(); i++)
-		{
-			if (false == Snales[i]->IsUpdate())
-			{
-				Snales[i] = CreateActor<Snale>(20);
-				Snales[i]->SetColMap("ColEllinia0.png");
-				Snales[i]->Transform.SetLocalPosition(SnalePoses[i]);
-			}
+	//if (RespawnTime >= 30.0f)
+	//{
+	//	RespawnTime = 0.0f;
+	//	for (size_t i = 0; i < Snales.size(); i++)
+	//	{
+	//		if (false == Snales[i]->IsUpdate())
+	//		{
+	//			Snales[i] = CreateActor<Snale>(20);
+	//			Snales[i]->SetColMap("ColEllinia0.png");
+	//			Snales[i]->Transform.SetLocalPosition(SnalePoses[i]);
+	//		}
 
-		}
+	//	}
 
-	}
+	//}
 }

@@ -26,8 +26,8 @@ protected:
 private:
 	std::shared_ptr<class Player> Player0 = nullptr;
 	std::shared_ptr<class Ellinia1_Map> Map0 = nullptr;
-	std::vector<std::shared_ptr<class Snale>> Snales;
-	std::vector<float4>SnalePoses;
+	//std::vector<std::shared_ptr<class Snale>> Snales;
+	//std::vector<float4>SnalePoses;
 
 	std::shared_ptr<class Ladder> Ladder0 = nullptr;
 	std::shared_ptr<class Ladder> Ladder1 = nullptr;

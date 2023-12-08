@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Monster.h"
+#include "BasicObjectElement.h"
 #include <GameEngineCore/GameEngineTexture.h>
 
 Monster::Monster() 

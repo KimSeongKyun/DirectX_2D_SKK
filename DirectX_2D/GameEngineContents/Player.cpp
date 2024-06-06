@@ -550,3 +550,8 @@ void Player::CameraMove(float _Delta)
 	}*/
 }
 
+void Player::JumpInit()
+{
+	JumpPower = { 0.0f, 600.0f };
+}
+

@@ -209,12 +209,12 @@ void Player::StateInit()
 				{
 					JumpPower;
 					Gravity += 10 * _DeltaTime;
-					if (Gravity > 9.0f)
+					if (Gravity > 15.0f)
 					{
-						Gravity = 9.0f;
+						Gravity = 15.0f;
 					}
 
-					float4 PlayerGravityValue = JumpPower + (float4::DOWN * Gravity);
+					float4 PlayerGravityValue = JumpPower * _DeltaTime + (float4::DOWN * Gravity);
 					float4 CurPosition = Transform.GetWorldPosition();
 					
 					Transform.AddWorldPosition(PlayerGravityValue + Directionfloat * KnockBackPower * _DeltaTime);
@@ -269,7 +269,7 @@ void Player::StateInit()
 							Transform.SetWorldPosition(NextPosition);
 							IsGravity = false;
 							Gravity = 0.0f;
-							JumpPower = { 0,4.5f ,0 };
+							JumpInit();
 							if (CurPlayerState != "Swing")
 							{
 								Directionfloat = { 0.0f,0.0f };
@@ -304,7 +304,7 @@ void Player::StateInit()
 				.End = [this]()
 			{
 				KnockBackPower = 0.0f;
-				JumpPower = { 0.0f, 4.5f, 1.0f };
+				JumpInit();
 				Gravity = 0.0f;
 
 			}, 
@@ -325,7 +325,7 @@ void Player::StateInit()
 			if (false == ColLadder->Collision(static_cast<int>(ObjectCollision::Rope)))
 			{
 				IsGravity = true;
-				JumpPower = { 0.0f,0.0f, 0.0f };
+				JumpPower = { 0.0f, 0.0f };
 				FSM.ChangeState("Jump");
 			}
 
@@ -354,7 +354,7 @@ void Player::StateInit()
 				
 				
 				IsGravity = true;
-				JumpPower = { 0.0f,2.0f, 0.0f };
+				JumpPower = { 0.0f, 400.0f };
 				FSM.ChangeState("Jump");
 			}
 
@@ -375,7 +375,7 @@ void Player::StateInit()
 			if (false == ColLadder->Collision(static_cast<int>(ObjectCollision::Ladder)))
 			{
 				IsGravity = true;
-				JumpPower = {0.0f,0.0f, 0.0f};
+				JumpPower = { 0.0f, 0.0f };
 				FSM.ChangeState("Jump");
 			}
 
@@ -403,7 +403,7 @@ void Player::StateInit()
 			{
 
 				IsGravity = true;
-				JumpPower = { 0.0f,2.0f, 0.0f };
+				JumpPower = { 0.0f, 400.0f };
 				FSM.ChangeState("Jump");
 			}
 

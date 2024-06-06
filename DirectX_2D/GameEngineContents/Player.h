@@ -54,12 +54,13 @@ private:
 	void RendererSetting() override;
 	void CameraMove(float _Delta);
 	void ColSetting();
+	void JumpInit();
 
 
 
 	std::string CurPlayerState;
 
-	float Speed = 100.0f;
+	float Speed = 150.0f;
 	float KnockBackPower = 100.0f;
 	
 	bool ReflectOn = false;
@@ -80,7 +81,7 @@ private:
 	float MaxSkillTime = 0.0f;
 
 	float4 PlayerSize = { 39.0f, 82.0f };
-	float4 JumpPower = { 0.0f, 4.5f, 1.0f };
+	float4 JumpPower = { 0.0f, 600.0f };
 	float4 Directionfloat = { 0.0f,0.0f };
 
 	std::shared_ptr<class GameEngineCollision> ColAttack;
@@ -101,6 +102,7 @@ private:
 	void RopeCheck();
 	void ReflectCheck();
 	void knockBack();
+	
 	
 
 

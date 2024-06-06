@@ -20,7 +20,7 @@ void BasicObjectElement::GravityCheck(float _DeltaTime)
 {
 	if (IsGravity == true)
 	{
-		Gravity += 10 * _DeltaTime;
+		Gravity += 5   * _DeltaTime;
 
 		if (Gravity > 5.0f)
 		{
